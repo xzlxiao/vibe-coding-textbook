@@ -1,0 +1,7 @@
+﻿task,group,understand,build,wait,rework,review,defects,first_pass
+导出CSV,hand,12,58,0,8,20,1,1
+空态页,hand,8,42,0,6,14,0,1
+筛选器,hand,15,66,0,12,18,1,0
+导出CSV,ai,9,21,17,46,25,2,0
+空态页,ai,6,14,11,22,16,1,1
+筛选器,ai,11,19,26,58,21,3,0

@@ -1,0 +1,35 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  gates:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install -e ".[dev]"
+
+      # 门禁 1：lint —— 只管风格与低级错误，秒级完成
+      - name: lint
+        run: ruff check .
+
+      # 门禁 2：类型 —— 能抓住"签名改了但调用方没改"这类 AI 最爱犯的错
+      - name: typecheck
+        run: mypy src tests
+
+      # 门禁 3：单测 —— 唯一能证明"行为没变"的东西
+      - name: test
+        run: pytest -q
+
+      # 附加：依赖与密钥（阶段 3 会把这里扩展成完整的供应链门禁）
+      - name: secret scan
+        run: |
+          if grep -rInE "(sk-[A-Za-z0-9]{20,}|AKIA[0-9A-Z]{16})" --exclude-dir=.git .; then
+            echo "::error::疑似密钥被提交"; exit 1
+          fi

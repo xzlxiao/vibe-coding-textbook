@@ -1,0 +1,26 @@
+# 第一道门禁：提交之前就跑，跑不过就提交不了。
+# 注意：pre-commit 可以被 --no-verify 绕过，所以它只是"便宜的那一半"，
+# 真正的判决权在 CI。
+repos:
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.17.1
+    hooks:
+      - id: ruff-check
+        args: [--fix]
+      - id: ruff-format
+
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: v1.11.2
+    hooks:
+      - id: mypy
+        additional_dependencies: []
+        args: [--strict]
+
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.6.0
+    hooks:
+      - id: check-added-large-files
+        args: [--maxkb=512]
+      - id: detect-private-key
+      - id: end-of-file-fixer
+      - id: trailing-whitespace

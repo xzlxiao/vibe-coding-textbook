@@ -1,0 +1,45 @@
+{
+  "agent": "LessonVault 客服智能体（收窄作用域后）",
+  "tools": [
+    {
+      "name": "lookup_order(order_id)",
+      "scope": "读：orders 单行",
+      "radius": 1,
+      "reversibility": 1,
+      "observability": 1,
+      "kill_switch": "关掉该 MCP 服务器即可"
+    },
+    {
+      "name": "search_notes(query, limit<=20)",
+      "scope": "读：notes 单行命中，硬上限 20 行",
+      "radius": 1,
+      "reversibility": 1,
+      "observability": 1,
+      "kill_switch": "关掉该 MCP 服务器即可"
+    },
+    {
+      "name": "refund_order(order_id, cents<=5000)",
+      "scope": "写：Stripe 退款，单笔 ≤50 元，单日 ≤500 元",
+      "radius": 1,
+      "reversibility": 3,
+      "observability": 1,
+      "kill_switch": "撤下 Stripe 密钥 + 冻结该工具"
+    },
+    {
+      "name": "reply_ticket(ticket_id, body)",
+      "scope": "外发：只回本工单的客户邮箱，正文事前存档",
+      "radius": 1,
+      "reversibility": 3,
+      "observability": 1,
+      "kill_switch": "邮件网关封该域名 + 关闭工具"
+    },
+    {
+      "name": "update_subscription(user_id, plan)",
+      "scope": "写：subscriptions 单行",
+      "radius": 1,
+      "reversibility": 2,
+      "observability": 1,
+      "kill_switch": "回滚到上一 plan（有快照）"
+    }
+  ]
+}
