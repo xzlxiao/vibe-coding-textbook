@@ -14,6 +14,9 @@
     A 类旧名    ERROR（26 旧 PNG 名自 (i)、5 中文模板名自 (ii) 全量拦截）。
     M6 文件名   ERROR（提交 (i) 起拦截）：路径字符全部 <= 0x7F。
     M8 遗留     ERROR（提交 (iii) 起）：phase3/drafts、phase4/_archive、.coverage 存在数=0。
+    M1/M2/M7    ERROR（提交 (iv) 起，只对已完整存在的配对断言）：段落对等（骨架对走 EXEMPT_M1_SKELETON）/
+                互链首个非空块 + 清单外零例外（EXEMPT_UNPAIRED 仅 AGENTS.md；CSV 不入互链断言）/
+                frontmatter 除 title 外同值。
 
 扫描域（计划 §四 开头，写死）：phase*/、根 README*、docs/、tools/、.githooks/；
 排除 .omc/ 与 .git/。链接扫描另排除 phase3/drafts/ 与 phase4/_archive/（legacy 6 处坏引用，
@@ -94,6 +97,21 @@ def scan_md_files(include_legacy: bool) -> list[str]:
                 if not include_legacy and rel.startswith(LEGACY_EXCLUDE):
                     continue
                 out.append(os.path.join(d, f))
+    return out
+
+
+
+def scan_csv_files() -> list:
+    out = []
+    for top in SCAN_TOP:
+        p = os.path.join(ROOT, top)
+        if not os.path.isdir(p):
+            continue
+        for d, ds, fs in os.walk(p):
+            ds[:] = [x for x in ds if x not in EXCLUDE_DIRS]
+            for f in sorted(fs):
+                if f.endswith(".csv"):
+                    out.append(os.path.join(d, f))
     return out
 
 
@@ -224,6 +242,171 @@ def check_m5_captions(rep: Report) -> None:
                 rep.error("M5 双处编号：%s:%d 斜体图题 %s-%s 无同号 alt 图题" % (rel, i, c, f))
     print("[M5 图题] alt %d / 斜体 %d / 章内 prose %d（README 规划图表 %d 条不入断言），违例 %d（ERROR）"
           % (n_cap, n_ita, n_prose, n_prose_readme, bad))
+
+
+# 配对例外与骨架豁免（计划 D2 / §5.1，写死）
+EXEMPT_UNPAIRED = ["phase1/code/ch03/harness-template/AGENTS.md"]  # 作者已签认：工具接口文件不配对
+NON_PAIRING_DOMAIN = ["docs/glossary.md"]  # 双语单文件，不属于配对域（D2）
+EXEMPT_M1_SKELETON = ["README.md", "phase1/README.md", "phase2/README.md",
+                      "phase3/README.md", "phase4/README.md", "phase5/README.md"]
+
+
+def pair_path(path):
+    """配对路径：X.md <-> X.zh.md、X.csv <-> X.zh.csv（存在才返回）。"""
+    d, base = os.path.split(path)
+    if ".zh." in base:
+        other = base.replace(".zh.", ".")
+    else:
+        stem, ext = os.path.splitext(base)
+        other = stem + ".zh" + ext
+    cand = os.path.join(d, other)
+    return cand if os.path.isfile(cand) else None
+
+
+def md_blocks(text):
+    """M1 计块规则：空行分块；围栏代码整体计 1（内部空行不拆块）；相邻块不合并。"""
+    lines = text.splitlines()
+    if lines and lines[0].strip() == "---":
+        for j in range(1, len(lines)):
+            if lines[j].strip() == "---":
+                lines = lines[j + 1:]
+                break
+    blocks = 0
+    i = 0
+    while i < len(lines):
+        if not lines[i].strip():
+            i += 1
+            continue
+        blocks += 1
+        if lines[i].lstrip().startswith("```"):
+            i += 1
+            while i < len(lines) and not lines[i].lstrip().startswith("```"):
+                i += 1
+            i += 1
+            continue
+        while i < len(lines) and lines[i].strip():
+            i += 1
+    return blocks
+
+
+def first_block_lines(text):
+    """frontmatter（如有）之后第一个非空块的行集合。"""
+    lines = text.splitlines()
+    if lines and lines[0].strip() == "---":
+        for j in range(1, len(lines)):
+            if lines[j].strip() == "---":
+                lines = lines[j + 1:]
+                break
+    out = []
+    started = False
+    for ln in lines:
+        if not ln.strip():
+            if started:
+                break
+            continue
+        started = True
+        out.append(ln)
+    return out
+
+
+def frontmatter_fields(text):
+    lines = text.splitlines()
+    if not lines or lines[0].strip() != "---":
+        return None
+    fields = {}
+    for ln in lines[1:]:
+        if ln.strip() == "---":
+            return fields
+        m = re.match(r"^([a-z_]+):\s*(.*)$", ln)
+        if m:
+            fields[m.group(1)] = m.group(2).strip()
+    return None
+
+
+def check_m1_pairs(rep: Report) -> None:
+    """M1 段落对等：每对 X.md/X.zh.md 块级块数相等（--min 只对已完整存在的配对断言；
+    EXEMPT_M1_SKELETON 骨架对豁免至英文正文补全）。"""
+    pairs = n_assert = n_exempt = 0
+    for path in scan_md_files(include_legacy=False) + scan_csv_files():
+        rel = os.path.relpath(path, ROOT).replace(os.sep, "/")
+        if ".zh." in os.path.basename(path):
+            continue
+        other = pair_path(path)
+        if not other:
+            continue
+        pairs += 1
+        if rel in EXEMPT_M1_SKELETON:
+            n_exempt += 1
+            continue
+        n_assert += 1
+        a = md_blocks(open(path, encoding="utf-8").read())
+        b = md_blocks(open(other, encoding="utf-8").read())
+        if a != b:
+            rep.error("M1 段落对等：%s 块数 %d vs %s 块数 %d" % (rel, a, os.path.basename(other), b))
+    print("[M1 段落对等] 已完整配对 %d 对（骨架豁免 %d，实断言 %d）" % (pairs, n_exempt, n_assert))
+
+
+def check_m2_links(rep: Report) -> None:
+    """M2 互链：完整 md 对的 frontmatter 后首个非空块为语言切换行且链接目标存在；
+    CSV 对不写互链、不入断言；「清单外零例外」= EXEMPT_UNPAIRED 之外不得出现永久不配对的成品文件。"""
+    pairs = links = 0
+    for path in scan_md_files(include_legacy=False):
+        rel = os.path.relpath(path, ROOT).replace(os.sep, "/")
+        base = os.path.basename(path)
+        other = pair_path(path)
+        if other and not base.endswith(".csv") and ".zh." not in base:
+            for p in (path, other):
+                pairs += 1
+                text = open(p, encoding="utf-8").read()
+                blk = first_block_lines(text)
+                tgt_ok = False
+                for ln in blk:
+                    for m in LINK_RE.finditer(ln):
+                        t = m.group(1)
+                        if t.startswith("#") or re.match(r"^[a-z]+://", t):
+                            continue
+                        resolved = os.path.normpath(os.path.join(os.path.dirname(p), t.split("#")[0]))
+                        if os.path.basename(resolved) == os.path.basename(other if p == path else path):
+                            tgt_ok = os.path.isfile(resolved)
+                links += 1
+                if not blk or not tgt_ok:
+                    rep.error("M2 互链：%s 首个非空块缺指向 %s 的语言切换链接"
+                              % (os.path.relpath(p, ROOT).replace(os.sep, "/"), os.path.basename(other if p == path else path)))
+        # 零例外
+        if ".zh." in base:
+            continue
+        if rel in EXEMPT_UNPAIRED or rel in NON_PAIRING_DOMAIN:
+            continue
+        if not other and not base.endswith(".zh.md"):
+            stem, ext = os.path.splitext(base)
+            zh_cand = os.path.join(os.path.dirname(path), stem + ".zh" + ext)
+            if not os.path.isfile(zh_cand):
+                rep.error("M2 零例外：%s 既无 X.zh 配对也不在 EXEMPT_UNPAIRED" % rel)
+    print("[M2 互链] 完整 md 对 %d 对 / 语言切换行 %d 处断言（CSV 对不入断言）" % (pairs // 2, links))
+
+
+def check_m7_frontmatter(rep: Report) -> None:
+    """M7 frontmatter 同值：完整章对的 7 字段中除 title 外 6 字段字符串级相等（--min 只对完整配对）。"""
+    pairs = 0
+    for path in scan_md_files(include_legacy=False):
+        rel = os.path.relpath(path, ROOT).replace(os.sep, "/")
+        if ".zh." in os.path.basename(path) or "/chapters/" not in rel:
+            continue
+        other = pair_path(path)
+        if not other:
+            continue
+        pairs += 1
+        fa = frontmatter_fields(open(path, encoding="utf-8").read())
+        fb = frontmatter_fields(open(other, encoding="utf-8").read())
+        if fa is None or fb is None:
+            rep.error("M7 frontmatter：%s / %s 缺 frontmatter" % (rel, os.path.basename(other)))
+            continue
+        for k in sorted(set(fa) | set(fb)):
+            if k == "title":
+                continue
+            if fa.get(k) != fb.get(k):
+                rep.error("M7 frontmatter：%s 字段 %s 不同值：%r vs %r" % (rel, k, fa.get(k), fb.get(k)))
+    print("[M7 frontmatter] 已完整章对 %d 对断言（48 对齐留阶段 3 收尾/阶段 4）" % pairs)
 
 
 PAIRING_EN_NAMES = set(
@@ -568,6 +751,9 @@ def main() -> int:
     check_m6_filenames(rep)
     check_m8_legacy(rep)
     check_m9_readme(rep)
+    check_m1_pairs(rep)
+    check_m2_links(rep)
+    check_m7_frontmatter(rep)
     if args.m11:
         check_m11(rep)
     if args.report:
