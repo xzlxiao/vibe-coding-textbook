@@ -51,7 +51,7 @@ Three segments of text, with **no syntactic marker** showing which is a command 
 
 That is the entire root cause of prompt injection. It is not a vulnerability; it is **architecture**: the natural language channel does not distinguish instructions from data.
 
-### 1.2 Intuitive analogy: a secretary who receives an email saying "the boss says"
+### 1.2 Intuitive Analogy: a secretary who receives an email saying "the boss says"
 
 Human organizations have a counterpart. Your secretary receives an email:
 

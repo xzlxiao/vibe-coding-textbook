@@ -49,7 +49,7 @@ You did not write a single wrong line of code. You just **left out one line of p
 
 The nature of this incident has to be stated clearly. It is not "the AI wrote it wrong", and it is not "I missed testing a bug". It belongs to a different class of failure — **a missing security property does not raise an error**. Whether Row Level Security (Row Level Security, RLS) is on or off, the page looks exactly the same, login succeeds, and search returns results. It does not error; it simply does not block.
 
-### 1.2 Intuitive analogy: lights on at acceptance does not mean the residual-current breaker was installed
+### 1.2 Intuitive Analogy: lights on at acceptance does not mean the residual-current breaker was installed
 
 Anyone who has been through a renovation knows this scene: on acceptance day you energize the circuit and flip the switches, the living room lights up, the kitchen lights up, everything is normal. You sign the acceptance form.
 

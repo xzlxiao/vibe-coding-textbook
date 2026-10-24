@@ -45,7 +45,7 @@ This is not hypothetical. Research shows about **19.7%** of LLM-recommended pack
 
 (This data comes from a USENIX Security 2025 paper, cited here via second-hand summary; the ratios change with the model — check the source year before citing.)
 
-### 1.2 Intuitive analogy: the workers the renovation crew brings along
+### 1.2 Intuitive Analogy: the workers the renovation crew brings along
 
 The workers you hire yourself (the code you write) — you check their qualifications. But the renovation crew (the package manager) also brings **its own workers** (transitive dependencies), and even **its friends** (MCP servers) — these people come and go with keys to your house, and you know none of them.
 

@@ -44,7 +44,7 @@ This sounds prudent, but it actually carries almost no information. Because what
 
 Read-only + whole database + can reach the network = **one full export**. Once data is read out, you have effectively lost two copies (one for you, one for them). "Read-only" blocks **tampering**; it does not block **exfiltration** — and exfiltration is usually the more serious event (compliance, privacy, trade secrets — none of them have a "rollback" option).
 
-### 1.2 Intuitive analogy: getting in the door, and how many truckloads you can carry off
+### 1.2 Intuitive Analogy: getting in the door, and how many truckloads you can carry off
 
 Continue with the office building of the previous chapter:
 

@@ -52,7 +52,7 @@ The agent scraped this page. The next six steps, every one of them "done right":
 
 This is what this chapter takes apart. It is not the model "disobeying"; it is **a program wearing your badge, listening to a stranger**.
 
-### 1.2 Intuitive analogy: you gave the badge to a temp who listens to strangers
+### 1.2 Intuitive Analogy: you gave the badge to a temp who listens to strangers
 
 In traditional systems the analogy for permissions is "giving an employee keys": which doors a key opens is fixed, and an employee will not go open the safe because they read a flyer.
 

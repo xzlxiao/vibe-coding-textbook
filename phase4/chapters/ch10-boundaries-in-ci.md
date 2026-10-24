@@ -44,7 +44,7 @@ That is the truth about security properties:
 ![Figure 10-2: The decay curve of security properties](../assets/ch10/fig-02-decay.png)
 *Figure 10-2: The solid line is without wired assertions, the dashed line is with them. The curve shape says one thing only: **boundaries need regression, they are not a one-time delivery**. So this chapter is not the icing on the cake; it is what makes the previous nine chapters survive three months.*
 
-### 1.2 Intuitive analogy: the fire drill
+### 1.2 Intuitive Analogy: the fire drill
 
 A fire drill is not "one more formality"; it is **verifying that the escape routes still exist**. Likewise:
 
@@ -251,7 +251,7 @@ The ten chapters are really only answering three things, and they are Chapter 01
 3. Wire `code/ch10/gate_check.py` into your CI (or local pre-commit), run the six-step drill of 2.3, and record which steps went red.
 4. Write your own pre-release checklist (no fewer than five items), and say which items are automatic and which depend on people.
 
-### Deep Challenge ( Tier 3)
+### Deep Challenge (Tier 3)
 
 5. Someone proposes: "let's make the security check a weekly scan that does not block PRs." Argue why this is not enough (hint: decay speed vs check frequency? fix cost?), and give a better timing.
 6. In the retrospective, the "which assertion should have stopped it" column says "there was no assertion". State the correct action in that situation, and give a concrete example of turning an incident into an assertion.

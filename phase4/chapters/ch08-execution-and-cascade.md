@@ -40,7 +40,7 @@ The agent finds lots of temporary files in the project, writes a cleanup script,
 
 This is the everyday shape of "unintended code execution" (ASI05): **not malice; just an undrawn scope.**
 
-### 1.2 Intuitive analogy: handing over a chainsaw
+### 1.2 Intuitive Analogy: handing over a chainsaw
 
 Putting a tool into the agent's hands is like handing a chainsaw to an apprentice:
 

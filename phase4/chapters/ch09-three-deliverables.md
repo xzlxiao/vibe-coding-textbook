@@ -43,7 +43,7 @@ But the goal of this book, stated at the start of this chapter, is: **let a pers
 
 There is one judgment criterion: **can the reader run the first assertion without asking you?** If yes, it passes; if no, rewrite.
 
-### 1.2 Intuitive analogy: an acceptance form, not as-built drawings
+### 1.2 Intuitive Analogy: an acceptance form, not as-built drawings
 
 Continue the renovation analogy of Chapter 01: you do not give the renovation crew "on the necessity of electrical safety"; you give them an **acceptance form** — on it: "residual-current breaker install position: ___, does pressing the test button trip it: □Yes □No".
 

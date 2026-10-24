@@ -46,7 +46,7 @@ The attacker does not need to touch `/admin`. They type `https://你的域名/.e
 
 Put these two things side by side and instinct says "impossible". But the difference between them is not technical complexity; it is one thing: **`/admin` needs your nod, `/.env` does not.** The one you hardened is a door with a guard; the one you ignored is a window nobody watches.
 
-### 1.2 Intuitive analogy: every door in an office building that you can push open without a nod
+### 1.2 Intuitive Analogy: every door in an office building that you can push open without a nod
 
 Think of the system as an office building:
 
