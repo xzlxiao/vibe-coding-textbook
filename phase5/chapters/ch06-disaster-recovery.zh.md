@@ -11,6 +11,8 @@ upstream_urls:
   - "https://12factor.net/"
   - "https://csrc.nist.gov/"
 ---
+[English](./ch06-disaster-recovery.md) | **中文**
+
 # 第 06 章：灾备与恢复——备份不等于恢复
 
 > **本章导读**：备份是"我准备了"，恢复是"我做到了"。这两件事之间隔着一整套演练。本章给出 RTO/RPO 的业务反推法、数据分级、一次真实删库演练的完整记录，以及上游依赖挂掉时的四种降级策略。

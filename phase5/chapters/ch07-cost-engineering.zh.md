@@ -11,6 +11,8 @@ upstream_urls:
   - "https://stripe.com/docs/api/idempotent_requests"
   - "https://dora.dev/"
 ---
+[English](./ch07-cost-engineering.md) | **中文**
+
 # 第 07 章：成本工程——预算、路由、熔断
 
 > **本章导读**：成本不是一个数字，是一个分布：大部分请求很便宜，少数请求很贵，极小部分请求贵到离谱。本章给出四道闸，前三道改均值，第四道改方差，并说明在本书的案例里为什么第一道闸不是"省 token"。

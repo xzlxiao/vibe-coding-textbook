@@ -11,6 +11,8 @@ upstream_urls:
   - "https://stripe.com/docs/api/idempotent_requests"
   - "https://dora.dev/"
 ---
+[English](./ch02-unit-economics.md) | **中文**
+
 # 第 02 章：单位经济——把一次请求算到分
 
 > **本章导读**：这一章只做一件事：把"一次 AI 请求要花多少钱"拆到每一分钱，然后回答三个问题——我的毛利是多少、我这个用量下会不会亏、哪个变量一动就会把毛利打穿。

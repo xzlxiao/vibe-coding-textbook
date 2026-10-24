@@ -11,6 +11,8 @@ upstream_urls:
   - "https://www.owasp.org/www-project-application-security-verification-standard/"
   - "https://www.cve.org/"
 ---
+[English](./ch08-compliance.md) | **中文**
+
 # 第 08 章：合规边界——条文怎么落到按钮上
 
 > **本章导读**：合规不是"读一遍法规"，是"把条文翻译成按钮、文案和流程"。本章先让你定档（你卖到哪、做什么），再把该档的义务逐条落到界面上，最后给出一页说明的写法。
