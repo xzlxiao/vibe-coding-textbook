@@ -1,27 +1,70 @@
 **English** | [中文](./README.zh.md)
 
-# Vibe Coding 教材：从能跑到能收钱（英文骨架）
+# Vibe Coding Textbook: From Running to Revenue
 
-> 英文骨架：目录树、数量口径与机检说明先行；正文的英文翻译（逐句对应 `README.zh.md`）在阶段 3 补全。
+> **In one line**: a five-volume open textbook that teaches you, in the age of AI-written code, **how to do it right, how to trust it, how to keep it contained, and how to make it sell**.
+> **Maps to**: Stages 1–5 of the "Vibe Coding Study Plan" (about 23 weeks, 30+ hours per week).
+> **Zero-background friendly**: every volume enters from intuition and assumes no testing, security, or business background.
 
-**共 48 章、58 张图（中英各一套，共 116 个 PNG 文件）、可运行的取证脚本与交付模板。**
+---
 
-## 目录结构
+## Why These Five Volumes
+
+AI has cut the cost of "writing code" down to minutes, but **the delivery bottleneck has moved from "can it be written" to "is it right, can it be trusted, is it contained, is it worth doing"**. Each of these five questions gets its own volume:
+
+| Stage | Volume | The question it answers | Directory | Chapters |
+|---|---|---|---|---|
+| 1 | *Vibe Coding: Putting the Vibe into the Harness* | Why should I trust that this generation is correct? | [`phase1/`](phase1/) | 4 |
+| 2 | *Write the Spec First, Then Let AI Act* | How do I get it to do things right to the standard I set? | [`phase2/`](phase2/) | 12 |
+| 3 | *Treat AI Code as Untrusted Input* | What makes this code fit to ship? | [`phase3/`](phase3/) | 12 |
+| 4 | *Contained: Attack Surface and Blast Radius* | Can an AI system be kept contained? | [`phase4/`](phase4/) | 10 |
+| 5 | *From Running to Revenue* | Is this worth continuing to invest in? | [`phase5/`](phase5/) | 10 |
+
+**48 chapters, 58 figures (one Chinese set and one English set, 116 PNG files in total), with runnable forensics scripts and delivery templates.** _数量口径句：共 48 章、58 张图_
+
+## How to Read
+
+- **Read in order**: the five volumes build on one another: Stage 2 assumes you already record your own numbers, Stage 3 assumes you already have specs.
+- **Each volume is self-contained**: each has a `README.md` (whole-book map + outline), `chapters/`, `assets/`, `code/`, and most come with `templates/`. Chapter numbers restart from ch01 within each volume and **do not run continuously across volumes**.
+- **Exercises are mandatory**: the three-tier exercises at the end of each chapter (intuition check / hands-on application / boundary transfer) all come with collapsed answers. Skipping Tier 2 and Tier 3 means you have not really read the chapter.
+- **Weekly breakdown**: each volume's README includes a "Reading Path and Weekly Plan Mapping", laid out for 30 hours per week.
+
+## Quality Gates
+
+Every chapter passes three gates before delivery, each reviewable:
+
+| Gate | What it checks |
+|---|---|
+| Freshness fingerprint | The YAML frontmatter carries `last_verified` / `baseline_version` / `volatile_points` / `upstream_urls` — which numbers will go stale, and which version they were checked against, are written at the head of the chapter |
+| Authoritative sources | Every chapter ends with "Authoritative references and further reading"; all links are tested reachable, and **definitions and specs are traceable to source** |
+| Teaching completeness | Every chapter contains a cognitive anchor, a first-principles breakdown, a hands-on walkthrough, a misconception contrast table, a local knowledge map, and three-tier exercises; no placeholders; figures show no tofu boxes and no overlapping labels |
+
+**Number discipline**: every number in the text falls into three explicitly labeled classes — external facts (source and date noted), teaching models (parameter assumptions stated), and example data (constructed, not measured). **Never draw a schematic curve as if it were measured data.**
+
+## Repository Layout
 
 ```text
 .
-└── README.md            # 本文件：全书索引与读法
-└── LICENSE              # 授权条款
-└── phase1/ … phase5/    # 五册，每册自包含
-│   └── README.md        # 该册的全景图谱、大纲、阅读路径
-│   └── chapters/        # 正文（ch01-…，册内编号）
-│   └── assets/          # 图（200+ DPI，PNG）
-│   └── code/            # 可运行脚本（绘图 / 取证 / 模板数据）
-│   └── templates/       # 可直接抄用的交付模板（多数册有）
+├── README.md          # 本文件：全书索引与读法
+├── LICENSE            # 授权条款
+└── phase1/ … phase5/  # 五册，每册自包含
+│   ├── README.md      # 该册的全景图谱、大纲、阅读路径
+│   ├── chapters/      # 正文（ch01-…，册内编号）
+│   ├── assets/        # 图（200+ DPI，PNG）
+│   ├── code/          # 可运行脚本（绘图 / 取证 / 模板数据）
+│   └── templates/     # 可直接抄用的交付模板（多数册有）
 ```
 
-## 双语维护
+## License
 
-- 文件成对：`X.md`（英文，默认）/ `X.zh.md`（中文）；图 `fig-NN-slug.png`（en）/ `fig-NN-slug.zh.png`（zh）。
-- 安装机检钩子（每台克隆机一次性）：`git config core.hooksPath .githooks`
-- 提交前机检：`python3 tools/check_bilingual.py --min`
+By default this work is licensed under **[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)** (Attribution–NonCommercial–ShareAlike):
+
+- You are free to share and adapt the material, provided you give attribution and share under the same license;
+- **Commercial use requires written authorization** (including paid training, paid newsletters, commercial publishing);
+- For commercial licensing, contact the author through the repository's Issue tracker.
+
+The code and scripts in this repository are covered by the same terms; if the code is ever open-sourced separately, a `LICENSE` notice will be added in that directory.
+
+---
+
+*This repository was split out from `books_lab` at `outputs/vibe-coding-textbook/`; all five volumes passed the quality gates on first release (verification date 2026-10-23).*
