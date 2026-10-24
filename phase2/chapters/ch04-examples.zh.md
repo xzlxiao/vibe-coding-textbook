@@ -11,6 +11,8 @@ upstream_urls:
   - "https://cucumber.io/blog/bdd/example-mapping-introduction/"
   - "https://cucumber.io/docs/gherkin/reference/"
 ---
+[English](./ch04-examples.md) | **中文**
+
 # 第 04 章：用例子钉住抽象
 
 > **本章导读**：第 3 章解决了"句子能不能判"，但没解决"判据从哪来"。本章给出一套把抽象规则逼成具体例子的方法：Example Mapping。例子不是用来"说明"规则的，是用来**攻击**规则的。
