@@ -11,6 +11,8 @@ upstream_urls:
   - "https://arxiv.org/abs/2404.19737"
   - "https://martinfowler.com/"
 ---
+[English](./ch02-context-over-prompt.md) | **中文**
+
 # 第 02 章：喂什么，比怎么说更上位
 
 > **本章导读**：上一章说"约束不能靠模型记住"，但没有回答"那要靠什么"。本章给答案：靠**上下文的组织结构**。它讲清提示工程与上下文工程为什么不在一个层级上，给出可复用的三层渐进披露结构，并把「项目规则文件」做成一份能直接放进仓库的宪法。学完本章，你要能对一个真实需求说清："这次我改的是哪一层输入。"
@@ -200,7 +202,7 @@ python code/ch02/build_context.py code/ch02/demo_repo \
 仓库根：demo_repo
 
 文件树（只为回答「东西在哪」）：
-  README.md
+  README.zh.md
   src/sched/__init__.py
   src/sched/adapters/__init__.py
   src/sched/adapters/ics.py
@@ -214,7 +216,7 @@ python code/ch02/build_context.py code/ch02/demo_repo \
   tests/test_models.py
 
 各文件一句话职责：
-  README.md — schedule-kit（演示用最小仓库）
+  README.zh.md — schedule-kit（演示用最小仓库）
   src/sched/export.py — 导出成 CSV。
   src/sched/models.py — 领域对象：日程事件。
   src/sched/store.py — 内存存储。写入只能走 add() —— 这样"重复日程"的判定只存在一处。
