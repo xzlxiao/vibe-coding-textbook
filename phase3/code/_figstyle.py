@@ -21,16 +21,26 @@ NEUTRAL = "#94A3B8"
 GOOD = "#0F6B5C"
 WASH = "#F9FAFB"
 
-
-def apply():
-    plt.rcParams["font.sans-serif"] = [
+FONT_STACKS = {
+    "zh": [
         "Hiragino Sans GB",
         "Arial Unicode MS",
         "Heiti SC",
         "Songti SC",
         "Noto Sans CJK SC",
         "DejaVu Sans",
-    ]
+    ],
+    "en": [
+        "Arial Unicode MS",
+        "Helvetica",
+        "Arial",
+        "DejaVu Sans",
+    ],
+}
+
+
+def apply(lang="zh"):
+    plt.rcParams["font.sans-serif"] = FONT_STACKS[lang]
     plt.rcParams["axes.unicode_minus"] = False
     plt.rcParams["figure.dpi"] = 200
     plt.rcParams["savefig.dpi"] = 240
@@ -55,9 +65,3 @@ def footnote(fig, text, note=None):
     fig.text(0.012, 0.005, text, fontsize=8, color=MUTED)
     if note:
         fig.text(0.012, -0.028, note, fontsize=8, color=ACCENT)
-
-
-def out(chapter: str, name: str) -> Path:
-    d = ROOT.parent / "assets" / chapter
-    d.mkdir(parents=True, exist_ok=True)
-    return d / name

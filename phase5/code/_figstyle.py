@@ -17,14 +17,24 @@ from matplotlib.patches import FancyArrowPatch, FancyBboxPatch
 
 matplotlib.use("Agg")
 
-plt.rcParams["font.sans-serif"] = [
-    "Hiragino Sans GB",
-    "Arial Unicode MS",
-    "STHeiti",
-    "PingFang SC",
-    "Heiti SC",
-    "DejaVu Sans",
-]
+FONT_STACKS = {
+    "zh": [
+        "Hiragino Sans GB",
+        "Arial Unicode MS",
+        "STHeiti",
+        "PingFang SC",
+        "Heiti SC",
+        "DejaVu Sans",
+    ],
+    "en": [
+        "Arial Unicode MS",
+        "Helvetica",
+        "Arial",
+        "DejaVu Sans",
+    ],
+}
+
+plt.rcParams["font.sans-serif"] = FONT_STACKS["zh"]
 plt.rcParams["axes.unicode_minus"] = False
 plt.rcParams["figure.dpi"] = 200
 plt.rcParams["savefig.dpi"] = 240
@@ -36,6 +46,12 @@ plt.rcParams["text.color"] = "#1F2933"
 plt.rcParams["xtick.color"] = "#52606D"
 plt.rcParams["ytick.color"] = "#52606D"
 plt.rcParams["legend.frameon"] = False
+
+
+def apply(lang="zh"):
+    """字体栈按语言切换——语言差异只允许出现在取文案与这里。"""
+    plt.rcParams["font.sans-serif"] = FONT_STACKS[lang]
+
 
 # ---- 语义色（不按好看选，按含义选）----------------------------------------
 INK = "#1F2933"      # 主文字
@@ -51,12 +67,12 @@ ROOT = Path(__file__).resolve().parent.parent
 ASSETS = ROOT / "assets"
 
 
-def save(fig, rel: str) -> None:
-    path = ASSETS / rel
+def save(fig, path) -> None:
+    path = Path(path)
     path.parent.mkdir(parents=True, exist_ok=True)
     fig.savefig(path, bbox_inches="tight", pad_inches=0.3, facecolor="white")
     plt.close(fig)
-    print(f"  ok  {rel}")
+    print(f"  ok  {path.name}")
 
 
 def stamp(fig, text: str) -> None:
