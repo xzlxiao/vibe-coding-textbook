@@ -248,7 +248,7 @@ flowchart TD
 6. In your multi-agent pipeline, the upstream agent's output becomes the downstream's input. Design one gate where "contamination cannot spread" (hint: how does downstream tell data from instructions? How does scope narrow level by level?).
 
 <details>
-<summary><strong>点击展开：本章练习参考答案与深度解析</strong></summary>
+<summary><strong>Click to expand: reference answers and in-depth analysis for this chapter's exercises</strong></summary>
 
 #### 1. Analysis of question 1
 

@@ -311,7 +311,7 @@ flowchart TD
 6. Someone proposes: "we use a web application firewall (WAF) to block all attacks, so we don't need to draw a data flow diagram." Argue the relationship between a WAF and attack surface analysis (hint: which class of arrows does a WAF cover? Is it effective against "credential-holder abuse"?).
 
 <details>
-<summary><strong>点击展开：本章练习参考答案与深度解析</strong></summary>
+<summary><strong>Click to expand: reference answers and in-depth analysis for this chapter's exercises</strong></summary>
 
 #### 1. Analysis of question 1
 
