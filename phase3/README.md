@@ -222,7 +222,7 @@ flowchart TD
   - **Difficulty**: ★★★★★
 
 - **Chapter 12: Plugging Into the Pipeline — Order, Cost, Bypass, and Cognitive Debt** (`chapters/ch12-pipeline.md`)
-  - **Intuition Anchor**: a gate is not a wall; it is a sluice. Design the sluice badly and people climb the wall
+  - **Intuition Anchor**: a gate is not a wall; it is a floodgate. Design the floodgate badly and people climb the wall
   - **Core Knowledge**: ordering by "unit interception cost" (not by importance); parallelization and caching; three typical bypass paths (`--no-verify`, admin merge, skipping CI) and their cost accounting; the gates' own maintenance costs; the formation mechanism of cognitive debt; the three rewrite signals (mutation score / coupling density / churn)
   - **Planned Figures**: the complete pipeline topology (Mermaid); Figure 12-1 the real time costs of four gates (log axis, 28-fold difference)
   - **Hands-on Exercise**: end to end — hook a complete pipeline onto a repository and deliver the record of "having blocked at least one real problem" (corresponding to planning task 1)
