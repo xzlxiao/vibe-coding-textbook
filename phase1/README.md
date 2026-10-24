@@ -116,15 +116,15 @@ A fixed six-part structure; the order is not typographic habit but cognitive ord
 phase1/                              # 本册 = 阶段 1，自包含
 ├── README.md                        # 本文件：阶段导读与知识图谱
 ├── chapters/
-│   ├── ch01-speed-illusion.md       # The Speed Illusion
-│   ├── ch02-context-over-prompt.md  # What You Feed Matters More Than How You Phrase It
-│   ├── ch03-two-halves-of-harness.md# The Two Halves of the Harness
+│   ├── ch01-speed-illusion.md       # 速度的错觉
+│   ├── ch02-context-over-prompt.md  # 喂什么，比怎么说更上位
+│   ├── ch03-two-halves-of-harness.md# 夹具的两半
 │   └── ch04-calibrate-with-your-own-numbers.md
 ├── assets/                          # 全部配图（240 dpi，可重新生成）
-│   ├── ch01/  fig-01 Perception gap · fig-02 Context collapse · fig-03 Time accounting
-│   ├── ch02/  fig-01 Three-layer progressive disclosure
-│   ├── ch03/  fig-01 Harness two halves · fig-02 Gate left-shift cost
-│   └── ch04/  fig-01 Five-segment accounting template
+│   ├── ch01/  fig-01 感知落差 · fig-02 上下文坍缩 · fig-03 记账口径
+│   ├── ch02/  fig-01 三层渐进披露
+│   ├── ch03/  fig-01 夹具两半 · fig-02 门禁左移成本
+│   └── ch04/  fig-01 五段记账模板
 └── code/
     ├── make_figures.py              # 一键重画全部配图
     ├── ch01/check_deps.py           # 依赖幻觉扫描器（三层判定）
