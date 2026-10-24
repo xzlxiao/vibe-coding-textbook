@@ -1,6 +1,6 @@
 **English** | [中文](./release-package-checklist.zh.md)
 
-# Launch Package Checklist
+# Release Package Checklist
 
 > Launch date: __________　Version: __________　Owner: __________
 > Rules: blocking items (marked ★) must all pass before launch; non-blocking items may ship with gaps, but must be written into the first week's to-do list.

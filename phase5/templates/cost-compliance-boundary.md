@@ -3,7 +3,7 @@
 # Cost–Compliance Boundary Statement
 
 > Version: v1.0　Filled in on: __________　Review date: __________
-> Purpose: a required piece of the launch package. Anyone should understand within 5 minutes: where I sell, which tier I am in, what must be done now, and under what circumstances I must stop.
+> Purpose: a required piece of the release package. Anyone should understand within 5 minutes: where I sell, which tier I am in, what must be done now, and under what circumstances I must stop.
 > Statement: this document is a self-record and does not constitute legal advice.
 
 ## 1. Where I Sell

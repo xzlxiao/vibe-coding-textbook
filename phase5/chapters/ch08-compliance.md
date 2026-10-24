@@ -190,7 +190,7 @@ The fourth row's approach is worth learning: **obligations that do not apply sti
 
 ### 3.4 Skeleton of a One-Page "Cost–Compliance Boundary Statement"
 
-This document is a required piece of Chapter 10's launch package; five sections are enough:
+This document is a required piece of Chapter 10's release package; five sections are enough:
 
 ```text
 1. 我卖到哪：面向中国境内公众 + 对欧盟用户开放（未主动推广）

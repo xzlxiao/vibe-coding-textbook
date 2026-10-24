@@ -293,7 +293,7 @@ flowchart TD
 - **Planned figures**
   - Figure 10-1: 28-day Gantt chart (Python, marking three drill days and one buffer band)
   - Figure 10-2: Cumulative cash flow and payback point (Python simulation, with initial investment and churn rate)
-- **Hands-on exercise**: combine the deliverables of Chapters 01–09 into one deliverable Launch Package: repository (with rollback script and checklist) + two tables (unit economics, compliance boundary) + one drill record. Then actually open payments and collect the first real revenue (the amount does not matter; the source does).
+- **Hands-on exercise**: combine the deliverables of Chapters 01–09 into one deliverable Release Package: repository (with rollback script and checklist) + two tables (unit economics, compliance boundary) + one drill record. Then actually open payments and collect the first real revenue (the amount does not matter; the source does).
 - **Difficulty**: ★★★★★
 
 ---
