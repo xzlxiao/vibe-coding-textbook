@@ -11,6 +11,8 @@ upstream_urls:
   - "https://www.rfc-editor.org/rfc/rfc9110.html"
   - "https://docs.python.org/3/library/sqlite3.html"
 ---
+[English](./ch06-constraints.md) | **中文**
+
 # 第 06 章：约束条款——不写，就等于授权默认值
 
 > **本章导读**：功能和判据决定"做对了吗"，约束决定"在最坏情况下还对吗"。这一章讲六类必须写进规格的约束，以及一个反直觉的事实：**约束漏掉不会报错，所以它最容易被漏掉，也最贵。**
