@@ -13,6 +13,8 @@ upstream_urls:
   - "https://www.rfc-editor.org/rfc/rfc6749"
 ---
 
+[English](./ch09-three-deliverables.md) | **中文**
+
 # 第 09 章：威胁模型、重放报告、权限矩阵
 
 > **本章导读**：前面几章给了你两个量（攻击面、爆炸半径）和三条判据。这一章把它们收成**三份能交出去的文档**——不是给你看的，是给一个非安全背景的同事照着执行的。学完本章，你手上就有阶段 4 的全部交付物。
@@ -142,9 +144,9 @@ kill switch 要写在权限矩阵的同一张表里，因为它和权限是同�
 
 | 模板 | 对应交付物 | 关键列 |
 |---|---|---|
-| `threat-model.md` | 威胁清单 | **可测断言**、残留风险、"已知未覆盖" |
-| `replay-report.md` | 重放报告 | 三步各一行 + 判定 + 修复与复测 |
-| `permission-matrix.md` | 权限矩阵 | 三判据 + 复核档 + kill switch + 降档记录 |
+| `threat-model.zh.md` | 威胁清单 | **可测断言**、残留风险、"已知未覆盖" |
+| `replay-report.zh.md` | 重放报告 | 三步各一行 + 判定 + 修复与复测 |
+| `permission-matrix.zh.md` | 权限矩阵 | 三判据 + 复核档 + kill switch + 降档记录 |
 
 模板的用法是**照抄结构，不抄内容**。你的项目和 LessonVault 不一样，列的填法也会不一样。
 
