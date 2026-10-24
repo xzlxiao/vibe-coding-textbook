@@ -13,6 +13,7 @@
     M9 README   ERROR（提交 (ii) 起）：树行路径全存在 + 叶名语言约定 + 「N 张图」总量口径==58。
     A 类旧名    ERROR（26 旧 PNG 名自 (i)、5 中文模板名自 (ii) 全量拦截）。
     M6 文件名   ERROR（提交 (i) 起拦截）：路径字符全部 <= 0x7F。
+    M8 遗留     ERROR（提交 (iii) 起）：phase3/drafts、phase4/_archive、.coverage 存在数=0。
 
 扫描域（计划 §四 开头，写死）：phase*/、根 README*、docs/、tools/、.githooks/；
 排除 .omc/ 与 .git/。链接扫描另排除 phase3/drafts/ 与 phase4/_archive/（legacy 6 处坏引用，
@@ -31,8 +32,8 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SCAN_TOP = ["phase1", "phase2", "phase3", "phase4", "phase5", "README.md",
             "README.zh.md", "docs", "tools", ".githooks"]
 EXCLUDE_DIRS = {".git", ".omc", ".omc-hook", "__pycache__"}
-# legacy 排除（仅覆盖链接扫描与语言半；(iii) 删除遗留后置空）
-LEGACY_EXCLUDE = ("phase3/drafts/", "phase4/_archive/")
+# legacy 排除（(iii) 已删除遗留，置空——链接/语言半全量生效）
+LEGACY_EXCLUDE = ()
 
 # A 类消失名（阶段 0 基线 05-renumber-map-26.md + 5 中文模板名；终态字符串真消失）
 # 分两档：26 旧 PNG 名在提交 (i) 清零并拦截；5 中文模板名随提交 (ii) README 树行改写清零。
@@ -135,7 +136,7 @@ def check_m4_links(rep: Report) -> None:
                 resolved = os.path.normpath(os.path.join(os.path.dirname(path), t))
                 if not os.path.exists(resolved):
                     rep.error("M4 链接半：%s:%d 断链 -> %s" % (rel, i, target))
-    print("[M4-链接半] 检查相对链接 %d 处（排除 legacy 两目录）" % n)
+    print("[M4-链接半] 检查相对链接 %d 处（legacy 排除已清空，全量生效）" % n)
 
 
 def check_m4_lang(rep: Report) -> None:
@@ -354,6 +355,25 @@ def check_a_class_vanish(rep: Report) -> None:
           % (hits_png, hits_tpl))
 
 
+LEGACY_PATHS = ("phase3/drafts", "phase4/_archive")
+
+
+def check_m8_legacy(rep: Report) -> None:
+    """M8 遗留闭合：phase3/drafts、phase4/_archive、.coverage 三类路径（闭合列举）存在数=0。"""
+    hits = 0
+    for p in LEGACY_PATHS:
+        if os.path.exists(p):
+            hits += 1
+            rep.error("M8 遗留未闭合：%s 仍存在" % p)
+    for d, ds, fs in os.walk(ROOT):
+        ds[:] = [x for x in ds if x not in EXCLUDE_DIRS]
+        for f in fs:
+            if f == ".coverage":
+                hits += 1
+                rep.error("M8 遗留未闭合：%s" % os.path.relpath(os.path.join(d, f), ROOT).replace(os.sep, "/"))
+    print("[M8 遗留] 三类路径存在数 %d（ERROR；0=已闭合）" % hits)
+
+
 def check_m6_filenames(rep: Report) -> None:
     """M6 文件名 ASCII。"""
     hits = 0
@@ -546,6 +566,7 @@ def main() -> int:
     check_m5_captions(rep)
     check_a_class_vanish(rep)
     check_m6_filenames(rep)
+    check_m8_legacy(rep)
     check_m9_readme(rep)
     if args.m11:
         check_m11(rep)

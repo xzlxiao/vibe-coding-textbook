@@ -21,7 +21,7 @@ phase3/
 │   └── ch08/fig-01-stress-detection.png
 │   └── ch09/fig-01-three-readings.png
 │   └── ch12/fig-01-gate-cost.png
-├── code/                              # 全部可运行
+└── code/                              # 全部可运行
 │   └── _figstyle.py                   # 共享绘图样式
 │   └── make_figures.py                # 一次生成全部八张图
 │   └── pipeline.sh                    # 七道闸的完整流水线
@@ -33,8 +33,6 @@ phase3/
 │   └── ch08/stress_oversell.py        # 四组压测对照
 │   └── ch08/constraint_check.py       # 约束存在性检查
 │   └── ch11/eval_harness.py           # judge 位置偏好探针
-└── drafts/                            # 草稿区（非交付物）
-    └── ch03-untrusted-ai-code-single-chapter.md
 ```
 
 ## 双语维护
