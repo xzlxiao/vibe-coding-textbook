@@ -12,6 +12,8 @@ upstream_urls:
   - "https://stripe.com/docs/api/idempotent_requests"
   - "https://dora.dev/"
 ---
+[English](./ch11-end-to-end.md) | **中文**
+
 # 第 11 章：端到端实战——从模糊需求到上线
 
 > **本章导读**：前面十章是分解动作。这一章把它们连成一趟完整的流程：一句话需求，十天，四批交付，三次返工，最后上线。重点不是"顺利"，而是**每次返工都能追到规格的哪一句**——这决定了同样的坑会不会再踩。

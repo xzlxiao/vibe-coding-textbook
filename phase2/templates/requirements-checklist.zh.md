@@ -1,3 +1,5 @@
+[English](./requirements-checklist.md) | **中文**
+
 # 需求质量清单
 
 > 用法：这是"用自然语言写的单元测试"（第 08 章）。

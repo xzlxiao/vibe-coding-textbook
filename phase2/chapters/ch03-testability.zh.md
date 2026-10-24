@@ -11,6 +11,8 @@ upstream_urls:
   - "https://github.com/github/spec-kit"
   - "https://cucumber.io/docs/gherkin/reference/"
 ---
+[English](./ch03-testability.md) | **中文**
+
 # 第 03 章：可判定性——把"能登录"写成能判的句子
 
 > **本章导读**：这是全书技术上最硬的一章。前两章说"要有判据"，但没回答"什么样的句子才算判据"。本章给出四条硬标准和一套句式：写完之后，一段需求该不该被判为"做完了"，不再需要开会争论。

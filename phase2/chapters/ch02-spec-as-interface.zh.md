@@ -11,6 +11,8 @@ upstream_urls:
   - "https://www.manning.com/books/specification-by-example"
   - "https://www.ietf.org/rfc/rfc2119.txt"
 ---
+[English](./ch02-spec-as-interface.md) | **中文**
+
 # 第 02 章：规格是接口，不是文档
 
 > **本章导读**：上一章说"规格能把缺陷往左推"，但没说规格到底该写什么、不该写什么。本章给出分界线：规格是人与模型之间的**接口**——它约定"什么叫履约"，而不是描述"世界长什么样"。写错层，规格会从护栏变成枷锁。

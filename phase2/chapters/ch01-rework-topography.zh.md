@@ -12,6 +12,8 @@ upstream_urls:
   - "https://github.com/github/spec-kit"
   - "https://www.manning.com/books/specification-by-example"
 ---
+[English](./ch01-rework-topography.md) | **中文**
+
 # 第 01 章：返工的地形图
 
 > **本章导读**：这是全书的起点。你要先看清一件事——AI 交付物出问题，多数时候不是因为它不会写，而是因为它替你做了你没授权的决定。本章用一次真实形态的返工，把"返工"从一个模糊的挫败感，变成一张能定位、能归因、能预防的地形图。
