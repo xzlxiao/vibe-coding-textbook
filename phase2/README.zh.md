@@ -1,3 +1,5 @@
+[English](./README.md) | **中文**
+
 # 《先写规格，再让 AI 动手：从零基础到规格驱动开发》
 
 > **定位**：面向零规格经验学习者的系统化开源教材，对应《Vibe Coding 学习规划》**阶段 2**（4 周 / 30 小时每周）
@@ -122,19 +124,19 @@ flowchart TD
 
 ### 第一部分 · 直觉：为什么"说清楚"这么难（ch01–ch03）
 
-**第 01 章：返工的地形图**（`chapters/ch01-rework-topography.md`）
+**第 01 章：返工的地形图**（`chapters/ch01-rework-topography.zh.md`）
 - **直觉锚点**：你说"加个报名功能"。AI 交了 400 行，能跑、能点、界面漂亮。三天后你发现：没有候补、重复点击建了两条记录、有人取消后名额没释放。**三个 bug，同一个根因。**
 - **核心知识**：返工的三种形态（意图漂移 / 接口幻觉 / 上下文坍缩）；"合理默认值"是怎么被填进去的；返工成本随发现阶段推移的量级（**模型示意，不是实证**）；规格在这条曲线上的作用点
-- **规划图表**：图 1-1 三次对话往返的时序对比 (Mermaid sequenceDiagram)；图 1-2 返工成本随发现阶段的变化（Python，标注假设）
+- **规划图表**：三次对话往返的时序对比 (Mermaid sequenceDiagram)；图 1-1 返工成本随发现阶段的变化（Python，标注假设）
 - **实操/推演**：用同一句需求让 AI 生成三次，记录三次产出的差异清单——**这是读者自己的第一组数据，后面 ch09 要拿它做基线**
 
-**第 02 章：规格是接口，不是文档**（`chapters/ch02-spec-as-interface.md`）
+**第 02 章：规格是接口，不是文档**（`chapters/ch02-spec-as-interface.zh.md`）
 - **直觉锚点**：点菜说"来个下饭的"，和说"宫保鸡丁、不要花生、微辣、不要香菜"——差别不在礼貌，在可执行性
-- **核心知识**：What / Why / How 三层分离；`spec.md` / `plan.md` / `tasks.md` 三件套的职责边界与越界信号；"唯一真源"到底指什么（以及它不指什么）；规格的最小结构七段式
+- **核心知识**：What / Why / How 三层分离；`spec.zh.md` / `plan.zh.md` / `tasks.zh.md` 三件套的职责边界与越界信号；"唯一真源"到底指什么（以及它不指什么）；规格的最小结构七段式
 - **规划图表**：图 2-1 三层分离与越界信号 (Mermaid)；表 2-1 同一条需求在三个文件里的合法/非法写法对照
 - **实操/推演**：把一条真实需求分别写进三个文件，逐条检查是否越界（含 6 个"越界了但很像对的"样例）
 
-**第 03 章：可判定性——把"能登录"写成能判的句子**（`chapters/ch03-testability.md`）
+**第 03 章：可判定性——把"能登录"写成能判的句子**（`chapters/ch03-testability.zh.md`）
 - **直觉锚点**：法庭上"他态度不好"不成立，"他 3 月 5 日 14:02 在群里说了这句话"成立
 - **核心知识**：可判定的四个条件（可观测 / 可量化 / 有触发条件 / 有失败路径）；EARS 五句式（ubiquitous / event-driven / state-driven / unwanted / optional，Mavin 等人在 Rolls-Royce 提出，RE'09）；EARS 与 Given-When-Then 的分工；`shall` 与 `should` 的差别为什么是硬规则
 - **规划图表**：图 3-1 判据可判定性判定树 (Mermaid)；表 3-1 十二条"不可判定句"的逐条改写
@@ -142,45 +144,45 @@ flowchart TD
 
 ### 第二部分 · 机制：一份抗打规格的五个部件（ch04–ch07）
 
-**第 04 章：用例子钉住抽象**（`chapters/ch04-examples.md`）
+**第 04 章：用例子钉住抽象**（`chapters/ch04-examples.zh.md`）
 - **直觉锚点**：两个人都说"友好一点"，直到给出三个具体场景，才发现一个想的是文案、一个想的是按钮大小
 - **核心知识**：Example Mapping 四色卡（故事 / 规则 / 例子 / 疑问）；Adzic《实例化需求》七条过程模式；例子的四条要求（精确、完整、真实、易懂）；规则—例子—判据的映射关系；为什么"边界例子"比"典型例子"更能暴露歧义
 - **规划图表**：图 4-1 Example Mapping 板面结构与流转 (Mermaid)；表 4-1 规则→例子→判据三列映射
 - **实操/推演**：对"候补队列"做一次完整 Example Mapping，产出 6 条规则 + 12 个例子，其中至少 3 个是边界例子
 
-**第 05 章：歧义的解剖学**（`chapters/ch05-ambiguity.md`）
+**第 05 章：歧义的解剖学**（`chapters/ch05-ambiguity.zh.md`）
 - **直觉锚点**："尽快回复我"——在三个人心里是三个时间：五分钟、下班前、这周
 - **核心知识**：六类歧义（指代 / 范围 / 边界 / 例外 / 时序与并发 / 权限与可见性）；每类的识别信号；三种提问武器（反例法 / 极端值法 / 角色法）；clarify 的五问上限为什么是上限而不是配额；答案必须回写规格而不是留在对话里
 - **规划图表**：图 5-1 六类歧义分类树 (Mermaid)；表 5-1 识别信号 × 提问模板 × 回写位置
 - **实操/推演**：对 ch04 产出的规格提五个问题，模拟"提问后首轮验收率变化"，并记录哪一问带来了最大收益
 
-**第 06 章：约束条款——不写，就等于授权默认值**（`chapters/ch06-constraints.md`）
+**第 06 章：约束条款——不写，就等于授权默认值**（`chapters/ch06-constraints.zh.md`）
 - **直觉锚点**：酒店退房要查房，无人酒店不查——不查不等于没规则，规则被写进了门锁和押金
 - **核心知识**：为什么约束最容易被漏（**漏掉不会报错**）；六类必写约束（幂等 / 并发 / 重试与超时 / 权限与可见性 / 性能预算 / 依赖与降级）；幂等键 + 重试窗口的写法（"幂等键必填 + 24 小时重试窗口"这一类条款为什么必须进规格）；把约束写成判据而不是写成愿望
 - **规划图表**：图 6-1 同一请求在无幂等 / 有幂等下的状态机对比 (Mermaid stateDiagram)；表 6-1 六类约束的条款模板与验证方式
 - **实操/推演**：给候补系统写 6 条约束条款，每条配一个"能验出来的"判据，并故意留一条不写，观察 AI 会怎么填
 
-**第 07 章：任务原子化——垂直切片与评审单元**（`chapters/ch07-task-slicing.md`）
+**第 07 章：任务原子化——垂直切片与评审单元**（`chapters/ch07-task-slicing.zh.md`）
 - **直觉锚点**：装修先装水电还是先买沙发？水平切片让你三个月看不见一间能住的房
-- **核心知识**：垂直切片 vs 水平切片；一个任务 = 一个评审单元 = 一次可回滚的提交；依赖排序与"可并行"的判据；批次大小与上下文预算的权衡；`tasks.md` 的写法（为什么每条任务都要写"验收方式"）
-- **规划图表**：图 7-1 两种切片的交付节奏对比 (Mermaid)；图 7-2 批次大小 vs 上下文占用与返工（Python，模型示意）
+- **核心知识**：垂直切片 vs 水平切片；一个任务 = 一个评审单元 = 一次可回滚的提交；依赖排序与"可并行"的判据；批次大小与上下文预算的权衡；`tasks.zh.md` 的写法（为什么每条任务都要写"验收方式"）
+- **规划图表**：两种切片的交付节奏对比 (Mermaid)；图 7-1 批次大小 vs 上下文占用与返工（Python，模型示意）
 - **实操/推演**：把 ch04–ch06 的规格切成 9 个任务并排序，标出哪两个可以并行、依据是什么
 
 ### 第三部分 · 系统：流水线、度量与反模式（ch08–ch10）
 
-**第 08 章：四段流水与三道门禁**（`chapters/ch08-pipeline.md`）
+**第 08 章：四段流水与三道门禁**（`chapters/ch08-pipeline.zh.md`）
 - **直觉锚点**：机场安检不是不信任你，是把"该不该放行"从个人判断变成可复核的流程
 - **核心知识**：Spec Kit v1.0 命令族逐个讲——`constitution` / `specify` / `clarify` / `plan` / `checklist` / `tasks` / `analyze` / `implement` / `converge`，各自产物与回退方向；`specs/<feature>/` 目录约定；三道门禁（规划前消歧 / 拆任务前审需求质量 / 实现前查一致性）；`converge` 的循环终止条件；OpenSpec 的"提议 → 应用 → 存档"轻流程对照；**不装工具的最小手工版**（三个文件 + 一张清单，20 分钟可搭）
 - **规划图表**：图 8-1 流水线与三道门禁及回退箭头 (Mermaid flowchart)；图 8-2 收敛循环状态机 (Mermaid stateDiagram)
 - **实操/推演**：先用最小手工版跑一轮，再换 Spec Kit 跑同一需求，对比两者的产物差异与摩擦点
 
-**第 09 章：度量——首轮验收率与它的两个同伴**（`chapters/ch09-metrics.md`）
+**第 09 章：度量——首轮验收率与它的两个同伴**（`chapters/ch09-metrics.zh.md`）
 - **直觉锚点**：体重秤 vs "我最近好像瘦了"
 - **核心知识**：首轮验收率的定义与分母陷阱（什么算"一次生成"）；返工率的算法（7 天内跟进提交）；规格漂移捕获率（评审里出现"违反规格"意见的次数）；两周基线法；一张 CSV 的字段设计；为什么"生成代码行数"是误导性指标
 - **规划图表**：图 9-1 三个指标的计算路径与数据来源 (Mermaid)；图 9-2 规格改进后的趋势（Python，**示例数据**，附 CSV 模板）
 - **实操/推演**：建自己的 `metrics.csv`，用 ch01 的基线数据填第一行，写一页看板说明
 
-**第 10 章：反模式——SDD 退化成瀑布的五种死法**（`chapters/ch10-antipatterns.md`）
+**第 10 章：反模式——SDD 退化成瀑布的五种死法**（`chapters/ch10-antipatterns.zh.md`）
 - **直觉锚点**：药吃多了也是毒；规格写过头，你就把 1970 年代的瀑布流程原样请回来了
 - **核心知识**：五种死法（重前期规格 + 大爆炸发布 / PRD cosplay / 规格过载 / 只改代码不改规格 / 清单自我批准）；每种死法的早期信号与解药；规格重量应匹配任务风险（"一屏 markdown 换一天工作量"的经验线）；为什么"改代码不改规格"会让同一个洞换个形状回来
 - **规划图表**：表 10-1 五反模式 × 信号 × 解药 × 复发检测；图 10-1 规格重量与任务风险的匹配矩阵 (Mermaid)
@@ -188,16 +190,16 @@ flowchart TD
 
 ### 第四部分 · 实战与迁移（ch11–ch12）
 
-**第 11 章：端到端实战——从模糊需求到上线**（`chapters/ch11-end-to-end.md`）
+**第 11 章：端到端实战——从模糊需求到上线**（`chapters/ch11-end-to-end.zh.md`）
 - **直觉锚点**：前面十章都是分解动作，这一章是完整的一套拳
 - **核心知识**：候补报名系统走完整流程（一句话需求 → 规则 → 例子 → 五问 → 约束 → 九任务 → 实现 → 收敛 → 上线）；**三次真实返工的追因表**，每次追到"规格的哪一句缺了"，并验证"补了这句之后同类任务重生成 3 次是否复发"
 - **规划图表**：图 11-1 全流程时间线 (Mermaid)；表 11-1 三次返工 × 症状 × 规格缺口 × 补法 × 复发验证
 - **实操/推演**：读者用自己真实要上线的需求走一遍，交付 `spec/plan/tasks` + 追因记录（这是学习规划的任务 1 与任务 3）
 
-**第 12 章：规格库与认知债**（`chapters/ch12-spec-library.md`）
+**第 12 章：规格库与认知债**（`chapters/ch12-spec-library.zh.md`）
 - **直觉锚点**：三个月后接手的人（可能是你自己）问"这里为什么这么写"，代码答不上来
 - **核心知识**：规格库的索引与命名；`constitution` 如何从重复的评审意见里长出来；规格与代码的漂移检测（定期 converge、PR 模板里加"是否违反规格"）；认知债的度量（"团队里有几个人能解释这段代码"）；哪些规格该归档、哪些该删
-- **规划图表**：图 12-1 规格库结构与复用路径 (Mermaid)；图 12-2 认知债随交付速度的累积（Python，模型示意）
+- **规划图表**：规格库结构与复用路径 (Mermaid)；图 12-1 认知债随交付速度的累积（Python，模型示意）
 - **实操/推演**：给项目建 `specs/README.md` 索引 + 一份 constitution 演进记录（v0.1 → v1.0，每次改动写明由哪条重复意见触发）
 
 ---
@@ -225,31 +227,31 @@ flowchart TD
 
 ```text
 phase2/                     # 本册（阶段 2）
-├── README.md                     # 本文件：全景知识图谱、大纲、阅读路径
+├── README.zh.md                     # 本文件：全景知识图谱、大纲、阅读路径
 ├── chapters/
-│   ├── ch01-rework-topography.md
-│   ├── ch02-spec-as-interface.md
-│   ├── ch03-testability.md
-│   ├── ch04-examples.md
-│   ├── ch05-ambiguity.md
-│   ├── ch06-constraints.md
-│   ├── ch07-task-slicing.md
-│   ├── ch08-pipeline.md
-│   ├── ch09-metrics.md
-│   ├── ch10-antipatterns.md
-│   ├── ch11-end-to-end.md
-│   └── ch12-spec-library.md
+│   ├── ch01-rework-topography.zh.md
+│   ├── ch02-spec-as-interface.zh.md
+│   ├── ch03-testability.zh.md
+│   ├── ch04-examples.zh.md
+│   ├── ch05-ambiguity.zh.md
+│   ├── ch06-constraints.zh.md
+│   ├── ch07-task-slicing.zh.md
+│   ├── ch08-pipeline.zh.md
+│   ├── ch09-metrics.zh.md
+│   ├── ch10-antipatterns.zh.md
+│   ├── ch11-end-to-end.zh.md
+│   └── ch12-spec-library.zh.md
 ├── assets/
-│   ├── ch01/  ch02/  ...  ch12/  # 每章 fig-YY-<slug>.png，≥200 DPI
+│   ├── ch01/  ch07/  ch09/  ch12/  # 有图各章 fig-NN-<slug>.png（en）/ fig-NN-<slug>.zh.png（zh），≥200 DPI
 ├── code/
-│   ├── ch01/                     # 三次生成差异记录脚本
+│   ├── figures/                   # 全部配图的生成脚本（make_figures.py）
 │   ├── ch09/                     # metrics.csv 模板与统计脚本
 │   └── ch11/                     # 候补系统参考实现（含 3 个故意留的规格缺口）
 └── templates/
-    ├── spec.md                   # 最小规格七段式模板
-    ├── plan.md                   # 计划模板（只允许写 How）
-    ├── tasks.md                  # 任务模板（每条带验收方式）
-    └── requirements-checklist.md # 需求质量清单（"用自然语言写的单元测试"）
+    ├── spec.zh.md                   # 最小规格七段式模板
+    ├── plan.zh.md                   # 计划模板（只允许写 How）
+    ├── tasks.zh.md                  # 任务模板（每条带验收方式）
+    └── requirements-checklist.zh.md # 需求质量清单（"用自然语言写的单元测试"）
 ```
 
 ---
@@ -343,7 +345,7 @@ phase2/                     # 本册（阶段 2）
 |---|---|
 | 同一需求做两次，第二次首轮验收率显著更高，且能说出差异来自哪一句 | ch09 的 `metrics.csv` + ch11 的追因表；两次规格并排 diff |
 | 能解释"只修代码不补规格"为何复发 | ch10 的复发检测列 + ch11 的第三次返工 |
-| 能做出一份不进人也能跑的检查清单 | ch08 的 `requirements-checklist.md` 与 `checklist` 门禁；清单自带判定规则 |
+| 能做出一份不进人也能跑的检查清单 | ch08 的 `requirements-checklist.zh.md` 与 `checklist` 门禁；清单自带判定规则 |
 | 能判定一个需求该拆几件事、哪些约束必须进规格 | ch06 的约束清单 + ch07 的切片判据（两者都是可勾选的表，不是原则口号） |
 
 **书单的接入点**
@@ -375,24 +377,24 @@ phase2/                     # 本册（阶段 2）
 
 | 章 | 文件 | 核心产出 | 配图 |
 |---|---|---|---|
-| 01 | `chapters/ch01-rework-topography.md` | 返工的三种形态；成本曲线；五个"本该写的那一句" | 时序图 + 成本曲线 |
-| 02 | `chapters/ch02-spec-as-interface.md` | 三层分离；六种越界写法；七段式 | 三层分离图 |
-| 03 | `chapters/ch03-testability.md` | 可判定四条件；EARS 五句式；12 条改写 | 判定树 |
-| 04 | `chapters/ch04-examples.md` | Example Mapping；Adzic 七模式；6 规则 12 例 | 板面流转图 |
-| 05 | `chapters/ch05-ambiguity.md` | 六类歧义；三种提问武器；五问上限 | 歧义分类树 |
-| 06 | `chapters/ch06-constraints.md` | 六类约束；幂等三要素；TOCTOU 实验 | 幂等状态对比 |
-| 07 | `chapters/ch07-task-slicing.md` | 四条原子判据；九任务四批；并行边界 | 切片对比 + 批次曲线 |
-| 08 | `chapters/ch08-pipeline.md` | Spec Kit v1.0 命令族；三道门禁；最小手工版 | 流水线 + 收敛状态机 |
-| 09 | `chapters/ch09-metrics.md` | 三指标口径；CSV 与脚本；一次真实解读 | 指标路径 + 趋势示例 |
-| 10 | `chapters/ch10-antipatterns.md` | 五种死法；重量-风险匹配；复发检测 | 退化路径图 |
-| 11 | `chapters/ch11-end-to-end.md` | 十天全流程；三次返工追因；上线清单 | 全流程时间线 |
-| 12 | `chapters/ch12-spec-library.md` | 规格库三要素；constitution 演进；认知债三问 | 状态机 + 债务曲线 |
+| 01 | `chapters/ch01-rework-topography.zh.md` | 返工的三种形态；成本曲线；五个"本该写的那一句" | 时序图 + 成本曲线 |
+| 02 | `chapters/ch02-spec-as-interface.zh.md` | 三层分离；六种越界写法；七段式 | 三层分离图 |
+| 03 | `chapters/ch03-testability.zh.md` | 可判定四条件；EARS 五句式；12 条改写 | 判定树 |
+| 04 | `chapters/ch04-examples.zh.md` | Example Mapping；Adzic 七模式；6 规则 12 例 | 板面流转图 |
+| 05 | `chapters/ch05-ambiguity.zh.md` | 六类歧义；三种提问武器；五问上限 | 歧义分类树 |
+| 06 | `chapters/ch06-constraints.zh.md` | 六类约束；幂等三要素；TOCTOU 实验 | 幂等状态对比 |
+| 07 | `chapters/ch07-task-slicing.zh.md` | 四条原子判据；九任务四批；并行边界 | 切片对比 + 批次曲线 |
+| 08 | `chapters/ch08-pipeline.zh.md` | Spec Kit v1.0 命令族；三道门禁；最小手工版 | 流水线 + 收敛状态机 |
+| 09 | `chapters/ch09-metrics.zh.md` | 三指标口径；CSV 与脚本；一次真实解读 | 指标路径 + 趋势示例 |
+| 10 | `chapters/ch10-antipatterns.zh.md` | 五种死法；重量-风险匹配；复发检测 | 退化路径图 |
+| 11 | `chapters/ch11-end-to-end.zh.md` | 十天全流程；三次返工追因；上线清单 | 全流程时间线 |
+| 12 | `chapters/ch12-spec-library.zh.md` | 规格库三要素；constitution 演进；认知债三问 | 状态机 + 债务曲线 |
 
 **配套**
 
 | 目录 | 内容 | 验证状态 |
 |---|---|---|
-| `templates/` | `spec.md` / `plan.md` / `tasks.md` / `requirements-checklist.md` | 与第 2、7、8 章正文一致 |
+| `templates/` | `spec.zh.md` / `plan.zh.md` / `tasks.zh.md` / `requirements-checklist.zh.md` | 与第 2、7、8 章正文一致 |
 | `code/ch09/` | `metrics.csv`（12 行样例）+ `summarize.py` | 已实跑，输出与第 9 章引用的数字一致 |
 | `code/ch11/` | `store.py`（核心逻辑）+ `verify.py`（四条约束取证） | 已实跑：**5/5 通过**（幂等 20 并发、50 抢 1 无超卖、通知降级、去重、过期顺延） |
 | `code/figures/` | `make_figures.py` | 四张图可一键重绘，含"非实证"标注 |

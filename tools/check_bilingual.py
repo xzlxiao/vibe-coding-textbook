@@ -9,8 +9,9 @@
 检查集（随阶段扩容，见计划 §5.1 扩容表）：
     M4 链接半   ERROR（全程启用）：扫描域内 md 相对链接全部解析存在。
     M4 语言半   ERROR（配对出现即查）：X.zh.md 只引用 .zh.png；X.md 不得引用 .zh.png（只查图片目标）。
-    M5 图题     WARN（提交 (ii) 起升 ERROR）：文件 fig-NN ↔ 图题「图 C-NN」，C==frontmatter chapter_id。
-    A 类旧名    26 旧 PNG 名 ERROR（提交 (i) 起拦截）；5 中文模板名 WARN（提交 (ii) 起升 ERROR）。
+    M5 图题     ERROR（提交 (ii) 起）：文件 fig-NN ↔ 图题「图 C-NN」双处同号，C==chapter_id；章内 prose 无悬空图号。
+    M9 README   ERROR（提交 (ii) 起）：树行路径全存在 + 叶名语言约定 + 「N 张图」总量口径==58。
+    A 类旧名    ERROR（26 旧 PNG 名自 (i)、5 中文模板名自 (ii) 全量拦截）。
     M6 文件名   ERROR（提交 (i) 起拦截）：路径字符全部 <= 0x7F。
 
 扫描域（计划 §四 开头，写死）：phase*/、根 README*、docs/、tools/、.githooks/；
@@ -161,28 +162,180 @@ def check_m4_lang(rep: Report) -> None:
 
 
 def check_m5_captions(rep: Report) -> None:
-    """M5 图题：文件 fig-NN ↔ 图题 图 C-NN，C==章 frontmatter chapter_id。"""
-    n = bad = 0
+    """M5 图题一致（阶段 2 出口闸）：文件 fig-NN ↔ 图题「图 C-NN」，C==frontmatter chapter_id；
+    alt 与斜体图题双处同号；章内 prose「图 C-F」均有对应图文件（README 规划图表行为计划性描述，不入断言）。
+    Figure 形态留待阶段 3 补入（英文 X.md 出现后同口径）。"""
+    ITA_RE = re.compile(r"^\*图\s*(\d+)\s*[-–—]\s*(\d+)")
+    PROSE_RE = re.compile(r"图\s*(\d+)\s*[-–—]\s*(\d+)")
+    n_cap = n_ita = n_prose = n_prose_readme = bad = 0
     for path in scan_md_files(include_legacy=False):
         rel = os.path.relpath(path, ROOT).replace(os.sep, "/")
         text = open(path, encoding="utf-8").read()
         m_id = re.search(r"^chapter_id:\s*['\"]?(?:ch)?(\d+)", text, re.M)
         chap = m_id.group(1) if m_id else None
-        for i, line in enumerate(text.splitlines(), 1):
+        lines = text.splitlines()
+        alts, itas = [], []
+        in_fence = False
+        for i, line in enumerate(lines, 1):
+            if line.lstrip().startswith("```"):
+                in_fence = not in_fence
+                continue
             for m in CAP_RE.finditer(line):
-                n += 1
+                n_cap += 1
                 c, f, target = m.group(1), m.group(2), m.group(3)
                 mf = FIG_NUM_RE.search(os.path.basename(target))
                 fn = mf.group(1) if mf else "?"
                 if (mf is None) or int(f) != int(fn) or (chap is not None and int(c) != int(chap)):
                     bad += 1
-                    rep.warn("M5 图题：%s:%d 图题 %s-%s vs 文件 fig-%s（chapter_id=%s） -> %s"
-                             % (rel, i, c, f, fn, chap, target))
-    print("[M5 图题] 嵌入图题 %d 处，编号不一致 %d 处（WARN：提交 (ii) 后升 ERROR）" % (n, bad))
+                    rep.error("M5 图题：%s:%d 图题 %s-%s vs 文件 fig-%s（chapter_id=%s） -> %s"
+                              % (rel, i, c, f, fn, chap, target))
+                alts.append((i, c, f))
+            s = line.strip()
+            mi = ITA_RE.match(s)
+            if mi:
+                n_ita += 1
+                itas.append((i, mi.group(1), mi.group(2)))
+            # prose：剔除本行 alt / 斜体图题跨度后再查「图 C-F」
+            stripped = CAP_RE.sub("", line)
+            if mi:
+                stripped = stripped.replace(s, "", 1) if s in stripped else ""
+            for m in PROSE_RE.finditer(stripped):
+                c, f = m.group(1), m.group(2)
+                if chap is None:
+                    n_prose_readme += 1
+                    continue
+                n_prose += 1
+                cdir = os.path.join(rel.split("/")[0], "assets", "ch%02d" % int(c))
+                glob_ok = any(re.match(r"^fig-%02d-.+\.png$" % int(f), x)
+                              for x in (os.listdir(cdir) if os.path.isdir(cdir) else []))
+                if not glob_ok:
+                    bad += 1
+                    rep.error("M5 prose 悬空图号：%s:%d 「图 %s-%s」无对应图文件（%s/fig-%02d-*.png）"
+                              % (rel, i, c, f, cdir, int(f)))
+        # 双处编号：alt 与斜体图题同号配对（±4 行内）
+        for i, c, f in alts:
+            if not any(abs(j - i) <= 4 and (c2, f2) == (c, f) for j, c2, f2 in itas):
+                bad += 1
+                rep.error("M5 双处编号：%s:%d alt 图题 %s-%s 无同号斜体图题" % (rel, i, c, f))
+        for i, c, f in itas:
+            if not any(abs(j - i) <= 4 and (c2, f2) == (c, f) for j, c2, f2 in alts):
+                bad += 1
+                rep.error("M5 双处编号：%s:%d 斜体图题 %s-%s 无同号 alt 图题" % (rel, i, c, f))
+    print("[M5 图题] alt %d / 斜体 %d / 章内 prose %d（README 规划图表 %d 条不入断言），违例 %d（ERROR）"
+          % (n_cap, n_ita, n_prose, n_prose_readme, bad))
+
+
+PAIRING_EN_NAMES = set(
+    [os.path.basename(l.strip()) for l in open(os.path.join(ROOT, ".omc/work/bilingual-baseline/03-md-67.txt"), encoding="utf-8")
+     if "/chapters/" in l] if os.path.exists(os.path.join(ROOT, ".omc/work/bilingual-baseline/03-md-67.txt")) else []
+) | {"README.md", "spec.md", "plan.md", "tasks.md", "requirements-checklist.md",
+     "threat-model.md", "replay-report.md", "permission-matrix.md",
+     "release-package-checklist.md", "rollback-drill-record.md",
+     "cost-compliance-boundary.md", "revenue-decision-record.md", "monthly-cost-per-user.csv"}
+FIG_LEAF_RE = re.compile(r"^fig-\d{2}-[a-z0-9-]+(\.zh)?\.png$")
+TOK_FILE_RE = re.compile(r"^[\w.\-/]+\.(md|csv|png|py|sh|toml|yaml|yml)$")
+TOK_DIR_RE = re.compile(r"^[\w.\-/]+/$")
+ROW_RE = re.compile(r"^((?:│   |    )*)(├── |└── )?(.*)$")
+
+
+def check_m9_readme(rep: Report) -> None:
+    """M9 README 口径：树行逐行解析出的路径全部存在（占位行不入断言、占位行下的结构行走名字级核对）；
+    终态叶名约定（中文版树列 .zh 叶名、英文版树列非 .zh 叶名，仅对配对域文件名断言）；
+    「N 张图」总量口径句数字 == 58。"""
+    zh_rows = en_rows = 0
+    img_hits = []
+
+    def name_exists(name):
+        base = name.rstrip("/")
+        for d, ds, fs in os.walk(ROOT):
+            ds[:] = [x for x in ds if x not in EXCLUDE_DIRS and not x.startswith(".omc")]
+            if base in ds or base in fs:
+                return True
+        return False
+
+    for vol in ["", "phase1", "phase2", "phase3", "phase4", "phase5"]:
+        for lang in ("zh", "en"):
+            rel = os.path.join(vol, "README.zh.md" if lang == "zh" else "README.md") if vol else                   ("README.zh.md" if lang == "zh" else "README.md")
+            if not os.path.exists(rel):
+                continue
+            text = open(rel, encoding="utf-8").read()
+            # (1) 「N 张图」总量口径
+            for m in re.finditer(r"共\s*\d+\s*章、(\d+)\s*张图", text):
+                img_hits.append((rel, m.group(1)))
+            for m in re.finditer(r"(\d+)\s*张图（中英各一套", text):
+                img_hits.append((rel, m.group(1)))
+            # (2) 树块
+            in_tree = False
+            stack = {}   # depth -> 相对段
+            schema = {}  # depth -> 该层是否处于占位行之下
+            for line in text.splitlines():
+                if line.lstrip().startswith("```"):
+                    if in_tree:
+                        in_tree = False
+                        continue
+                    if "├──" in text[text.find(line):text.find(line) + 400] or "└──" in line:
+                        in_tree = True
+                    continue
+                if not in_tree or not line.strip():
+                    continue
+                m = ROW_RE.match(line.rstrip())
+                if not m:
+                    continue
+                prefix, branch, rest = m.group(1), m.group(2), m.group(3)
+                depth = len(prefix) // 4 + (1 if branch else 0)
+                name_part = rest.split("#")[0]
+                placeholder = ("…" in name_part or "..." in name_part and "phaseN" in name_part
+                               or "phaseN" in name_part or "chNN" in name_part or "…" in rest)
+                if "phaseN" in name_part or "chNN" in name_part or "…" in name_part:
+                    placeholder = True
+                tokens = re.findall(r"[\w.\-/]+", name_part)
+                toks = [t for t in tokens if TOK_FILE_RE.match(t) or TOK_DIR_RE.match(t)]
+                if placeholder:
+                    schema[depth] = True
+                    continue
+                parent_is_schema = any(schema.get(d) for d in range(depth))
+                stack = {d: v for d, v in stack.items() if d < depth}
+                for t in toks:
+                    is_dir = t.endswith("/")
+                    leaf = t.rstrip("/").rsplit("/", 1)[-1]
+                    if parent_is_schema:
+                        ok = name_exists(leaf)
+                    else:
+                        base = "".join(stack.get(d, "") for d in range(depth))
+                        full = os.path.normpath(os.path.join(base, t))
+                        ok = os.path.isdir(full) if is_dir else os.path.isfile(full)
+                    if not ok:
+                        rep.error("M9 树行路径缺失：%s  [%s]（解析为 %s）" % (rel, t, full))
+                    # 叶名语言约定（仅配对域文件名）
+                    if not is_dir and not parent_is_schema:
+                        en_form = leaf.replace(".zh.md", ".md").replace(".zh.png", ".png").replace(".zh.csv", ".csv")
+                        paired = en_form in PAIRING_EN_NAMES or FIG_LEAF_RE.match(en_form)
+                        if paired and leaf != "AGENTS.md":
+                            has_zh = ".zh." in leaf
+                            if lang == "zh" and not has_zh:
+                                rep.error("M9 叶名约定：%s 树列了非 .zh 叶名 %s" % (rel, leaf))
+                            if lang == "en" and has_zh:
+                                rep.error("M9 叶名约定：%s 树列了 .zh 叶名 %s" % (rel, leaf))
+                if toks:
+                    if parent_is_schema:
+                        stack[depth] = ""
+                    else:
+                        stack[depth] = toks[-1]
+                if lang == "zh":
+                    zh_rows += 1
+                else:
+                    en_rows += 1
+    for rel, num in img_hits:
+        if num != "58":
+            rep.error("M9 图数口径：%s 「%s 张图」≠ 58" % (rel, num))
+    for need in ("README.zh.md", "README.md"):
+        if not any(r == need for r, _ in img_hits):
+            rep.error("M9 图数口径：%s 缺总量口径句「共 N 章、58 张图」或「58 张图（中英各一套」" % need)
+    print("[M9 README] 树行 zh %d / en %d 条已核；图数口径句 %d 处（须全为 58）" % (zh_rows, en_rows, len(img_hits)))
 
 
 def check_a_class_vanish(rep: Report) -> None:
-    """A 类消失名 grep：26 旧 PNG 名（ERROR）+ 5 中文模板名（WARN，(ii) 升 ERROR）。"""
+    """A 类消失名 grep：26 旧 PNG 名 + 5 中文模板名（提交 (ii) 起全部 ERROR）。"""
     hits_png = hits_tpl = 0
     for path in scan_text_files(include_legacy=True):
         rel = os.path.relpath(path, ROOT).replace(os.sep, "/")
@@ -196,8 +349,8 @@ def check_a_class_vanish(rep: Report) -> None:
             for name in A_CLASS_VANISH_TPL:
                 if name in line:
                     hits_tpl += 1
-                    rep.warn("A 类旧名残留(5 中文模板名，(ii) 升 ERROR)：%s:%d 含 %s" % (rel, i, name))
-    print("[A 类旧名] 旧 PNG 名 %d 处（ERROR）/ 中文模板名 %d 处（WARN，(ii) 升 ERROR）"
+                    rep.error("A 类旧名残留(5 中文模板名)：%s:%d 含 %s" % (rel, i, name))
+    print("[A 类旧名] 旧 PNG 名 %d 处 / 中文模板名 %d 处（ERROR）"
           % (hits_png, hits_tpl))
 
 
@@ -393,6 +546,7 @@ def main() -> int:
     check_m5_captions(rep)
     check_a_class_vanish(rep)
     check_m6_filenames(rep)
+    check_m9_readme(rep)
     if args.m11:
         check_m11(rep)
     if args.report:

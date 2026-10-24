@@ -186,7 +186,7 @@ def _save(fig, fig_id: str) -> None:
     plt.close(fig)
     print(f"[ok] {os.path.relpath(path, ROOT)}")
 
-# ---------------------------------------------------------------- 图 1-2
+# ---------------------------------------------------------------- 图 1-1
 def fig_01_rework_cost() -> None:
     t = _t("fig-01-rework-cost")
     stages = t["stages"]
@@ -220,7 +220,7 @@ def fig_01_rework_cost() -> None:
     _note(fig, t["note"])
     _save(fig, "fig-01-rework-cost")
 
-# ---------------------------------------------------------------- 图 7-2
+# ---------------------------------------------------------------- 图 7-1
 def fig_07_batch_size() -> None:
     t = _t("fig-01-batch-size")
     n = np.arange(1, 13)
@@ -278,7 +278,7 @@ def fig_09_first_pass() -> None:
     _note(fig, t["note"])
     _save(fig, "fig-01-first-pass")
 
-# ---------------------------------------------------------------- 图 12-2
+# ---------------------------------------------------------------- 图 12-1
 def fig_12_cognitive_debt() -> None:
     t = _t("fig-01-cognitive-debt")
     weeks = np.arange(0, 27)

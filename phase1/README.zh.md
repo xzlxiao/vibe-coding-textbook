@@ -1,9 +1,11 @@
+[English](./README.md) | **中文**
+
 # 《Vibe Coding：把「氛围」装进夹具》
 
 > **本册是什么**：《Vibe Coding 学习规划》中**阶段 1（4 周）**的完整教材正文，含第 01—04 章。
 > 规划给的是"学什么、读哪本书、交什么作业"；这里给的是**怎么学会**——直觉、推演、可运行代码、门禁、可复查的练习答案。
 >
-> **分册结构**：本目录是 `phase1/`，一个阶段一册、自包含（`README.md` + `chapters/` + `assets/` + `code/`），与 `phase2/`、`phase3/`、`phase4/`、`phase5/` 平级。本册的章号从 ch01 起，不与其它阶段连号。
+> **分册结构**：本目录是 `phase1/`，一个阶段一册、自包含（`README.zh.md` + `chapters/` + `assets/` + `code/`），与 `phase2/`、`phase3/`、`phase4/`、`phase5/` 平级。本册的章号从 ch01 起，不与其它阶段连号。
 >
 > **设计原则**：直觉先行 · 第一性原理拆解 · 图文紧耦合 · 每个结论都带口径边界 · 练习必须能动手
 
@@ -112,17 +114,17 @@ flowchart TD
 
 ```text
 phase1/                              # 本册 = 阶段 1，自包含
-├── README.md                        # 本文件：阶段导读与知识图谱
+├── README.zh.md                        # 本文件：阶段导读与知识图谱
 ├── chapters/
-│   ├── ch01-speed-illusion.md       # 速度的错觉
-│   ├── ch02-context-over-prompt.md  # 喂什么，比怎么说更上位
-│   ├── ch03-two-halves-of-harness.md# 夹具的两半
-│   └── ch04-calibrate-with-your-own-numbers.md
+│   ├── ch01-speed-illusion.zh.md       # 速度的错觉
+│   ├── ch02-context-over-prompt.zh.md  # 喂什么，比怎么说更上位
+│   ├── ch03-two-halves-of-harness.zh.md# 夹具的两半
+│   └── ch04-calibrate-with-your-own-numbers.zh.md
 ├── assets/                          # 全部配图（240 dpi，可重新生成）
 │   ├── ch01/  fig-01 感知落差 · fig-02 上下文坍缩 · fig-03 记账口径
-│   ├── ch02/  fig-04 三层渐进披露
-│   ├── ch03/  fig-05 夹具两半 · fig-06 门禁左移成本
-│   └── ch04/  fig-07 五段记账模板
+│   ├── ch02/  fig-01 三层渐进披露
+│   ├── ch03/  fig-01 夹具两半 · fig-02 门禁左移成本
+│   └── ch04/  fig-01 五段记账模板
 └── code/
     ├── make_figures.py              # 一键重画全部配图
     ├── ch01/check_deps.py           # 依赖幻觉扫描器（三层判定）
