@@ -11,6 +11,8 @@ upstream_urls:
   - "https://www.owasp.org/www-project-application-security-verification-standard/"
   - "https://dora.dev/"
 ---
+[English](./ch10-risk-tiers.md) | **中文**
+
 # 第 10 章：风险分档——这一档要不要人看
 
 > **本章导读**：前面所有章节都在回答"怎么验"。这一章回答一个更实际的问题：**没时间全验的时候，把注意力放在哪里。** 判据是可逆性、影响半径、可观测性三轴打分，不是代码量，也不是"这是不是 AI 写的"。
