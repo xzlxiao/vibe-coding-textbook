@@ -38,7 +38,7 @@ The waitlist system goes live. Every feature is right: you can sign up, join the
 
 The three share one thing: **none of them violates any functional criterion.** "Can sign up" is right, and "can cancel" is right. What they violate is the stuff that was never written down.
 
-### 1.2 Intuition Analogy: The Unmanned Hotel
+### 1.2 Intuitive Analogy: The Unmanned Hotel
 
 At a traditional hotel, checkout includes a room inspection; the rule lives on "people". An unmanned hotel does not inspect the room, but the rules did not vanish - they were written into the door lock (key-card expiry), the deposit (pre-authorization amount), and the checkout time (auto-billing at 12:00).
 

@@ -61,7 +61,7 @@ Take the sentence apart and you will find it specifies nothing that actually dec
 
 It will fill the nine blanks with "statistically most common" defaults: the slot count becomes a hardcoded 100, the waitlist is sorted by creation time, "cancel" simply deletes the record, notifications are sent synchronously inside the request, and the list endpoint has no authentication. Every single one is "reasonable"; every single one is not what you wanted.
 
-### 1.3 Intuition Analogy: The Home Renovation Quote
+### 1.3 Intuitive Analogy: The Home Renovation Quote
 
 You tell your contractor "I want a cozy home", and he gives you a price. Three months later you find: the walls are cold gray, six power outlets are missing, and the kitchen counter is five centimeters too low. You did not say the wrong thing, and he did not cut corners: **your understandings of "cozy" differ, and that sentence left nothing to check against.**
 

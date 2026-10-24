@@ -34,7 +34,7 @@ At the end of week two you open the system and find: clicking "sign up" does not
 
 This is **horizontal slicing**: cutting by technical layer, doing a segment of each layer. Its problem is not slowness; it is that **you learn "does it work at all" for the first time very late**.
 
-### 1.2 Intuition Analogy: Pizza and Mille-Crepes Cake
+### 1.2 Intuitive Analogy: Pizza and Mille-Crepes Cake
 
 A vertical slice is like cutting a pizza: every piece has crust, sauce, cheese - **one piece alone is edible**.
 A horizontal slice is like cutting a mille-crepes cake into layers: a pile of crepe skins, a pile of cream, a pile of fruit - **no single pile is edible**.

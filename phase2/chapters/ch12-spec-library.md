@@ -42,7 +42,7 @@ They ask: "Why 15 minutes?"
 
 So the newcomer does the only thing they can: **leave it alone.** From then on that code is a black box nobody dares touch. It may have been due for a change to 30 minutes (because notifications are often delayed), or it may be perfectly reasonable - nobody knows.
 
-### 1.2 Intuition Analogy: A Library vs. a Box of Books
+### 1.2 Intuitive Analogy: A Library vs. a Box of Books
 
 The difference between a box of books and a library is not the number of books; it is the **index**.
 

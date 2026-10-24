@@ -38,7 +38,7 @@ Quarterly retrospective conclusion: **"SDD is too heavy for us."**
 
 That conclusion is wrong. The wrongness is not in SDD; it is in treating "every change" as the same risk level - **this is death mode number 3: spec overload.**
 
-### 1.2 Intuition Analogy: The Seatbelt
+### 1.2 Intuitive Analogy: The Seatbelt
 
 Seatbelts have saved many lives. But if someone rules "when getting in a car you must first buckle up, then adjust the seat, then check tire pressure, then start the engine", and enforces it strictly in food-delivery scenarios, riders will start skipping the seatbelt.
 

@@ -36,7 +36,7 @@ The problem: this project already had a database access layer the team was using
 
 This is not the model being disobedient; it is **the document's layers getting mixed**. Of the forty pages, the first thirty talk about "why to build it, for whom, and what to build"; the last ten suddenly start talking about "which technology to use". The model treated the whole document as information from one layer, and so took "technology choice" as a requirement that must be satisfied.
 
-### 1.2 Intuition Analogy: Quote, Construction Drawings, Work Schedule
+### 1.2 Intuitive Analogy: Quote, Construction Drawings, Work Schedule
 
 Home renovation again. A reliable construction team carries three things, and **the three have different readers**:
 

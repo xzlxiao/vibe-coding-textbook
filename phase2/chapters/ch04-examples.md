@@ -38,7 +38,7 @@ The tech lead nods: fairness means FIFO, sorted by creation time, by ID within t
 
 All three nodded, and not one word of their three understandings matches. **And the word "fair" looks perfectly reasonable in any spec.**
 
-### 1.2 Intuition Analogy: Dictionary and Example Sentences
+### 1.2 Intuitive Analogy: Dictionary and Example Sentences
 
 When learning a foreign language, you look up "nevertheless" in the dictionary, see "however", and still cannot use it. Look at three example sentences and you can use it immediately - you even know it only goes at the start of a sentence and must be followed by a comma.
 

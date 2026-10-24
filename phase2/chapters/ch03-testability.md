@@ -36,7 +36,7 @@ The developer says: "Well, that was not written down."
 
 So this conversation has no winner. Operations thinks the developer did not care; the developer thinks the requirements were unclear; the project burns two extra weeks. **And that sentence in the requirements document - "users can cancel sign-ups" - is grammatically perfectly correct.**
 
-### 1.2 Intuition Analogy: Court Testimony and Weather Forecasts
+### 1.2 Intuitive Analogy: Court Testimony and Weather Forecasts
 
 In court, "his attitude was very bad" will not be admitted; "he posted this message in the group at 14:02 on March 5" will be. The difference is not tone; it is **whether a third party can independently verify it**.
 

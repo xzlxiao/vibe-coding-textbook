@@ -38,7 +38,7 @@ Operations' understanding: ASAP = sometime today. She never expected "second-lev
 
 Neither understanding is wrong. **The phrase "as soon as possible" is competent in natural language and derelict in a spec** - it hands the judgment to the reader, and the reader is an AI.
 
-### 1.2 Intuition Analogy: "A Reasonable Period" in Contracts
+### 1.2 Intuitive Analogy: "A Reasonable Period" in Contracts
 
 Legal texts have phrases like "a reasonable period" too. They work because there are **precedents** behind them: courts ruling again and again on "does three months count as reasonable", forming referable case law.
 
