@@ -11,6 +11,8 @@ upstream_urls:
   - "https://github.com/github/spec-kit"
   - "https://www.owasp.org/www-project-application-security-verification-standard/"
 ---
+[English](./ch03-two-halves-of-harness.md) | **中文**
+
 # 第 03 章：夹具的两半
 
 > **本章导读**：前两章分别回答了"为什么会错"与"该喂什么"。本章回答最难的一问：**在不逐行读完的前提下，凭什么敢用？** 答案是夹具（harness）——一组把"什么算对"变成机器可判定条件的装置。本章会给你一个能直接 `git clone` 下来用的最小仓库，并当场演示门禁抓住一次真实回归。
