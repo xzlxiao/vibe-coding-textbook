@@ -48,7 +48,7 @@ Person B's output: 11 lines changed, all tests green, passed on the first round.
 
 > The core proposition of this chapter: **the model's capability ceiling is determined by "what it can see", not by "how you phrase it".** Wording only takes effect once "what it can see is already enough".
 
-### 1.2 Intuitive analogy: handing work over to a new colleague
+### 1.2 Intuitive Analogy: handing work over to a new colleague
 
 You are taking two weeks of leave and handing your work over to a new colleague. You have two handover styles:
 

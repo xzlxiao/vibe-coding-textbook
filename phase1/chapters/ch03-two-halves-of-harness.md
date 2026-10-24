@@ -39,7 +39,7 @@ So you spend a whole morning doing a job nobody wants: **manual CI**.
 
 The key to this scenario is not "the AI wrote it wrong". The key is: **the error appears in the form of "it runs"**. It gets past your manual clicking, past the three tests you wrote, and past your own eyes — because it looks exactly like correct code.
 
-### 1.2 Intuitive analogy: a new colleague's onboarding + code review
+### 1.2 Intuitive Analogy: a new colleague's onboarding + code review
 
 Suppose you hired a very smart intern who knows nothing about your project. You would do two things:
 

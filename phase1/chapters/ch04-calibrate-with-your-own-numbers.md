@@ -51,7 +51,7 @@ You may be disappointed, or you may disagree. But note: **this result is itself 
 
 What this chapter teaches is exactly this distinction. Because the vast majority of "AI productivity" debates are lost on precisely this distinction.
 
-### 1.3 Intuitive analogy: a health-check report vs how you feel
+### 1.3 Intuitive Analogy: a health-check report vs how you feel
 
 Saying "I've been feeling quite healthy lately" and receiving a health report saying "blood lipids are high" are two kinds of information.
 

@@ -52,7 +52,7 @@ Fixing those three problems took you 3 hours 20 minutes. 40 minutes of that went
 
 This is not a "the AI is unreliable" story. What the agent did in those 15 minutes was real and effective: it compressed the typing time for 180 lines of boilerplate to nearly zero. The problem lies elsewhere — **you treated "first run works" as "delivered", and between those two things lies an entire stretch of road that nobody times.**
 
-### 1.2 Intuitive analogy: the "foreman illusion" in renovation
+### 1.2 Intuitive Analogy: the "foreman illusion" in renovation
 
 Anyone who has been through a home renovation knows this scene: the foreman finishes the walls in three days; you go take a look — the walls are straight, the brick joints are even, progress is flying. What about the plumbing and wiring? Buried inside the walls, invisible, and if something goes wrong you have to smash the walls open.
 
