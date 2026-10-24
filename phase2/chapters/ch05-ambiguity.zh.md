@@ -11,6 +11,8 @@ upstream_urls:
   - "https://www.manning.com/books/specification-by-example"
   - "https://www.ietf.org/rfc/rfc2119.txt"
 ---
+[English](./ch05-ambiguity.md) | **中文**
+
 # 第 05 章：歧义的解剖学
 
 > **本章导读**：第 3、4 章教你写出可判定的判据、逼出具体的例子，但还有一类空白不会被这两招抓到——**每个人都以为自己懂了**的那种句子。本章把歧义分成六类，每类给出识别信号和提问模板，并说明"问多少问"才不至于把节奏拖死。
