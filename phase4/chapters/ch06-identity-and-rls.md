@@ -260,7 +260,7 @@ flowchart TD
 6. Someone proposes: "let's just not use RLS at all; route every read and write through the server-side API (option B), which is safer." Argue whether B is really "safer", and give three things B must additionally take on (hint: auditing, rate limits, error handling).
 
 <details>
-<summary><strong>点击展开：本章练习参考答案与深度解析</strong></summary>
+<summary><strong>Click to expand: reference answers and in-depth analysis for this chapter's exercises</strong></summary>
 
 #### 1. Analysis of question 1
 

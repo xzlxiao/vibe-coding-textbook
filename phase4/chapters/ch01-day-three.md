@@ -321,7 +321,7 @@ flowchart TD
 6. Your AI coding assistant says: "I have enabled row-level security for all tables." Design a procedure that verifies this claim without looking at the code (hint: the replay test from Chapter 06 can be put to use already), and explain why "let the AI check again" is not verification.
 
 <details>
-<summary><strong>点击展开：本章练习参考答案与深度解析</strong></summary>
+<summary><strong>Click to expand: reference answers and in-depth analysis for this chapter's exercises</strong></summary>
 
 #### 1. Analysis of question 1
 

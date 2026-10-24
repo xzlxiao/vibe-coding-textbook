@@ -223,7 +223,7 @@ flowchart TD
 6. Someone proposes: "we use `npm audit` to auto-fix vulnerabilities, so the supply chain is secure." Point out which class of risk `npm audit` covers and which it misses (hint: are squatted packages in the `npm audit` database?).
 
 <details>
-<summary><strong>点击展开：本章练习参考答案与深度解析</strong></summary>
+<summary><strong>Click to expand: reference answers and in-depth analysis for this chapter's exercises</strong></summary>
 
 #### 1. Analysis of question 1
 

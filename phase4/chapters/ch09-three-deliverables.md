@@ -280,7 +280,7 @@ flowchart TD
 6. Someone proposes: "let's have AI automatically generate the threat model from the code, so nobody has to write it by hand." Analyze the feasibility of this proposal (hint: where does the assertion's "source of the criterion" come from? How do you verify the generated model misses nothing?), and give a workable "AI drafts + human decides" process.
 
 <details>
-<summary><strong>点击展开：本章练习参考答案与深度解析</strong></summary>
+<summary><strong>Click to expand: reference answers and in-depth analysis for this chapter's exercises</strong></summary>
 
 #### 1. Analysis of question 1
 

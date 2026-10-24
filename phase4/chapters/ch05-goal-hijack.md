@@ -297,7 +297,7 @@ flowchart TD
 6. Your agent has "read notes" and "send email" tools, and injection regression finds that INJ-01 (web injection) can induce it to send out. Following the order of 3.3, give the three-step fix and state what INJ-01's result becomes after each step (escalation / successful but harmless / no response at all).
 
 <details>
-<summary><strong>点击展开：本章练习参考答案与深度解析</strong></summary>
+<summary><strong>Click to expand: reference answers and in-depth analysis for this chapter's exercises</strong></summary>
 
 #### 1. Analysis of question 1
 
