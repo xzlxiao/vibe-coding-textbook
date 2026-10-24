@@ -30,7 +30,6 @@ from _figstyle import (
 LANG = "zh"
 
 ROOT = Path(__file__).resolve().parent.parent
-STAGING = ROOT.parent / ".omc" / "work" / "bilingual-figures-en"  # en 同名互斥图暂存位（阶段 1）
 
 # ---------------------------------------------------------------- 贯穿案例参数
 PRICE = 39.0              # 订阅价，元/月
@@ -51,30 +50,10 @@ TIERS = {
     "flagship": (15.0, 60.0),
 }
 
-# 输出名映射（阶段 1：zh 走旧名原位重生成，en 走终态名；改号映射见
-# .omc/work/bilingual-baseline/05-renumber-map-26.md，阶段 2 提交 (i) 与 git mv 同批切 .zh 名）
-OLD_REL = {
-    "fig-01-four-gates": "ch01/fig-01-four-gates.png",
-    "fig-02-evidence-strength": "ch01/fig-02-evidence-strength.png",
-    "fig-01-cost-waterfall": "ch02/fig-03-cost-waterfall.png",
-    "fig-02-margin-curve": "ch02/fig-04-margin-curve.png",
-    "fig-01-paid-loop": "ch03/fig-05-paid-loop.png",
-    "fig-02-scope-quadrant": "ch03/fig-06-scope-quadrant.png",
-    "fig-01-rollback-layers": "ch04/fig-07-rollback-layers.png",
-    "fig-02-expand-contract": "ch04/fig-08-expand-contract.png",
-    "fig-01-burn-rate": "ch05/fig-09-burn-rate.png",
-    "fig-02-budget-stairs": "ch05/fig-10-budget-stairs.png",
-    "fig-01-rto-rpo": "ch06/fig-11-rto-rpo.png",
-    "fig-02-downgrade": "ch06/fig-12-downgrade.png",
-    "fig-01-cost-gates": "ch07/fig-13-cost-gates.png",
-    "fig-02-budget-guard": "ch07/fig-14-budget-guard.png",
-    "fig-01-ai-act-timeline": "ch08/fig-16-ai-act-timeline.png",
-    "fig-02-obligation-matrix": "ch08/fig-15-obligation-matrix.png",
-    "fig-01-health-dashboard": "ch09/fig-17-health-dashboard.png",
-    "fig-02-rewrite-score": "ch09/fig-18-rewrite-score.png",
-    "fig-01-gantt": "ch10/fig-19-gantt.png",
-    "fig-02-cashflow": "ch10/fig-20-cashflow.png",
-}
+# 输出名映射（阶段 2 提交 (i) 起为终态规则）：en 落 FINAL_REL、zh 落 FINAL_REL 加 .zh 后缀
+# （fig-NN-slug.zh.png）；26 处改号已并入 FINAL_REL，58 张 zh 图已 git mv 到位
+# （映射依据 .omc/work/bilingual-baseline/05-renumber-map-26.md；ch08 两图按图题口径
+# 修正该清单交叉：图 8-1=obligation-matrix→fig-01、图 8-2=ai-act-timeline→fig-02）。
 FINAL_REL = {
     "fig-01-four-gates": "ch01/fig-01-four-gates.png",
     "fig-02-evidence-strength": "ch01/fig-02-evidence-strength.png",
@@ -90,41 +69,33 @@ FINAL_REL = {
     "fig-02-downgrade": "ch06/fig-02-downgrade.png",
     "fig-01-cost-gates": "ch07/fig-01-cost-gates.png",
     "fig-02-budget-guard": "ch07/fig-02-budget-guard.png",
-    "fig-01-ai-act-timeline": "ch08/fig-01-ai-act-timeline.png",
-    "fig-02-obligation-matrix": "ch08/fig-02-obligation-matrix.png",
+    "fig-01-ai-act-timeline": "ch08/fig-02-ai-act-timeline.png",
+    "fig-02-obligation-matrix": "ch08/fig-01-obligation-matrix.png",
     "fig-01-health-dashboard": "ch09/fig-01-health-dashboard.png",
     "fig-02-rewrite-score": "ch09/fig-02-rewrite-score.png",
     "fig-01-gantt": "ch10/fig-01-gantt.png",
     "fig-02-cashflow": "ch10/fig-02-cashflow.png",
 }
 
-
 def _t(fig_id: str) -> dict:
     """取文案——语言差异只允许出现在这里与字体栈。"""
     return T[fig_id][LANG]
 
-
 def _out(fig_id: str):
-    if LANG == "zh":
-        return ASSETS / OLD_REL[fig_id]
     rel = FINAL_REL[fig_id]
-    if rel == OLD_REL[fig_id]:
-        # en 终态名与 zh 旧名互斥：暂存 .omc/work，阶段 2 提交 (i) zh 让名后 cp 落位
-        return STAGING / "phase5" / "assets" / rel
+    if LANG == "zh":
+        rel = rel[:-4] + ".zh.png"
     return ASSETS / rel
-
 
 def llm_cost(tier: str) -> float:
     pin, pout = TIERS[tier]
     return TOK_IN * pin / 1e6 + TOK_OUT * pout / 1e6
-
 
 def meeting_cost(tier: str) -> float:
     """单次会议的可变成本（不含支付通道费）。"""
     asr = MEETING_MIN * ASR_PER_MIN
     storage = MEETING_MIN * AUDIO_MB_PER_MIN / 1024 * STORE_PER_GB
     return asr + storage + llm_cost(tier) + EMB_PER_MEETING
-
 
 # ============================================================ 第 01 章
 def fig01_four_gates() -> None:
@@ -158,7 +129,6 @@ def fig01_four_gates() -> None:
     stamp(fig, t["stamp"])
     save(fig, _out("fig-01-four-gates"))
 
-
 def fig01_evidence_strength() -> None:
     t = _t("fig-02-evidence-strength")
     points = list(zip(t["points"],
@@ -191,7 +161,6 @@ def fig01_evidence_strength() -> None:
                  fontsize=14.2, fontweight="bold", loc="left", pad=14)
     stamp(fig, t["stamp"])
     save(fig, _out("fig-02-evidence-strength"))
-
 
 # ============================================================ 第 02 章
 def fig02_waterfall() -> None:
@@ -264,7 +233,6 @@ def fig02_waterfall() -> None:
     stamp(fig, t["stamp"])
     save(fig, _out("fig-01-cost-waterfall"))
 
-
 def fig02_margin_curve() -> None:
     t = _t("fig-02-margin-curve")
     n = np.arange(1, 301)
@@ -278,7 +246,6 @@ def fig02_margin_curve() -> None:
         ax.plot(n, margin, color=colors[tier], linewidth=2.2,
                 label=t["tier_label"].format(name=t["tier_names"][tier], be=be))
         ax.scatter([be], [0], color=colors[tier], s=46, zorder=4, edgecolor="white")
-
 
     ax.axhline(0, color=INK, linewidth=1.2)
     ax.axvline(30, color=MUTED, linewidth=1.0, linestyle="--")
@@ -304,7 +271,6 @@ def fig02_margin_curve() -> None:
                  fontsize=13.6, fontweight="bold", loc="left", pad=14)
     stamp(fig, t["stamp"])
     save(fig, _out("fig-02-margin-curve"))
-
 
 # ============================================================ 第 03 章
 def fig03_scope_quadrant() -> None:
@@ -353,7 +319,6 @@ def fig03_scope_quadrant() -> None:
     stamp(fig, t["stamp"])
     save(fig, _out("fig-02-scope-quadrant"))
 
-
 def fig03_paid_loop() -> None:
     t = _t("fig-01-paid-loop")
     fig, ax = plt.subplots(figsize=(9.6, 5.0))
@@ -394,7 +359,6 @@ def fig03_paid_loop() -> None:
                  fontsize=14.2, fontweight="bold", loc="left", pad=12)
     stamp(fig, t["stamp"])
     save(fig, _out("fig-01-paid-loop"))
-
 
 # ============================================================ 第 04 章
 def fig04_expand_contract() -> None:
@@ -446,7 +410,6 @@ def fig04_expand_contract() -> None:
     stamp(fig, t["stamp"])
     save(fig, _out("fig-02-expand-contract"))
 
-
 def fig04_rollback_layers() -> None:
     t = _t("fig-01-rollback-layers")
     items = [
@@ -483,11 +446,9 @@ def fig04_rollback_layers() -> None:
     stamp(fig, t["stamp"])
     save(fig, _out("fig-01-rollback-layers"))
 
-
 # ============================================================ 第 05 章
 SLO = 0.995
 BUDGET_MIN = (1 - SLO) * 30 * 24 * 60      # 30 天窗口下的错误预算（分钟）
-
 
 def fig05_burn_rate() -> None:
     t = _t("fig-01-burn-rate")
@@ -521,7 +482,6 @@ def fig05_burn_rate() -> None:
                  fontsize=14.2, fontweight="bold", loc="left", pad=14)
     stamp(fig, t["stamp"])
     save(fig, _out("fig-01-burn-rate"))
-
 
 def fig05_budget_stairs() -> None:
     t = _t("fig-02-budget-stairs")
@@ -560,7 +520,6 @@ def fig05_budget_stairs() -> None:
                  fontsize=13.6, fontweight="bold", loc="left", pad=14)
     stamp(fig, t["stamp"])
     save(fig, _out("fig-02-budget-stairs"))
-
 
 # ============================================================ 第 06 章
 def fig06_rto_rpo() -> None:
@@ -612,7 +571,6 @@ def fig06_rto_rpo() -> None:
     stamp(fig, t["stamp"])
     save(fig, _out("fig-01-rto-rpo"))
 
-
 def fig06_downgrade() -> None:
     t = _t("fig-02-downgrade")
     strategies = list(zip(t["names"],
@@ -645,7 +603,6 @@ def fig06_downgrade() -> None:
     stamp(fig, t["stamp"])
     save(fig, _out("fig-02-downgrade"))
 
-
 # ============================================================ 第 07 章
 def fig07_gates() -> None:
     t = _t("fig-01-cost-gates")
@@ -675,7 +632,6 @@ def fig07_gates() -> None:
 
     stamp(fig, t["stamp"])
     save(fig, _out("fig-01-cost-gates"))
-
 
 def fig07_guard() -> None:
     t = _t("fig-02-budget-guard")
@@ -713,7 +669,6 @@ def fig07_guard() -> None:
     stamp(fig, t["stamp"])
     save(fig, _out("fig-02-budget-guard"))
 
-
 # ============================================================ 第 08 章
 def fig08_ai_act_timeline() -> None:
     t = _t("fig-01-ai-act-timeline")
@@ -749,7 +704,6 @@ def fig08_ai_act_timeline() -> None:
         if desc:
             ax.text(2.34, y - 0.14, desc, fontsize=8.8, color="#52606D", va="center")
 
-
     ax.annotate("", xy=(2.05, ypos(24)), xytext=(2.05, ypos(40)),
                 arrowprops=dict(arrowstyle="<->", color=GOOD, linewidth=1.2, linestyle="--"))
     ax.text(1.72, (ypos(24) + ypos(40)) / 2, t["buffer"], ha="right", va="center",
@@ -762,7 +716,6 @@ def fig08_ai_act_timeline() -> None:
                  fontsize=14.0, fontweight="bold", loc="left", pad=12)
     stamp(fig, t["stamp"])
     save(fig, _out("fig-01-ai-act-timeline"))
-
 
 def fig08_obligation_matrix() -> None:
     t = _t("fig-02-obligation-matrix")
@@ -811,7 +764,6 @@ def fig08_obligation_matrix() -> None:
     stamp(fig, t["stamp"])
     save(fig, _out("fig-02-obligation-matrix"))
 
-
 # ============================================================ 第 09 章
 def fig09_health_dashboard() -> None:
     t = _t("fig-01-health-dashboard")
@@ -844,7 +796,6 @@ def fig09_health_dashboard() -> None:
     stamp(fig, t["stamp"])
     save(fig, _out("fig-01-health-dashboard"))
 
-
 def fig09_rewrite_score() -> None:
     t = _t("fig-02-rewrite-score")
     criteria = [
@@ -875,7 +826,6 @@ def fig09_rewrite_score() -> None:
                  fontsize=13.8, fontweight="bold", loc="left", pad=14)
     stamp(fig, t["stamp"])
     save(fig, _out("fig-02-rewrite-score"))
-
 
 # ============================================================ 第 10 章
 def fig10_gantt() -> None:
@@ -915,7 +865,6 @@ def fig10_gantt() -> None:
     stamp(fig, t["stamp"])
     save(fig, _out("fig-01-gantt"))
 
-
 def fig10_cashflow() -> None:
     t = _t("fig-02-cashflow")
     months = np.arange(0, 13)
@@ -951,7 +900,6 @@ def fig10_cashflow() -> None:
     stamp(fig, t["stamp"].format(capex=capex, price=PRICE))
     save(fig, _out("fig-02-cashflow"))
 
-
 # ============================================================ 调度
 FIGURES = {
     "ch01": [fig01_four_gates, fig01_evidence_strength],
@@ -965,7 +913,6 @@ FIGURES = {
     "ch09": [fig09_health_dashboard, fig09_rewrite_score],
     "ch10": [fig10_gantt, fig10_cashflow],
 }
-
 
 def main() -> None:
     global LANG
@@ -985,7 +932,6 @@ def main() -> None:
         for fn in FIGURES[chapter]:
             fn()
     print("完成。")
-
 
 if __name__ == "__main__":
     main()

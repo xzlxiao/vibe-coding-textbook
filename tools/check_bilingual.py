@@ -10,8 +10,8 @@
     M4 链接半   ERROR（全程启用）：扫描域内 md 相对链接全部解析存在。
     M4 语言半   ERROR（配对出现即查）：X.zh.md 只引用 .zh.png；X.md 不得引用 .zh.png（只查图片目标）。
     M5 图题     WARN（提交 (ii) 起升 ERROR）：文件 fig-NN ↔ 图题「图 C-NN」，C==frontmatter chapter_id。
-    A 类旧名    WARN（提交 (i)/(ii) 起升 ERROR）：26 旧 PNG 名 + 5 中文模板名 grep=0。
-    M6 文件名   WARN（提交 (i) 起升 ERROR）：路径字符全部 <= 0x7F。
+    A 类旧名    26 旧 PNG 名 ERROR（提交 (i) 起拦截）；5 中文模板名 WARN（提交 (ii) 起升 ERROR）。
+    M6 文件名   ERROR（提交 (i) 起拦截）：路径字符全部 <= 0x7F。
 
 扫描域（计划 §四 开头，写死）：phase*/、根 README*、docs/、tools/、.githooks/；
 排除 .omc/ 与 .git/。链接扫描另排除 phase3/drafts/ 与 phase4/_archive/（legacy 6 处坏引用，
@@ -34,7 +34,8 @@ EXCLUDE_DIRS = {".git", ".omc", ".omc-hook", "__pycache__"}
 LEGACY_EXCLUDE = ("phase3/drafts/", "phase4/_archive/")
 
 # A 类消失名（阶段 0 基线 05-renumber-map-26.md + 5 中文模板名；终态字符串真消失）
-A_CLASS_VANISH = [
+# 分两档：26 旧 PNG 名在提交 (i) 清零并拦截；5 中文模板名随提交 (ii) README 树行改写清零。
+A_CLASS_VANISH_PNG = [
     # 26 旧 PNG 名（改号者）
     "fig-04-context-layers.png", "fig-05-harness-flow.png", "fig-06-gate-cost.png",
     "fig-07-ab-timeline.png",
@@ -47,7 +48,10 @@ A_CLASS_VANISH = [
     "fig-15-obligation-matrix.png", "fig-16-ai-act-timeline.png",
     "fig-17-health-dashboard.png", "fig-18-rewrite-score.png", "fig-19-gantt.png",
     "fig-20-cashflow.png",
-    # 5 中文模板名
+]
+
+A_CLASS_VANISH_TPL = [
+    # 5 中文模板名（(ii) README 树行改写后清零）
     "上线包检查单.md", "单用户月成本表.csv", "回滚演练记录.md", "成本合规边界说明.md", "收钱判定书.md",
 ]
 
@@ -178,18 +182,23 @@ def check_m5_captions(rep: Report) -> None:
 
 
 def check_a_class_vanish(rep: Report) -> None:
-    """A 类消失名 grep：26 旧 PNG 名 + 5 中文模板名。"""
-    hits = 0
+    """A 类消失名 grep：26 旧 PNG 名（ERROR）+ 5 中文模板名（WARN，(ii) 升 ERROR）。"""
+    hits_png = hits_tpl = 0
     for path in scan_text_files(include_legacy=True):
         rel = os.path.relpath(path, ROOT).replace(os.sep, "/")
         if rel == "tools/check_bilingual.py":  # 检查器自身承载名单，不计残留
             continue
         for i, line in enumerate(open(path, encoding="utf-8", errors="replace").read().splitlines(), 1):
-            for name in A_CLASS_VANISH:
+            for name in A_CLASS_VANISH_PNG:
                 if name in line:
-                    hits += 1
-                    rep.warn("A 类旧名残留：%s:%d 含 %s" % (rel, i, name))
-    print("[A 类旧名] 消失名提及 %d 处（WARN：提交 (i)/(ii) 后应为 0 并升 ERROR）" % hits)
+                    hits_png += 1
+                    rep.error("A 类旧名残留(26 旧 PNG 名)：%s:%d 含 %s" % (rel, i, name))
+            for name in A_CLASS_VANISH_TPL:
+                if name in line:
+                    hits_tpl += 1
+                    rep.warn("A 类旧名残留(5 中文模板名，(ii) 升 ERROR)：%s:%d 含 %s" % (rel, i, name))
+    print("[A 类旧名] 旧 PNG 名 %d 处（ERROR）/ 中文模板名 %d 处（WARN，(ii) 升 ERROR）"
+          % (hits_png, hits_tpl))
 
 
 def check_m6_filenames(rep: Report) -> None:
@@ -206,8 +215,8 @@ def check_m6_filenames(rep: Report) -> None:
                 rel = os.path.relpath(full, ROOT).replace(os.sep, "/")
                 if any(ord(c) > 127 for c in rel):
                     hits += 1
-                    rep.warn("M6 非 ASCII 文件名：%s" % rel)
-    print("[M6 文件名] 非 ASCII 路径 %d 处（WARN：提交 (i) 后应为 0 并升 ERROR）" % hits)
+                    rep.error("M6 非 ASCII 文件名：%s" % rel)
+    print("[M6 文件名] 非 ASCII 路径 %d 处（ERROR）" % hits)
 
 
 
@@ -292,6 +301,9 @@ def check_m11(rep: Report) -> None:
                     if tgt.id == "T":
                         t_dict = _ast.literal_eval(node.value)
                         t_where = script_rel
+        if not universe:
+            # 阶段 2 提交 (i) 起脚本只余 FINAL_REL：图 id 全集以 FINAL_REL 为准
+            universe = set(finals)
         if t_dict is None:
             ft = os.path.join(os.path.dirname(script_rel), "fig_texts.py")
             ft_tree = _ast.parse(open(ft, encoding="utf-8").read())

@@ -23,7 +23,6 @@ import matplotlib.pyplot as plt
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]  # phase2/
-STAGING = ROOT.parent / ".omc" / "work" / "bilingual-figures-en"  # en 同名互斥图暂存位（阶段 1）
 
 LANG = "zh"
 
@@ -66,14 +65,9 @@ plt.rcParams.update(
     }
 )
 
-# 输出名映射（阶段 1：zh 走旧名原位重生成，en 走终态名；阶段 2 提交 (i) 与 git mv 同批
-# 切换为 zh=<终态名>.zh.png、en=<终态名>，26 处改号见 .omc/work/bilingual-baseline/05-renumber-map-26.md）
-OLD_REL = {
-    "fig-01-rework-cost": "assets/ch01/fig-02-rework-cost.png",
-    "fig-01-batch-size": "assets/ch07/fig-02-batch-size.png",
-    "fig-01-first-pass": "assets/ch09/fig-02-first-pass.png",
-    "fig-01-cognitive-debt": "assets/ch12/fig-02-cognitive-debt.png",
-}
+# 输出名映射（阶段 2 提交 (i) 起为终态规则）：en 落 FINAL_REL、zh 落 FINAL_REL 加 .zh 后缀
+# （fig-NN-slug.zh.png）；26 处改号已并入 FINAL_REL，58 张 zh 图已 git mv 到位
+# （映射依据 .omc/work/bilingual-baseline/05-renumber-map-26.md）。
 FINAL_REL = {
     "fig-01-rework-cost": "assets/ch01/fig-01-rework-cost.png",
     "fig-01-batch-size": "assets/ch07/fig-01-batch-size.png",
@@ -171,26 +165,19 @@ T = {
     },
 }
 
-
 def _t(fig_id: str) -> dict:
     """取文案——语言差异只允许出现在这里与字体栈。"""
     return T[fig_id][LANG]
 
-
-def _out(fig_id: str) -> Path:
-    if LANG == "zh":
-        return ROOT / OLD_REL[fig_id]
+def _out(fig_id: str):
     rel = FINAL_REL[fig_id]
-    if rel == OLD_REL[fig_id]:
-        # en 终态名与 zh 旧名互斥：暂存 .omc/work，阶段 2 提交 (i) zh 让名后 cp 落位
-        return STAGING / "phase2" / rel
+    if LANG == "zh":
+        rel = rel[:-4] + ".zh.png"
     return ROOT / rel
-
 
 def _note(fig, text: str) -> None:
     """图下方的模型示意声明，避免被当成实证数据。"""
     fig.text(0.995, -0.075, text, ha="right", va="bottom", fontsize=7.5, color=MUTED)
-
 
 def _save(fig, fig_id: str) -> None:
     path = _out(fig_id)
@@ -198,7 +185,6 @@ def _save(fig, fig_id: str) -> None:
     fig.savefig(path, bbox_inches="tight", pad_inches=0.28, facecolor="white")
     plt.close(fig)
     print(f"[ok] {os.path.relpath(path, ROOT)}")
-
 
 # ---------------------------------------------------------------- 图 1-2
 def fig_01_rework_cost() -> None:
@@ -234,7 +220,6 @@ def fig_01_rework_cost() -> None:
     _note(fig, t["note"])
     _save(fig, "fig-01-rework-cost")
 
-
 # ---------------------------------------------------------------- 图 7-2
 def fig_07_batch_size() -> None:
     t = _t("fig-01-batch-size")
@@ -261,7 +246,6 @@ def fig_07_batch_size() -> None:
     ax.legend(loc="upper left", fontsize=9)
     _note(fig, t["note"])
     _save(fig, "fig-01-batch-size")
-
 
 # ---------------------------------------------------------------- 图 9-2
 def fig_09_first_pass() -> None:
@@ -294,7 +278,6 @@ def fig_09_first_pass() -> None:
     _note(fig, t["note"])
     _save(fig, "fig-01-first-pass")
 
-
 # ---------------------------------------------------------------- 图 12-2
 def fig_12_cognitive_debt() -> None:
     t = _t("fig-01-cognitive-debt")
@@ -318,7 +301,6 @@ def fig_12_cognitive_debt() -> None:
     _note(fig, t["note"])
     _save(fig, "fig-01-cognitive-debt")
 
-
 def main() -> None:
     global LANG
     ap = argparse.ArgumentParser(description="Generate phase2 figures.")
@@ -330,7 +312,6 @@ def main() -> None:
     fig_07_batch_size()
     fig_09_first_pass()
     fig_12_cognitive_debt()
-
 
 if __name__ == "__main__":
     main()

@@ -64,11 +64,11 @@ PAPER = "#F7F9FB"
 
 ROOT = Path(__file__).resolve().parent.parent
 ASSETS = ROOT / "assets"
-STAGING = ROOT.parent / ".omc" / "work" / "bilingual-figures-en"  # en 同名互斥图暂存位（阶段 1）
 
-# 输出名映射（阶段 1：zh 走旧名原位重生成，en 走终态名；phase4 无改号，终态名==旧名，
-# 故 en 全部暂存，阶段 2 提交 (i) zh 让出 .zh 名后 cp 落位）
-OLD_REL = {
+# 输出名映射（阶段 2 提交 (i) 起为终态规则）：en 落 FINAL_REL、zh 落 FINAL_REL 加 .zh 后缀
+# （fig-NN-slug.zh.png）；26 处改号已并入 FINAL_REL，58 张 zh 图已 git mv 到位
+# （映射依据 .omc/work/bilingual-baseline/05-renumber-map-26.md）。
+FINAL_REL = {
     "fig-01-scan-scale": "ch01/fig-01-scan-scale.png",
     "fig-02-omission-spectrum": "ch01/fig-02-omission-spectrum.png",
     "fig-01-privilege-shapes": "ch02/fig-01-privilege-shapes.png",
@@ -89,7 +89,6 @@ OLD_REL = {
     "fig-01-pipeline": "ch10/fig-01-pipeline.png",
     "fig-02-decay": "ch10/fig-02-decay.png",
 }
-FINAL_REL = dict(OLD_REL)
 
 
 def _t(fig_id: str) -> dict:
@@ -97,19 +96,13 @@ def _t(fig_id: str) -> dict:
     return T[fig_id][LANG]
 
 
-def _out(fig_id: str) -> Path:
+def _out(fig_id: str):
+    rel = FINAL_REL[fig_id]
     if LANG == "zh":
-        path = ASSETS / OLD_REL[fig_id]
-    else:
-        rel = FINAL_REL[fig_id]
-        if rel == OLD_REL[fig_id]:
-            # en 终态名与 zh 旧名互斥：暂存 .omc/work，阶段 2 提交 (i) zh 让名后 cp 落位
-            path = STAGING / "phase4" / "assets" / rel
-        else:
-            path = ASSETS / rel
+        rel = rel[:-4] + ".zh.png"
+    path = ASSETS / rel
     path.parent.mkdir(parents=True, exist_ok=True)
     return path
-
 
 def canvas(fig_w: float, fig_h: float, x_span: float):
     """满幅画布，返回 (fig, ax, y_span)；1 数据单位在 x/y 上等长。"""

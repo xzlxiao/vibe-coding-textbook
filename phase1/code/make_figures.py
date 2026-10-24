@@ -64,19 +64,10 @@ PAPER = "#F7F9FB"
 
 ROOT = Path(__file__).resolve().parent.parent
 ASSETS = ROOT / "assets"
-STAGING = ROOT.parent / ".omc" / "work" / "bilingual-figures-en"  # en 同名互斥图暂存位（阶段 1）
 
-# 输出名映射（阶段 1：zh 走旧名原位重生成，en 走终态名；改号映射见
-# .omc/work/bilingual-baseline/05-renumber-map-26.md，阶段 2 提交 (i) 与 git mv 同批切 .zh 名）
-OLD_REL = {
-    "fig-01-perception-gap": "ch01/fig-01-perception-gap.png",
-    "fig-02-context-collapse": "ch01/fig-02-context-collapse.png",
-    "fig-03-time-accounting": "ch01/fig-03-time-accounting.png",
-    "fig-01-context-layers": "ch02/fig-04-context-layers.png",
-    "fig-01-harness-flow": "ch03/fig-05-harness-flow.png",
-    "fig-02-gate-cost": "ch03/fig-06-gate-cost.png",
-    "fig-01-ab-timeline": "ch04/fig-07-ab-timeline.png",
-}
+# 输出名映射（阶段 2 提交 (i) 起为终态规则）：en 落 FINAL_REL、zh 落 FINAL_REL 加 .zh 后缀
+# （fig-NN-slug.zh.png）；26 处改号已并入 FINAL_REL，58 张 zh 图已 git mv 到位
+# （映射依据 .omc/work/bilingual-baseline/05-renumber-map-26.md）。
 FINAL_REL = {
     "fig-01-perception-gap": "ch01/fig-01-perception-gap.png",
     "fig-02-context-collapse": "ch01/fig-02-context-collapse.png",
@@ -256,25 +247,17 @@ T = {
     },
 }
 
-
 def _t(fig_id: str) -> dict:
     """取文案——语言差异只允许出现在这里与字体栈。"""
     return T[fig_id][LANG]
 
-
-def _out(fig_id: str) -> Path:
+def _out(fig_id: str):
+    rel = FINAL_REL[fig_id]
     if LANG == "zh":
-        path = ASSETS / OLD_REL[fig_id]
-    else:
-        rel = FINAL_REL[fig_id]
-        if rel == OLD_REL[fig_id]:
-            # en 终态名与 zh 旧名互斥：暂存 .omc/work，阶段 2 提交 (i) zh 让名后 cp 落位
-            path = STAGING / "phase1" / "assets" / rel
-        else:
-            path = ASSETS / rel
+        rel = rel[:-4] + ".zh.png"
+    path = ASSETS / rel
     path.parent.mkdir(parents=True, exist_ok=True)
     return path
-
 
 def save(fig, fig_id: str) -> None:
     path = _out(fig_id)
@@ -282,10 +265,8 @@ def save(fig, fig_id: str) -> None:
     plt.close(fig)
     print(f"  ✓ {path.name}")
 
-
 def stamp(fig, text: str) -> None:
     fig.text(0.005, -0.035, text, fontsize=8.5, color=MUTED, ha="left", va="top")
-
 
 def box(ax, x, y, w, h, label, fc=PAPER, ec="#B8C1CC", fs=10.5, bold=False, tc=INK):
     ax.add_patch(
@@ -300,7 +281,6 @@ def box(ax, x, y, w, h, label, fc=PAPER, ec="#B8C1CC", fs=10.5, bold=False, tc=I
         color=tc, fontweight="bold" if bold else "normal", zorder=3, linespacing=1.45,
     )
 
-
 def arrow(ax, xy_from, xy_to, color="#8A94A6", style="-|>", lw=1.4, rad=0.0, ls="-"):
     ax.add_patch(
         FancyArrowPatch(
@@ -309,7 +289,6 @@ def arrow(ax, xy_from, xy_to, color="#8A94A6", style="-|>", lw=1.4, rad=0.0, ls=
             linestyle=ls, zorder=1, shrinkA=2, shrinkB=2,
         )
     )
-
 
 # ---------------------------------------------------------------- ch01 · fig 01
 def fig_perception_gap() -> None:
@@ -351,7 +330,6 @@ def fig_perception_gap() -> None:
     )
     stamp(fig, t["stamp"])
     save(fig, "fig-01-perception-gap")
-
 
 # ---------------------------------------------------------------- ch01 · fig 02
 def fig_time_accounting() -> None:
@@ -433,7 +411,6 @@ def fig_time_accounting() -> None:
     stamp(fig, t["stamp"])
     save(fig, "fig-03-time-accounting")
 
-
 # ---------------------------------------------------------------- ch01 · fig 03
 def fig_context_collapse() -> None:
     t = _t("fig-02-context-collapse")
@@ -486,7 +463,6 @@ def fig_context_collapse() -> None:
     stamp(fig, t["stamp"])
     save(fig, "fig-02-context-collapse")
 
-
 # ---------------------------------------------------------------- ch02 · fig 04
 def fig_context_layers() -> None:
     t = _t("fig-01-context-layers")
@@ -534,7 +510,6 @@ def fig_context_layers() -> None:
                  fontsize=14, fontweight="bold", loc="left", pad=12)
     stamp(fig, t["stamp"])
     save(fig, "fig-01-context-layers")
-
 
 # ---------------------------------------------------------------- ch03 · fig 05
 def fig_harness_flow() -> None:
@@ -584,7 +559,6 @@ def fig_harness_flow() -> None:
     stamp(fig, t["stamp"])
     save(fig, "fig-01-harness-flow")
 
-
 # ---------------------------------------------------------------- ch03 · fig 06
 def fig_gate_cost() -> None:
     t = _t("fig-02-gate-cost")
@@ -618,7 +592,6 @@ def fig_gate_cost() -> None:
                  fontsize=14, fontweight="bold", loc="left", pad=14)
     stamp(fig, t["stamp"])
     save(fig, "fig-02-gate-cost")
-
 
 # ---------------------------------------------------------------- ch04 · fig 07
 def fig_ab_timeline() -> None:
@@ -667,7 +640,6 @@ def fig_ab_timeline() -> None:
     stamp(fig, t["stamp"])
     save(fig, "fig-01-ab-timeline")
 
-
 def main() -> None:
     global LANG
     ap = argparse.ArgumentParser(description="Generate phase1 figures.")
@@ -684,7 +656,6 @@ def main() -> None:
     fig_gate_cost()
     fig_ab_timeline()
     print("完成。")
-
 
 if __name__ == "__main__":
     main()

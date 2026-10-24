@@ -18,7 +18,6 @@ from pathlib import Path
 import _figstyle as S
 
 ROOT = Path(__file__).resolve().parent.parent   # phase3/
-STAGING = ROOT.parent / ".omc" / "work" / "bilingual-figures-en"  # en 同名互斥图暂存位（阶段 1）
 
 LANG = "zh"
 
@@ -26,9 +25,10 @@ INK, MUTED, RULE, ACCENT, NEUTRAL, GOOD, WASH = (
     S.INK, S.MUTED, S.RULE, S.ACCENT, S.NEUTRAL, S.GOOD, S.WASH
 )
 
-# 输出名映射（阶段 1：zh 走旧名原位重生成，en 走终态名；phase3 无改号，终态名==旧名，
-# 故 en 全部暂存，阶段 2 提交 (i) zh 让出 .zh 名后 cp 落位）
-OLD_REL = {
+# 输出名映射（阶段 2 提交 (i) 起为终态规则）：en 落 FINAL_REL、zh 落 FINAL_REL 加 .zh 后缀
+# （fig-NN-slug.zh.png）；26 处改号已并入 FINAL_REL，58 张 zh 图已 git mv 到位
+# （映射依据 .omc/work/bilingual-baseline/05-renumber-map-26.md）。
+FINAL_REL = {
     "fig-01-detection-matrix": "assets/ch01/fig-01-detection-matrix.png",
     "fig-01-pass-rate-gap": "assets/ch02/fig-01-pass-rate-gap.png",
     "fig-01-hallucinated-packages": "assets/ch04/fig-01-hallucinated-packages.png",
@@ -38,7 +38,6 @@ OLD_REL = {
     "fig-01-three-readings": "assets/ch09/fig-01-three-readings.png",
     "fig-01-gate-cost": "assets/ch12/fig-01-gate-cost.png",
 }
-FINAL_REL = dict(OLD_REL)
 
 # 每图双语文案（图内标注文案的单一事实源）
 T = {
@@ -207,15 +206,10 @@ def _t(fig_id: str) -> dict:
 
 
 def _out(fig_id: str):
+    rel = FINAL_REL[fig_id]
     if LANG == "zh":
-        path = ROOT / OLD_REL[fig_id]
-    else:
-        rel = FINAL_REL[fig_id]
-        if rel == OLD_REL[fig_id]:
-            # en 终态名与 zh 旧名互斥：暂存 .omc/work，阶段 2 提交 (i) zh 让名后 cp 落位
-            path = STAGING / "phase3" / rel
-        else:
-            path = ROOT / rel
+        rel = rel[:-4] + ".zh.png"
+    path = ROOT / rel
     path.parent.mkdir(parents=True, exist_ok=True)
     return path
 
