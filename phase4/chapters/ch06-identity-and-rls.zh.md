@@ -13,6 +13,8 @@ upstream_urls:
   - "https://cwe.mitre.org/"
 ---
 
+[English](./ch06-identity-and-rls.md) | **中文**
+
 # 第 06 章：身份与默认陷阱
 
 > **本章导读**：第 01 章说"缺失的安全属性不会报错"，这一章讲最常缺失的那一个——**数据层的授权**。学完本章，你能在十分钟内自己复现"公开 key + 缺失 RLS"这个漏洞形态，说出三种修法各自的代价，并且知道怎么验证"我确认它开了"这句话。
@@ -159,7 +161,7 @@ python3 replay_probe.py --base-url https://<项目>.supabase.co \
 
 跑 `code/ch06/rls_policies.sql` 里的 `enable row level security` 与四条策略，再跑一次同一条命令。预期结果：**空集**，判定变**健康**。
 
-两次输出的差别，就是"默认值"这三个字的全部含义。**这一步要留档**：把两次的行数写进你的重放报告（`templates/replay-report.md`）。
+两次输出的差别，就是"默认值"这三个字的全部含义。**这一步要留档**：把两次的行数写进你的重放报告（`templates/replay-report.zh.md`）。
 
 ### 3.3 一个几乎所有人第一次都会踩的坑
 
@@ -249,7 +251,7 @@ flowchart TD
 
 ### 动手应用题（Tier 2）
 
-3. 在演示环境跑完整的十分钟流程：建表 → 不开 RLS → 探测到全表 → 开 RLS + 四策略 → 再探测得空集。把两次的行数与判定写进 `templates/replay-report.md`。
+3. 在演示环境跑完整的十分钟流程：建表 → 不开 RLS → 探测到全表 → 开 RLS + 四策略 → 再探测得空集。把两次的行数与判定写进 `templates/replay-report.zh.md`。
 4. 给你的 `notes`（或等价表）写四条策略，并写一条**应当失败**的断言（格式见第 09 章的五要素）。要求：断言能在当前代码下失败。
 
 ### 深度挑战题（Tier 3）
