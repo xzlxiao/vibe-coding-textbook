@@ -11,6 +11,8 @@ upstream_urls:
   - "https://github.com/github/spec-kit"
   - "https://martinfowler.com/"
 ---
+[English](./ch10-antipatterns.md) | **中文**
+
 # 第 10 章：反模式——SDD 退化成瀑布的五种死法
 
 > **本章导读**：这本书教你把判断写下来，但写下来这件事本身会失控。规格写重了，你就把 1970 年代的瀑布流程原样请了回来，还多花了一倍时间。本章列五种死法、各自的早期信号与解药，并回答一个被回避的问题：**什么时候不该写规格。**
