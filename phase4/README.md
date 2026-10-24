@@ -4,7 +4,7 @@
 
 > **Positioning**: a book you can read cover to cover on its own. It does not assume you have read the first four volumes of this series — Section 6 gives four prerequisite self-checks; fail them and fill the gaps first, which takes less than two hours.
 > **The only question it answers**: an AI system that runs, and even makes money — **is it contained**?
-> **Design principles**: intuition first · First Principles decomposition · tightly coupled text and figures · every number carries its counting basis · every boundary must be testable
+> **Design principles**: intuition first · first principles decomposition · tightly coupled text and figures · every number carries its counting basis · every boundary must be testable
 
 ---
 
@@ -137,7 +137,7 @@ Beginners do not get stuck on hard concepts; they get stuck in four places where
 
 ## 3. Detailed Chapter Outline
 
-Five parts, ten chapters. Every chapter is written to the same skeleton: cognitive anchor → First Principles → hands-on walkthrough → misconception contrast → summary topology → three-tier exercises (folded answers).
+Five parts, ten chapters. Every chapter is written to the same skeleton: cognitive anchor → first principles → hands-on walkthrough → misconception contrast → summary topology → three-tier exercises (folded answers).
 
 ### Part One · Understanding: why it cannot be contained
 
