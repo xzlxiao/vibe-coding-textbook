@@ -34,7 +34,7 @@ People selling products and people selling milk tea are calculating the same thi
 
 AI products die here most easily, because of one property: **marginal cost is not zero, and it fluctuates wildly**. For traditional software, one more user costs almost nothing; for an AI product, one more user can make you lose two thousand this month — and you will not know it before you look at the bank balance.
 
-### 1.2 Intuition by Analogy: Three Layers of Gross Margin
+### 1.2 Intuitive Analogy: Three Layers of Gross Margin
 
 ```mermaid
 flowchart LR

@@ -43,7 +43,7 @@ flowchart LR
     F --> S["本章方案：先用四道门定位，只补那一道"]
 ```
 
-### 1.2 Intuition by Analogy: Hosting Dinner vs. Opening a Restaurant
+### 1.2 Intuitive Analogy: Hosting Dinner vs. Opening a Restaurant
 
 A friend comes to your home for dinner and says "this dish is really good". What does it take for that statement to hold? He is hungry, he does not have to pay, he does not have to wait for a table, and if it makes him sick you do not have to compensate him.
 

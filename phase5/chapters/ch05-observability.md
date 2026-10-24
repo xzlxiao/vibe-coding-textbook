@@ -41,7 +41,7 @@ flowchart LR
     F --> S["本章方案：症状告警 + 错误预算 + AI 专属信号"]
 ```
 
-### 1.2 Intuition by Analogy: The Point of a Dashboard
+### 1.2 Intuitive Analogy: The Point of a Dashboard
 
 You watch the dashboard while driving, not because you suspect the engine. It is because **people are blindly optimistic about what they build themselves** — you had it serviced yesterday, so you feel nothing can go wrong today.
 

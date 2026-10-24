@@ -43,7 +43,7 @@ flowchart LR
     F --> S["本章方案：先定档，再按档取义务清单"]
 ```
 
-### 1.2 Intuition by Analogy: Licenses and Business Scope
+### 1.2 Intuitive Analogy: Licenses and Business Scope
 
 To open a shop you first decide "what to sell, to whom", and only then know which license to get. Selling food needs a food business license; selling books only needs a publication business license — the inspection items are completely different.
 

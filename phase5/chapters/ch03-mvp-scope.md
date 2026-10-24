@@ -43,7 +43,7 @@ flowchart LR
     F --> S["本章方案：只保留付费闭环要件，其余写进「故意不做」"]
 ```
 
-### 1.2 Intuition by Analogy: The Four-Link Chain
+### 1.2 Intuitive Analogy: The Four-Link Chain
 
 The paid loop can be drawn as four links; if any one of them breaks, no money comes in:
 

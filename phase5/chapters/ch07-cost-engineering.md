@@ -41,7 +41,7 @@ flowchart LR
     F --> S["本章方案：四道闸 + 单用户限额 + 全局熔断"]
 ```
 
-### 1.2 Intuition by Analogy: Electricity Meter and Circuit Breaker
+### 1.2 Intuitive Analogy: Electricity Meter and Circuit Breaker
 
 The meter tells you how much you spent; the circuit breaker cuts the power before it burns. Most people only installed a meter — so they can say precisely "we overspent by 2000 this month", but cannot stop it happening again next month.
 

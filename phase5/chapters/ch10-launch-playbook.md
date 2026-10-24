@@ -41,7 +41,7 @@ flowchart LR
     F --> S["本章方案：倒计时 + 检查单 + 明确的阻断项"]
 ```
 
-### 1.2 Intuition by Analogy: Launch Countdown
+### 1.2 Intuitive Analogy: Launch Countdown
 
 A launchpad countdown is not there to create tension; it gives every "check once more" a **definite object**, and forces a decision when time is up.
 

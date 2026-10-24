@@ -47,7 +47,7 @@ flowchart LR
     F --> S["本章方案：定期演练 + 分级备份 + 降级策略"]
 ```
 
-### 1.2 Intuition by Analogy: Drills and Real Fire
+### 1.2 Intuitive Analogy: Drills and Real Fire
 
 A person who has drilled will feel the doorknob first when there is a real fire; a person who has not drilled will look for their phone to film a video first.
 

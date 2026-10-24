@@ -47,7 +47,7 @@ flowchart LR
     F --> S["本章方案：把回滚拆成三层，每层都演练一次"]
 ```
 
-### 1.2 Intuition by Analogy: Safety Rope and Seat Belt
+### 1.2 Intuitive Analogy: Safety Rope and Seat Belt
 
 You carry a climbing rope hoping you never need it. Someone who does not carry one is not brave, they have not done the math — because they made "I won't fall this time" part of their plan.
 

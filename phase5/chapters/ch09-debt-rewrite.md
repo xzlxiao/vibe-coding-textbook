@@ -41,7 +41,7 @@ flowchart LR
     F --> S["本章方案：四个指标 + 四条判据 + 打分卡"]
 ```
 
-### 1.2 Intuition by Analogy: Load-Bearing Walls
+### 1.2 Intuitive Analogy: Load-Bearing Walls
 
 Whether to tear down and rebuild an old house does not depend on how old it is; it depends on **whether the load-bearing walls have been touched**.
 
