@@ -11,6 +11,8 @@ upstream_urls:
   - "https://csrc.nist.gov/"
   - "https://martinfowler.com/"
 ---
+[English](./ch02-two-kinds-of-defects.md) | **中文**
+
 # 第 02 章：缺陷有两种，读代码只擅长一种
 
 > **本章导读**：上一章让你看到了"验证位置错位"。这一章给你一个能反复使用的分类器——把缺陷分成 commission 和 omission，你会立刻明白为什么"我读过了"这句话在某些缺陷面前毫无意义。
