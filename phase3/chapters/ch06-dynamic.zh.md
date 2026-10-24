@@ -11,6 +11,8 @@ upstream_urls:
   - "https://opentelemetry.io/"
   - "https://docs.python.org/3/library/concurrent.futures.html"
 ---
+[English](./ch06-dynamic.md) | **中文**
+
 # 第 06 章：第 2 层——动态检查，从"跑过"到"守住"
 
 > **本章导读**：这一章的主战场是"测试写得对不对"。你会看到两种典型的烂测试——一种什么都不断言，一种把实现细节焊死——以及同一份代码上，三种测试套件在四根支柱上的真实得分。
