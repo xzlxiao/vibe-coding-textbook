@@ -1,3 +1,5 @@
+[English](./README.md) | **中文**
+
 # schedule-kit（演示用最小仓库）
 
 一个只做一件事的小工具：把内存里的日程导出成 CSV。
