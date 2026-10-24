@@ -11,6 +11,8 @@ upstream_urls:
   - "https://semver.org/"
   - "https://www.owasp.org/www-project-application-security-verification-standard/"
 ---
+[English](./ch12-pipeline.md) | **中文**
+
 # 第 12 章：装进流水线——顺序、成本、绕过与认知债
 
 > **本章导读**：最后一章把所有零件装起来。你会看到一条七道闸的流水线真实跑一遍，并在一个反直觉的结果里收口：**所有指标里最高的那个，出现在一份有缺陷的代码上。**
