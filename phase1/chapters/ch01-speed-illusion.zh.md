@@ -12,6 +12,8 @@ upstream_urls:
   - "https://dora.dev/"
   - "https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/overview"
 ---
+[English](./ch01-speed-illusion.md) | **中文**
+
 # 第 01 章：速度的错觉
 
 > **本章导读**：这是整个阶段的地基。你不相信"AI 让人变慢"这句话没关系——但你必须先接受一件事：**你对速度的主观感受，是一套不可靠的会计系统**。本章拆开这套系统的记账漏洞，并给出四类可被自动抓住的失效模式。它在全书的位置是「为什么需要夹具」。
