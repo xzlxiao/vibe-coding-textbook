@@ -310,7 +310,7 @@ phase3/
 
 **一键跑通**：`cd code && bash pipeline.sh`（修复版全绿）／`bash pipeline.sh coupon_service.py`（原版红三道）。
 
-**关于现有素材**：`chapters/ch03-untrusted-ai-code.md` 是本阶段早期写成的**单章压缩版**，两万字，把十二个章节的骨架压成了一章。它不是本书的正式章节，已移入 `drafts/`。其中可复用的部分（优惠券核销案例、四套测试、变异对比、并发复现、三张图）将按新章号拆分到 ch01、ch02、ch06、ch07、ch08。
+**关于现有素材**：`chapters/ch03-untrusted-ai-code.zh.md` 是本阶段早期写成的**单章压缩版**，两万字，把十二个章节的骨架压成了一章。它不是本书的正式章节，已移入 `drafts/`。其中可复用的部分（优惠券核销案例、四套测试、变异对比、并发复现、三张图）将按新章号拆分到 ch01、ch02、ch06、ch07、ch08。
 
 ---
 
