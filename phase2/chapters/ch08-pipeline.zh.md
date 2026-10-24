@@ -12,6 +12,8 @@ upstream_urls:
   - "https://docs.github.com/en/copilot"
   - "https://www.manning.com/books/specification-by-example"
 ---
+[English](./ch08-pipeline.md) | **中文**
+
 # 第 08 章：四段流水与三道门禁
 
 > **本章导读**：前七章是零件，本章把它们装成一台机器。你会看到一条完整流水：规格 → 计划 → 任务 → 实现 → 收敛，中间有三道可选门禁，以及"发现问题该退回哪一步"的规则。同时给出一个不装任何工具、20 分钟能搭起来的最小手工版。
