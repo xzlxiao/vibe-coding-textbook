@@ -1,6 +1,6 @@
 **English** | [中文](./README.zh.md)
 
-# Vibe Coding Textbook: From Running to Revenue
+# Vibe Coding Textbook: From Running to Getting Paid
 
 > **In one line**: a five-volume open textbook that teaches you, in the age of AI-written code, **how to do it right, how to trust it, how to keep it contained, and how to make it sell**.
 > **Maps to**: Stages 1–5 of the "Vibe Coding Study Plan" (about 23 weeks, 30+ hours per week).
@@ -14,11 +14,11 @@ AI has cut the cost of "writing code" down to minutes, but **the delivery bottle
 
 | Stage | Volume | The question it answers | Directory | Chapters |
 |---|---|---|---|---|
-| 1 | *Vibe Coding: Putting the Vibe into the Harness* | Why should I trust that this generation is correct? | [`phase1/`](phase1/) | 4 |
-| 2 | *Write the Spec First, Then Let AI Act* | How do I get it to do things right to the standard I set? | [`phase2/`](phase2/) | 12 |
-| 3 | *Treat AI Code as Untrusted Input* | What makes this code fit to ship? | [`phase3/`](phase3/) | 12 |
+| 1 | *Vibe Coding: Putting the "Vibe" into a Harness* | Why should I trust that this generation is correct? | [`phase1/`](phase1/) | 4 |
+| 2 | *Write the Spec First, Then Let the AI Build* | How do I get it to do things right to the standard I set? | [`phase2/`](phase2/) | 12 |
+| 3 | *Treating AI Code as Untrusted Input* | What makes this code fit to ship? | [`phase3/`](phase3/) | 12 |
 | 4 | *Contained: Attack Surface and Blast Radius* | Can an AI system be kept contained? | [`phase4/`](phase4/) | 10 |
-| 5 | *From Running to Revenue* | Is this worth continuing to invest in? | [`phase5/`](phase5/) | 10 |
+| 5 | *From Running to Getting Paid* | Is this worth continuing to invest in? | [`phase5/`](phase5/) | 10 |
 
 **48 chapters, 58 figures (one Chinese set and one English set, 116 PNG files in total), with runnable forensics scripts and delivery templates.** _数量口径句：共 48 章、58 张图_
 
