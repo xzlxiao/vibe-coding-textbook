@@ -11,6 +11,8 @@ upstream_urls:
   - "https://dora.dev/"
   - "https://www.ietf.org/rfc/rfc2119.txt"
 ---
+[English](./ch04-calibrate-with-your-own-numbers.md) | **中文**
+
 # 第 04 章：用你自己的数字校准
 
 > **本章导读**：前三章给了你判断（为什么会慢）、输入（喂什么）、判定（谁来判对）。本章补最后一块：**你凭什么相信自己的判断**。它不讲更多道理，只做一件事——让你拥有一个属于自己项目的数字，并且知道在样本很小的时候该怎么说话。
