@@ -190,17 +190,17 @@ Wire it into CI and a new package that has not entered the list turns it red. It
 
 ```mermaid
 flowchart TD
-    A["四条进入路径"] --> B["幻觉包名：可预测 → 可抢注"]
-    A --> C["postinstall：安装即执行"]
-    A --> D["MCP：装配置 = 装代码"]
-    B --> E["允许清单 + lockfile"]
-    C --> F["审查 scripts + 限制安装"]
-    D --> G["受众绑定 + 容器隔离"]
-    E --> H["一条会红的 CI 断言"]
+    A["Four ways in"] --> B["Hallucinated package names: predictable → squattable"]
+    A --> C["postinstall: runs on install"]
+    A --> D["MCP: installing config = installing code"]
+    B --> E["Allowlist + lockfile"]
+    C --> F["Review scripts + restrict installation"]
+    D --> G["Audience binding + container isolation"]
+    E --> H["One CI assertion that goes red"]
     F --> H
     G --> H
-    H -.->|"第 10 章"| N["三条边界断言"]
-    G -.->|"第 04 章：出口是半径的一项"| M["爆炸半径 N"]
+    H -.->|"Chapter 10"| N["Three boundary assertions"]
+    G -.->|"Chapter 04: egress is one term of the radius"| M["Blast radius N"]
 ```
 
 ---

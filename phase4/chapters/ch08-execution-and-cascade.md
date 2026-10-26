@@ -59,7 +59,7 @@ Putting a tool into the agent's hands is like handing a chainsaw to an apprentic
 Execution has the other half: **what to do after a failure**. The agent's (or your HTTP client's) default reaction is to retry — and retrying is multiplication:
 
 ```
-一次 429 → 重试 ×3 → 又 429 → 每个请求都重试 ×3 → 9 倍流量 → 全站 429
+One 429 → retry ×3 → 429 again → every request retries ×3 → 9× the traffic → the whole site 429s
 ```
 
 Each step alone looks "reasonable" (of course you retry after a failure), and together they are **cascading failure** (ASI08).
@@ -91,7 +91,7 @@ One companion rule: **restrict `fork`**. A process that can `fork` can spawn sub
 The amplification formula (engineering approximation):
 
 ```
-发往上游的请求数 ≈ 1 × retries^failures
+Requests sent upstream ≈ 1 × retries^failures
 ```
 
 - `retries` = how many retries per failure
@@ -123,7 +123,7 @@ Three disciplines:
 Chapter 02 said that agents "trust" each other. In a multi-agent pipeline, upstream artifacts get executed as instructions downstream (ASI07). Contamination from one injection gets **amplified level by level**:
 
 ```
-抓取的网页（注入）→ 规划智能体（产生坏计划）→ 执行智能体（照做）→ 外发（数据出去）
+Scraped page (injection) → planning agent (produces a bad plan) → execution agent (follows it) → outbound (the data leaves)
 ```
 
 The countermeasure matches Chapter 05: **downstream treats upstream artifacts as data, not as instructions**; tool scope narrows level by level; each level "can do less" than the one above it.
@@ -217,15 +217,15 @@ The drill matters more than the configuration. One 30-minute drill:
 
 ```mermaid
 flowchart TD
-    A["非预期执行：作用域没划"] --> B["沙箱四条底线"]
-    A --> C["失败后的放大：重试是乘法"]
-    C --> D["重试预算 + 指数退避"]
-    D --> E["断路器三状态"]
-    E --> F["kill switch + 故障注入演练"]
-    B --> G["工具作用域收窄（第 04 章）"]
+    A["Unintended execution: no scope drawn"] --> B["Four sandbox baselines"]
+    A --> C["Amplified failure: retries multiply"]
+    C --> D["Retry budget + exponential backoff"]
+    D --> E["Circuit breaker: three states"]
+    E --> F["kill switch + fault-injection drills"]
+    B --> G["Narrow the tool scope (Chapter 04)"]
     G --> F
-    F -.->|"第 09 章：权限矩阵那一列"| N["复核档与 kill switch"]
-    F -.->|"第 10 章：把它变成会红的测试"| M["三条断言"]
+    F -.->|"Chapter 09: the permission matrix column"| N["Review tier and kill switch"]
+    F -.->|"Chapter 10: turn it into a test that goes red"| M["Three assertions"]
 ```
 
 ---

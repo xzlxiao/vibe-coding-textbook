@@ -60,7 +60,7 @@ What they share is that they are **checkable**. Every item can be answered "yes/
 They are three links on one chain:
 
 ```
-图（有什么门）→ 表（门有什么风险）→ 断言（怎么知道门锁着）→ 矩阵（钥匙怎么管）
+Diagram (what gates exist) → table (what risks each gate has) → assertion (how you know the gate is locked) → matrix (how the keys are managed)
 ```
 
 If you only do the middle link, there is no village ahead and no inn behind: a threat list without a diagram misses threats; a threat list without assertions is rhetoric; a system without a matrix makes the assertions expire three days later (someone adds a new tool and updates no document).
@@ -85,14 +85,14 @@ Using both columns is so nothing is missed. STRIDE governs "traditional bad thin
 This is the most important craft in this chapter. An assertion must spell out all five:
 
 ```
-主体 + 动作 + 对象 + 期望 + 判据来源
+Subject + action + object + expectation + source of the criterion
 ```
 
 | Element | Example | What happens if it is unclear |
 |---|---|---|
 | **Subject** | With the `anon` role / with user A's token | Nobody knows in whose identity to run it; results are not reproducible |
 | **Action** | `select count(*)` / GET | Nobody knows what to do |
-| **Object** | `notes` table / `owner_id=eq.<B 的 uuid>` | Nobody knows what is touched |
+| **Object** | `notes` table / `owner_id=eq.<B's uuid>` | Nobody knows what is touched |
 | **Expectation** | 0 rows / 403 / alert over threshold | Nobody knows what counts as passing |
 | **Source of the criterion** | CI exit code / probe script output | Nobody knows where to look for the result |
 
@@ -250,14 +250,14 @@ Three columns the matrix must have but many people miss:
 
 ```mermaid
 flowchart TD
-    A["数据流图 + 穿越点清单"] --> B["STRIDE × ASI 威胁清单"]
-    B --> C["可测断言（五要素）"]
-    C --> D["未登录重放三步"]
-    D --> E["三判据 → 复核档"]
-    E --> F["权限矩阵 + kill switch"]
-    F --> G["接进 CI（第 10 章）"]
-    A -.->|"第 03 章"| P3["攻击面 AS"]
-    C -.->|"第 04 章"| P4["爆炸半径 BR"]
+    A["Data flow diagram + crossing-point list"] --> B["STRIDE × ASI threat list"]
+    B --> C["Testable assertions (five elements)"]
+    C --> D["Logged-out replay in three steps"]
+    D --> E["Three criteria → review tier"]
+    E --> F["Permission matrix + kill switch"]
+    F --> G["Wire it into CI (Chapter 10)"]
+    A -.->|"Chapter 03"| P3["Attack surface AS"]
+    C -.->|"Chapter 04"| P4["Blast radius BR"]
 ```
 
 ---
@@ -286,7 +286,7 @@ flowchart TD
 
 - **Rewritten**: `execute select count(*) from notes with the anon role, expect 0 rows; a non-zero CI exit code means failure.`
 - **Element by element**: subject = the `anon` role; action = `select count(*)`; object = `notes`; expectation = 0 rows; source of the criterion = CI exit code.
-- **Another qualified wording** (horizontal escalation): `request GET /rest/v1/notes?owner_id=eq.<B 的 uuid> with user A's access_token, expect 403 or an empty set; the verdict is based on replay_probe.py's exit code.`
+- **Another qualified wording** (horizontal escalation): `request GET /rest/v1/notes?owner_id=eq.<B's uuid> with user A's access_token, expect 403 or an empty set; the verdict is based on replay_probe.py's exit code.`
 - **Common wrong answer**: "request B's data with A's token, expect failure." — "failure" is not an expectation; it is the nature of an outcome. **The expectation must be observable** (status code, row count, alert), not an evaluation like "fail/succeed".
 
 #### 2. Analysis of question 2

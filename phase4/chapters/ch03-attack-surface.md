@@ -34,15 +34,15 @@ upstream_urls:
 Your project has two "entrances":
 
 ```
-/admin          —— 后台页面，要求 SSO 登录 + 硬件密钥 + IP 白名单
-/.env           —— 被 nginx 当静态文件 serve 出去的环境变量文件
+/admin          — admin page, requires SSO login + hardware key + IP allowlist
+/.env           — the env file that nginx serves out as a static file
 ```
 
 You spent two weeks hardening `/admin`: two-factor authentication, audit logs, lockout on failure, permission groups. You feel the backend is safe.
 
 And the `/.env` file: it has no interface, no buttons, no links pointing to it, and nobody on your team knows it exists. It is just **quietly sitting there**.
 
-The attacker does not need to touch `/admin`. They type `https://你的域名/.env` and get the database password, third-party API keys, and payment keys.
+The attacker does not need to touch `/admin`. They type `https://your-domain/.env` and get the database password, third-party API keys, and payment keys.
 
 Put these two things side by side and instinct says "impossible". But the difference between them is not technical complexity; it is one thing: **`/admin` needs your nod, `/.env` does not.** The one you hardened is a door with a guard; the one you ignored is a window nobody watches.
 
@@ -130,29 +130,29 @@ Add one more thing, and this is the key to the diagram: the **trust boundary**. 
 
 ```mermaid
 flowchart LR
-    subgraph Z0["信任区 0 · 公网"]
-        U["浏览器 / 匿名访问者"]
-        ATK["攻击者（含提示注入载体）"]
+    subgraph Z0["Trust zone 0 · public internet"]
+        U["Browser / anonymous visitor"]
+        ATK["Attacker (with a prompt-injection carrier)"]
     end
-    subgraph Z1["信任区 1 · 你的应用"]
-        WEB["Next.js 前端（内含 anon key）"]
-        API["Edge Function（持 service_role）"]
-        AG["客服智能体"]
+    subgraph Z1["Trust zone 1 · your application"]
+        WEB["Next.js frontend (holds the anon key)"]
+        API["Edge Function (holds service_role)"]
+        AG["Support agent"]
     end
-    subgraph Z2["信任区 2 · 数据与第三方"]
+    subgraph Z2["Trust zone 2 · data and third parties"]
         DB["DB · Postgres + RLS"]
-        ST["存储 · Storage 桶"]
+        ST["Storage · buckets"]
         STRIPE["Stripe API"]
-        MAIL["邮件网关"]
+        MAIL["Mail gateway"]
     end
-    U -->|"F1 静态资源"| WEB
-    WEB -->|"F2 anon key 直连 REST"| DB
-    WEB -->|"F3 上传 / 下载"| ST
-    API -->|"F4 service_role 全权"| DB
-    AG -->|"F5 工具调用"| API
-    ATK -.->|"F6 注入文本进入上下文"| AG
-    API -->|"F7 退款"| STRIPE
-    API -->|"F8 发信"| MAIL
+    U -->|"F1 static assets"| WEB
+    WEB -->|"F2 anon key straight to REST"| DB
+    WEB -->|"F3 upload / download"| ST
+    API -->|"F4 service_role full power"| DB
+    AG -->|"F5 tool calls"| API
+    ATK -.->|"F6 injected text enters the context"| AG
+    API -->|"F7 refund"| STRIPE
+    API -->|"F8 send mail"| MAIL
 ```
 
 **Reading this diagram means looking at three things**:
@@ -282,13 +282,13 @@ The shared structure of the three walkthroughs: **first say "who uses it", then 
 
 ```mermaid
 flowchart TD
-    A["三个限定词"] --> B["资产 vs 面的判定表"]
-    B --> C["数据流图 + 信任边界"]
-    C --> D["穿越点清单"]
-    D --> E["最坏情况推演"]
-    E --> F["可测断言"]
-    F -.->|"下一章：碰到之后能带走多少"| N["爆炸半径 BR"]
-    F -.->|"第 09 章：把断言变成三份文档"| M["威胁清单"]
+    A["Three qualifiers"] --> B["Asset vs surface decision table"]
+    B --> C["Data flow diagram + trust boundaries"]
+    C --> D["Crossing-point list"]
+    D --> E["Worst-case derivation"]
+    E --> F["Testable assertions"]
+    F -.->|"Next chapter: once touched, how much can be carried off"| N["Blast radius BR"]
+    F -.->|"Chapter 09: turn assertions into three documents"| M["Threat list"]
 ```
 
 ---
@@ -344,9 +344,9 @@ flowchart TD
 
 - **Sample** (swap in your own):
   ```
-  | F1 | 公网 → 前端 | 无 | 任何人 | 源码可见 | 无（设计如此） | 已落实 |
-  | F2 | 前端 → Supabase REST | anon JWT | 浏览器/攻击者 | 未登录读订单 | 仅 RLS（待验证） | 待验证 |
-  | F3 | 前端 → 邮件服务 | 无 | 任何人 | 伪造发信 | （空） | 缺口 |
+  | F1 | Public internet → frontend | none | anyone | source visible | none (by design) | In place |
+  | F2 | Frontend → Supabase REST | anon JWT | browser/attacker | read orders while logged out | RLS only (to verify) | To verify |
+  | F3 | Frontend → mail service | none | anyone | forged sending | (blank) | Gap |
   ```
   Turn F2 into a probe: `with the anon role select count(*) from orders, expect 0`.
   Turn F3 into a probe: `request the mail-sending API without an API key, expect 401`.

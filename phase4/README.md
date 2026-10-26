@@ -58,34 +58,34 @@ The knowledge in this book is not ten parallel topics; it is a chain **from "why
 
 ```mermaid
 flowchart TD
-    subgraph L0["L0 · 前提：Web 安全的最小集"]
-        A1["认证 vs 授权"]
-        A2["信任边界"]
-        A3["最小权限 / 纵深防御"]
+    subgraph L0["L0 · Prerequisites: the minimal set of web security"]
+        A1["AuthN vs AuthZ"]
+        A2["Trust boundaries"]
+        A3["Least privilege / defense in depth"]
     end
-    subgraph L1["L1 · 度量：两个量"]
-        B1["攻击面 AS：不需要点头的入口"]
-        B2["爆炸半径 BR = C ∪ T ∪ D ∪ N"]
-        B3["风险排序 R ≈ AS × BR × (1 − D)"]
+    subgraph L1["L1 · Measurement: two quantities"]
+        B1["Attack surface AS: entry points that need no nod"]
+        B2["Blast radius BR = C ∪ T ∪ D ∪ N"]
+        B3["Risk ranking R ≈ AS × BR × (1 − D)"]
     end
-    subgraph L2["L2 · 分类：威胁地图"]
+    subgraph L2["L2 · Classification: the threat map"]
         C1["STRIDE / LLM Top 10 / ASI 01—10"]
     end
-    subgraph L3["L3 · 失效：五个洞"]
-        D1["目标劫持与上下文投毒"]
-        D2["身份与默认陷阱"]
-        D3["供应链"]
-        D4["非预期执行与级联"]
+    subgraph L3["L3 · Failures: five holes"]
+        D1["Goal hijacking and context poisoning"]
+        D2["Identity and default traps"]
+        D3["Supply chain"]
+        D4["Unintended execution and cascades"]
     end
-    subgraph L4["L4 · 控制：四道闸"]
-        E1["入口收敛"]
-        E2["凭据与工具最小"]
-        E3["数据策略与出网"]
-        E4["审批分档与 kill switch"]
+    subgraph L4["L4 · Controls: four gates"]
+        E1["Converge the entry points"]
+        E2["Minimal credentials and tools"]
+        E3["Data policy and egress"]
+        E4["Tiered approval and kill switch"]
     end
-    subgraph L5["L5 · 工程化：守得住"]
-        F1["CI 断言"]
-        F2["演练与复盘"]
+    subgraph L5["L5 · Engineering: make it hold"]
+        F1["CI assertions"]
+        F2["Drills and retros"]
     end
     A1 --> B1
     A2 --> B1
@@ -305,8 +305,8 @@ This book can be read on its own, but four things must already be in your hands.
 ## 7. Repository Directory Structure
 
 ```text
-phase4/                                    # 一本书 = 一个目录，自包含
-├── README.md                                # 本文件：定位、图谱、大纲、映射、进度
+phase4/                                    # one book = one directory, self-contained
+├── README.md                                # this file: positioning, map, outline, mapping, progress
 ├── chapters/
 │   ├── ch01-day-three.md
 │   ├── ch02-agent-as-subject.md
@@ -319,14 +319,14 @@ phase4/                                    # 一本书 = 一个目录，自包�
 │   ├── ch09-three-deliverables.md
 │   └── ch10-boundaries-in-ci.md
 ├── assets/
-│   └── chNN/                              # 章内编号，每章从 fig-01 起
+│   └── chNN/                              # numbered within each chapter, starting at fig-01
 ├── code/
-│   ├── make_figures.py                    # 全书配图统一入口（可只重绘某章）
-│   ├── ch01/ … ch10/                      # 每章一份可运行的最小示例
-└── templates/                             # 可抄的交付模板
-    ├── threat-model.md                    # 威胁清单模板（含可测断言列）
-    ├── replay-report.md                   # 重放报告模板（三步 × 结果 × 修复）
-    └── permission-matrix.md               # 权限矩阵模板（含 kill switch 列）
+│   ├── make_figures.py                    # single entry point for all figures (one chapter works too)
+│   ├── ch01/ … ch10/                      # one runnable minimal example per chapter
+└── templates/                             # delivery templates you can copy
+    ├── threat-model.md                    # threat list template (with a testable-assertion column)
+    ├── replay-report.md                   # replay report template (3 steps × results × fixes)
+    └── permission-matrix.md               # permission matrix template (with a kill switch column)
 ```
 
 **Naming convention**: chapter numbers start at `ch01` within a volume, figure numbers start at `Figure 1-1` within a chapter (en `fig-01-*.png` / zh `fig-01-*.zh.png`), and code directories align with chapter numbers. The same conventions as `phase1/`, `phase2/`, `phase3/`, `phase5/`.

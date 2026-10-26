@@ -230,14 +230,14 @@ The third is the simplest and the most easily skipped: **it tests "was it writte
 
 ```mermaid
 flowchart TD
-    A["AuthN 不等于 AuthZ"] --> B["RLS：数据层的逐行过滤"]
-    B --> C["四条策略与两种判据"]
-    C --> D["第二现场：对象存储"]
-    B --> E["三种修法：边界放在哪一层"]
-    C --> F["应当失败的断言 + 切角色验证"]
-    F --> G["接进 CI（第 10 章）"]
-    F -.->|"第 09 章：重放报告"| N["三步重放"]
-    E -.->|"第 04 章：边界决定半径"| M["爆炸半径"]
+    A["AuthN is not AuthZ"] --> B["RLS: row-by-row filtering at the data layer"]
+    B --> C["Four policies and two kinds of criteria"]
+    C --> D["Second scene: object storage"]
+    B --> E["Three fixes: which layer holds the boundary"]
+    C --> F["Should-fail assertions + role-switch verification"]
+    F --> G["Wire it into CI (Chapter 10)"]
+    F -.->|"Chapter 09: the replay report"| N["Three-step replay"]
+    E -.->|"Chapter 04: the boundary sets the radius"| M["Blast radius"]
 ```
 
 ---
@@ -288,8 +288,8 @@ flowchart TD
 - **The four policies** are in Section 2.2.
 - **The should-fail assertion** (five elements):
   ```
-  主体 = anon 角色；动作 = select count(*)；对象 = notes；
-  期望 = 0 行；判据来源 = CI 退出码（replay_probe.py 的退出码非 0 即挂）
+  Subject = the anon role; action = select count(*); object = notes;
+  expected = 0 rows; criterion source = the CI exit code (a non-zero replay_probe.py exit fails the build)
   ```
 - **The condition under which it fails on current code**: if RLS is off or a policy is wrong, `count` > 0 and the assertion fails. **That is exactly where its meaning lies** — it tests "what should not happen did not happen".
 

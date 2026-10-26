@@ -214,16 +214,16 @@ Run the six steps of 2.3. If one step does not go red, fix the assertion first a
 
 ```mermaid
 flowchart TD
-    S1["ch01 缺失的缺陷不会报错"] --> S2["ch02 智能体是主体"]
-    S2 --> S3["ch03 攻击面 AS"]
-    S3 --> S4["ch04 爆炸半径 BR"]
-    S4 --> S5["ch05 目标劫持与投毒"]
-    S5 --> S6["ch06 身份与默认陷阱"]
-    S6 --> S7["ch07 供应链"]
-    S7 --> S8["ch08 执行与级联"]
-    S8 --> S9["ch09 三个交付物"]
-    S9 --> S10["ch10 边界做进 CI"]
-    S10 -.->|"三个月后门还锁着"| OK["守得住"]
+    S1["ch01 omission defects throw no errors"] --> S2["ch02 the agent is a subject"]
+    S2 --> S3["ch03 attack surface AS"]
+    S3 --> S4["ch04 blast radius BR"]
+    S4 --> S5["ch05 goal hijacking and poisoning"]
+    S5 --> S6["ch06 identity and default traps"]
+    S6 --> S7["ch07 supply chain"]
+    S7 --> S8["ch08 execution and cascades"]
+    S8 --> S9["ch09 the three deliverables"]
+    S9 --> S10["ch10 boundaries built into CI"]
+    S10 -.->|"The door still locked three months later"| OK["It holds"]
 ```
 
 The ten chapters are really only answering three things, and they are Chapter 01's four questions:

@@ -91,7 +91,7 @@ Explain the four symbols in plain words:
 | **D** data | The union of all data it can read | "How many rows can it see at once?" | Only thinking of its own table, and forgetting other tables in the same database, backups, logs, object storage |
 | **N** exit | Where it can send data | "Who can it send things to?" | Forgetting it can `curl` any address, and forgetting that **DNS queries are themselves an exfiltration channel** |
 
-The supplement to the last cell is important: even if you ban all outbound HTTP, a process that can resolve domain names can still exfiltrate by encoding data into the query domain (`<数据>.attacker.com`). **The criterion for an exit is "can the outside receive something", not "can it POST".**
+The supplement to the last cell is important: even if you ban all outbound HTTP, a process that can resolve domain names can still exfiltrate by encoding data into the query domain (`<data>.attacker.com`). **The criterion for an exit is "can the outside receive something", not "can it POST".**
 
 ### 2.2 Why a union, not a sum
 
@@ -269,13 +269,13 @@ Suppose three things are on the to-do list:
 
 ```mermaid
 flowchart TD
-    A["四维并集 C ∪ T ∪ D ∪ N"] --> B["最宽项决定半径"]
-    B --> C["可逆性三档（带验收证据）"]
-    C --> D["可观测性三层（有人被叫醒才算）"]
-    D --> E["复核档：三判据矩阵"]
-    E --> F["收窄作用域 → 档位下降"]
-    F -.->|"第 09 章：把矩阵写成权限矩阵文档"| N["三个交付物之一"]
-    F -.->|"第 02 章：自主性如何放大半径"| M["最小自主性"]
+    A["Four-dimension union C ∪ T ∪ D ∪ N"] --> B["The widest item sets the radius"]
+    B --> C["Three reversibility tiers (with acceptance evidence)"]
+    C --> D["Three observability layers (someone must wake up)"]
+    D --> E["Review tier: the three-criteria matrix"]
+    E --> F["Narrow the scope → the tier drops"]
+    F -.->|"Chapter 09: write the matrix as a permission matrix document"| N["One of the three deliverables"]
+    F -.->|"Chapter 02: how autonomy amplifies the radius"| M["Minimal autonomy"]
 ```
 
 ---

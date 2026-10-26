@@ -40,7 +40,7 @@ Demo day went perfectly. Login, upload, search, payment, agent replies — all g
 In the small hours of day three, you receive an email in English whose body is a single line containing a link:
 
 ```
-https://<你的项目>.supabase.co/rest/v1/notes?select=*
+https://<your-project>.supabase.co/rest/v1/notes?select=*
 ```
 
 You open it. In the browser is a JSON table: **every** user's note titles, note bodies, `owner_id`, and creation times. No login needed, no password needed, no trick needed. The address bar does not show your domain, only your database's address.
@@ -150,7 +150,7 @@ One level deeper: why can functional tests not catch omissions?
 A test looks like this:
 
 ```
-输入 → 系统 → 输出  ⇒  断言：输出 == 期望
+Input → system → output  ⇒  assertion: output == expected
 ```
 
 Its assertion direction is **forward**: whether a thing was done correctly. Omission-type defects need a **reverse** assertion: **whether a thing was blocked**. For example:
@@ -252,11 +252,11 @@ All four fail — but with these four lines written down, you know **which one t
 The deliverable for this chapter is three lines. Copy the format; it does not need to be pretty:
 
 ```text
-资产：notes 表
-  ① 不点头能碰到：能（URL 直连）→ 缺失项：未启用 RLS
-  ② 一次能带走：全库 → 缺失项：无 limit、无分页授权
-  ④ 出事谁醒：没人 → 缺失项：无查询告警
-下一步：先写 4 条 policy，再写一条"用 anon 角色自测必须返回 0 行"的测试
+Asset: the notes table
+  ① Reachable without a nod: yes (direct URL) → gap: RLS not enabled
+  ② Takeable in one shot: the whole database → gap: no limit, no pagination authorization
+  ④ Who wakes up when it happens: nobody → gap: no query alerts
+Next: write 4 policies first, then a test that "self-testing with the anon role must return 0 rows"
 ```
 
 (Question ③ in this example is already "irreversible", so it does not need to be written — which instead tells you: once this happens there is no room to make it right, so ①②④ have higher priority.)
@@ -292,13 +292,13 @@ Pick **three assets** in your project and write three lines like this for each. 
 
 ```mermaid
 flowchart TD
-    A["痛点：演示全通，数据全泄"] --> B["缺陷二分：做错 vs 缺失"]
-    B --> C["AuthN 与 AuthZ 的分工"]
-    C --> D["功能测试的断言方向"]
-    D --> E["AI 把缺失放大了三条机制"]
-    E --> F["四问自查法"]
-    F -.->|"第 02 章：智能体为什么让缺失更难防"| N1["智能体是主体"]
-    F -.->|"第 03 章：第一问答出来的是什么"| N2["攻击面 AS"]
+    A["Pain point: the demo all green, the data all leaked"] --> B["Defect bisect: done wrong vs missing"]
+    B --> C["The AuthN / AuthZ division of labor"]
+    C --> D["Which way functional tests assert"]
+    D --> E["AI amplifies omissions through three mechanisms"]
+    E --> F["The four-question self-check"]
+    F -.->|"Chapter 02: why agents make omissions harder to defend"| N1["The agent is a subject"]
+    F -.->|"Chapter 03: what the first question surfaces"| N2["Attack surface AS"]
 ```
 
 ---
@@ -333,7 +333,7 @@ flowchart TD
 #### 2. Analysis of question 2
 
 - **Where the concept is swapped**: from "authentication is strong" (OAuth) to "authorization is correct" (data visibility). OAuth only solves "who are you"; it makes no promise at all about "which rows can you read".
-- **The assertion that punctures it**: `request notes?owner_id=eq.<B 的 uuid> with user A's token, expect 403 or 0 rows`.
+- **The assertion that punctures it**: `request notes?owner_id=eq.<B's uuid> with user A's token, expect 403 or 0 rows`.
 - **Detailed walkthrough**: on a system that "has OAuth wired up but no policy written", this assertion returns 200 plus B's data — that is, it fails. That turns "looks strong" into a falsifiable proposition. **Any security claim that cannot be written as a falsifiable assertion is not a claim, it is rhetoric.**
 
 #### 3. Analysis of question 3
@@ -341,11 +341,11 @@ flowchart TD
 - **Reference format** (replace the asset name with your own):
 
 ```text
-资产：users 表的 email 字段
-  ① 不点头能碰到：能（GET /api/users 返回全字段）
-  ② 一次能带走：全表（无分页上限）
-  ④ 出事谁醒：没人（无导出告警）
-下一步：GET /api/users 只返回 id + display_name；导出行为加告警
+Asset: the email field of the users table
+  ① Reachable without a nod: yes (GET /api/users returns all fields)
+  ② Takeable in one shot: the whole table (no pagination cap)
+  ④ Who wakes up when it happens: nobody (no export alerts)
+Next: GET /api/users returns only id + display_name; alert on export behavior
 ```
 
 - **Acceptance criteria**: question ① counts as passed if it names a concrete URL; if it says "in theory it can be escalated", rewrite it. **The value of a self-check lies in being concrete** — a self-check record that is not concrete is something you yourself will not understand three months later.
