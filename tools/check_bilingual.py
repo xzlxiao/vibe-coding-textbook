@@ -9,8 +9,8 @@
 检查集（随阶段扩容，见计划 §5.1 扩容表）：
     M4 链接半   ERROR（全程启用）：扫描域内 md 相对链接全部解析存在。
     M4 语言半   ERROR（配对出现即查）：X.zh.md 只引用 .zh.png；X.md 不得引用 .zh.png（只查图片目标）。
-    M5 图题     ERROR（提交 (ii) 起）：文件 fig-NN ↔ 图题「图 C-NN」双处同号，C==chapter_id；章内 prose 无悬空图号。
-    M9 README   ERROR（提交 (ii) 起）：树行路径全存在 + 叶名语言约定 + 「N 张图」总量口径==58。
+    M5 图题     ERROR（提交 (ii) 起）：文件 fig-NN ↔ 图题「图 C-NN」/「Figure C-NN」双处同号，C==chapter_id；章内 prose 无悬空图号。
+    M9 README   ERROR（提交 (ii) 起）：树行路径全存在 + 叶名语言约定 + 「N 张图 / N figures」总量口径==58。
     A 类旧名    ERROR（26 旧 PNG 名自 (i)、5 中文模板名自 (ii) 全量拦截）。
     M6 文件名   ERROR（提交 (i) 起拦截）：路径字符全部 <= 0x7F。
     M8 遗留     ERROR（提交 (iii) 起）：phase3/drafts、phase4/_archive、.coverage 存在数=0。
@@ -61,7 +61,7 @@ A_CLASS_VANISH_TPL = [
 ]
 
 LINK_RE = re.compile(r"!?\[[^\]]*\]\(([^)\s]+)(?:\s+[^)]*)?\)")
-CAP_RE = re.compile(r"!\[图\s*(\d+)\s*[-–—]\s*(\d+)[^\]]*\]\(([^)\s]+\.png)\)")
+CAP_RE = re.compile(r"!\[(?:图|Figure)\s*(\d+)\s*[-–—]\s*(\d+)[^\]]*\]\(([^)\s]+\.png)\)")
 FIG_NUM_RE = re.compile(r"fig-(\d+)")
 
 
@@ -99,20 +99,6 @@ def scan_md_files(include_legacy: bool) -> list[str]:
                 out.append(os.path.join(d, f))
     return out
 
-
-
-def scan_csv_files() -> list:
-    out = []
-    for top in SCAN_TOP:
-        p = os.path.join(ROOT, top)
-        if not os.path.isdir(p):
-            continue
-        for d, ds, fs in os.walk(p):
-            ds[:] = [x for x in ds if x not in EXCLUDE_DIRS]
-            for f in sorted(fs):
-                if f.endswith(".csv"):
-                    out.append(os.path.join(d, f))
-    return out
 
 
 def scan_text_files(include_legacy: bool) -> list[str]:
@@ -183,9 +169,9 @@ def check_m4_lang(rep: Report) -> None:
 def check_m5_captions(rep: Report) -> None:
     """M5 图题一致（阶段 2 出口闸）：文件 fig-NN ↔ 图题「图 C-NN」，C==frontmatter chapter_id；
     alt 与斜体图题双处同号；章内 prose「图 C-F」均有对应图文件（README 规划图表行为计划性描述，不入断言）。
-    Figure 形态留待阶段 3 补入（英文 X.md 出现后同口径）。"""
-    ITA_RE = re.compile(r"^\*图\s*(\d+)\s*[-–—]\s*(\d+)")
-    PROSE_RE = re.compile(r"图\s*(\d+)\s*[-–—]\s*(\d+)")
+    英文形态「Figure C-NN」与中文侧同口径（alt 与斜体都查，C==frontmatter chapter_id、N 与 fig-NN 文件名同号）。"""
+    ITA_RE = re.compile(r"^\*(?:图|Figure)\s*(\d+)\s*[-–—]\s*(\d+)")
+    PROSE_RE = re.compile(r"(?:(?<![A-Za-z])Figure|图)\s*(\d+)\s*[-–—]\s*(\d+)")
     n_cap = n_ita = n_prose = n_prose_readme = bad = 0
     for path in scan_md_files(include_legacy=False):
         rel = os.path.relpath(path, ROOT).replace(os.sep, "/")
@@ -327,7 +313,7 @@ def check_m1_pairs(rep: Report) -> None:
     """M1 段落对等：每对 X.md/X.zh.md 块级块数相等（--min 只对已完整存在的配对断言；
     EXEMPT_M1_SKELETON 骨架对豁免至英文正文补全）。"""
     pairs = n_assert = n_exempt = 0
-    for path in scan_md_files(include_legacy=False) + scan_csv_files():
+    for path in scan_md_files(include_legacy=False):  # M1 只管 X.md/X.zh.md 对（CSV 不入）
         rel = os.path.relpath(path, ROOT).replace(os.sep, "/")
         if ".zh." in os.path.basename(path):
             continue
@@ -425,7 +411,7 @@ ROW_RE = re.compile(r"^((?:│   |    )*)(├── |└── )?(.*)$")
 def check_m9_readme(rep: Report) -> None:
     """M9 README 口径：树行逐行解析出的路径全部存在（占位行不入断言、占位行下的结构行走名字级核对）；
     终态叶名约定（中文版树列 .zh 叶名、英文版树列非 .zh 叶名，仅对配对域文件名断言）；
-    「N 张图」总量口径句数字 == 58。"""
+    「N 张图 / N figures」总量口径句数字 == 58（中英文句式同等认可，兼容 one set per language 语境）。"""
     zh_rows = en_rows = 0
     img_hits = []
 
@@ -443,11 +429,27 @@ def check_m9_readme(rep: Report) -> None:
             if not os.path.exists(rel):
                 continue
             text = open(rel, encoding="utf-8").read()
-            # (1) 「N 张图」总量口径
+            # (1) 「N 张图 / N figures」总量口径（只匹配总量口径句，排除教学与分册语境）
             for m in re.finditer(r"共\s*\d+\s*章、(\d+)\s*张图", text):
                 img_hits.append((rel, m.group(1)))
             for m in re.finditer(r"(\d+)\s*张图（中英各一套", text):
                 img_hits.append((rel, m.group(1)))
+            # 英文句式：<N> chapters, <M> figures；<M> figure(s) 且同句带总量语境
+            # （one set per language / one … set / in total / total of / 116 / 中英各一套 / 套），
+            # 排除教学与分册表述（如 "3-5 figures"、"4 figures at 240 DPI"、"19 figures"）
+            pair_spans = []
+            for m in re.finditer(r"\d+\s*chapters?\s*(?:[,，]|and)\s*(\d+)\s*figures?\b", text):
+                pair_spans.append(m.span())
+                img_hits.append((rel, m.group(1)))
+            ctx_re = re.compile(r"one set per language|one\s+\S+\s+set|in total|total of|总计|共|116|中英各一套|套")
+            for m in re.finditer(r"(?<![-–—\d])(\d+)\s*figures?\b", text):
+                if any(a <= m.start() < b for a, b in pair_spans):
+                    continue
+                ls = text.rfind("\n", 0, m.start()) + 1
+                pre = text[max(ls, m.start() - 30):m.start()]
+                post = text[m.end():m.end() + 80].split("\n")[0].split("。")[0]
+                if ctx_re.search(pre) or ctx_re.search(post):
+                    img_hits.append((rel, m.group(1)))
             # (2) 树块
             in_tree = False
             stack = {}   # depth -> 相对段
@@ -514,7 +516,8 @@ def check_m9_readme(rep: Report) -> None:
             rep.error("M9 图数口径：%s 「%s 张图」≠ 58" % (rel, num))
     for need in ("README.zh.md", "README.md"):
         if not any(r == need for r, _ in img_hits):
-            rep.error("M9 图数口径：%s 缺总量口径句「共 N 章、58 张图」或「58 张图（中英各一套」" % need)
+            rep.error("M9 图数口径：%s 缺总量口径句「共 N 章、58 张图」/「58 张图（中英各一套」"
+                      "或英文「N chapters, 58 figures」/「58 figures (one set per language…」" % need)
     print("[M9 README] 树行 zh %d / en %d 条已核；图数口径句 %d 处（须全为 58）" % (zh_rows, en_rows, len(img_hits)))
 
 
