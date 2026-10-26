@@ -55,6 +55,14 @@ Every chapter passes three gates before delivery, each reviewable:
 │   └── templates/     # delivery templates you can copy as-is (in most volumes)
 ```
 
+## Bilingual Maintenance
+
+This repository ships both languages as equal products: an English file `X.md` and a Chinese file `X.zh.md` (English takes the default name, Chinese carries the `.zh` suffix). Figures follow the same rule: `fig-NN-slug.png` (English) pairs with `fig-NN-slug.zh.png` (Chinese). To keep the two versions in sync:
+
+- Install the pre-commit hook once per clone: `git config core.hooksPath .githooks`
+- Run the machine check before committing: `python3 tools/check_bilingual.py --min`
+- Term translations follow [`docs/glossary.md`](docs/glossary.md); do not coin new renderings for listed terms.
+
 ## License
 
 By default this work is licensed under **[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)** (Attribution–NonCommercial–ShareAlike):

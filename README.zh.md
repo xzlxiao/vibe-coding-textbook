@@ -55,6 +55,14 @@ AI 把「写代码」的成本压到了几分钟，但**交付的瓶颈从「能
 │   └── templates/     # 可直接抄用的交付模板（多数册有）
 ```
 
+## 双语维护
+
+本仓两语并列为产品：英文文件 `X.md`、中文文件 `X.zh.md`（英文用默认名，中文加 `.zh` 后缀）；图同规则：`fig-NN-slug.png`（英文）与 `fig-NN-slug.zh.png`（中文）配对。保持两语同步：
+
+- 每台克隆一次性安装 pre-commit 钩子：`git config core.hooksPath .githooks`
+- 提交前跑机检：`python3 tools/check_bilingual.py --min`
+- 译名以 [`docs/glossary.md`](docs/glossary.md) 为准，表内词条不另造译法。
+
 ## 授权
 
 默认适用 **[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)**（署名—非商业性使用—相同方式共享）：
