@@ -210,7 +210,7 @@ Small teams pick the latter, but must write it on the help page: "Daily quota re
 
 ---
 
-## 5. Chapter Summary and Local Knowledge Graph
+## 5. Chapter Summary and Local Knowledge Map
 
 ### 5.1 Key Points
 

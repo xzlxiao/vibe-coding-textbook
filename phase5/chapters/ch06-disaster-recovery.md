@@ -190,7 +190,7 @@ The last action is often skipped, but it matters most: **a promise better than t
 
 ---
 
-## 5. Chapter Summary and Local Knowledge Graph
+## 5. Chapter Summary and Local Knowledge Map
 
 ### 5.1 Key Points
 

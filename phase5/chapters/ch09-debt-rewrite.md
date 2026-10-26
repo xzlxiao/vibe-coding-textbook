@@ -192,7 +192,7 @@ Rule 3 is the most expensive and the most effective. It turns "I think the new s
 
 ---
 
-## 5. Chapter Summary and Local Knowledge Graph
+## 5. Chapter Summary and Local Knowledge Map
 
 ### 5.1 Key Points
 

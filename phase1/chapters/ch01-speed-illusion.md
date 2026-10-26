@@ -167,7 +167,7 @@ Karpathy coined the term "vibe coding" in February 2025; his original words were
 
 There is a layer in between, **vibe engineering**, proposed by Simon Willison in October 2025: senior engineers use LLMs to accelerate while taking responsibility for the output. The core judgment is one sentence — "AI tools amplify existing expertise".
 
-These three tiers are not "levels of skill"; they have **different responsibility boundaries**. Pick the wrong tier and you get accidents like "running a production system with a vibe coding mindset".
+These three tiers are not "levels of skill"; they have **different responsibility boundaries**. Pick the wrong tier and you get incidents like "running a production system with a vibe coding mindset".
 
 | Tier | What you do | Who is responsible for correctness | Fits | Explicitly does not fit |
 |---|---|---|---|---|

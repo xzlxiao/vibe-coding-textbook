@@ -205,7 +205,7 @@ In Chapter 10's launch-day checklist, these three items are R1–R3.
 
 ---
 
-## 5. Chapter Summary and Local Knowledge Graph
+## 5. Chapter Summary and Local Knowledge Map
 
 ### 5.1 Key Points
 

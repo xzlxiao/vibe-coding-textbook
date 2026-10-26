@@ -220,7 +220,7 @@ Section 5 is the most easily ignored part and the one that most shows profession
 
 ---
 
-## 5. Chapter Summary and Local Knowledge Graph
+## 5. Chapter Summary and Local Knowledge Map
 
 ### 5.1 Key Points
 

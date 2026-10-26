@@ -200,7 +200,7 @@ So pricing 39 yuan with the standard tier is not safe enough. Three options: pri
 
 ---
 
-## 5. Chapter Summary and Local Knowledge Graph
+## 5. Chapter Summary and Local Knowledge Map
 
 ### 5.1 Key Points
 
@@ -220,7 +220,7 @@ flowchart TD
     D --> E["The safety margin of pricing"]
     C --> F["Cost engineering: the four gates"]
     E -.->|"Chapter 03"| G["MVP slicing: cut to positive margin first"]
-    F -.->|"Chapter 07"| H["Budget / routing / circuit breaker"]
+    F -.->|"Chapter 07"| H["Budget / routing / circuit breaking"]
 ```
 
 ---

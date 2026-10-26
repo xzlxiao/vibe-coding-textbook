@@ -203,7 +203,7 @@ Item 5 is often ignored. It solves two problems at once: lowering expectations (
 
 ---
 
-## 5. Chapter Summary and Local Knowledge Graph
+## 5. Chapter Summary and Local Knowledge Map
 
 ### 5.1 Key Points
 

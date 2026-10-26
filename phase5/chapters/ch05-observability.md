@@ -213,7 +213,7 @@ Step 6 is the most often ignored. An alert that does not auto-clear will wake yo
 
 ---
 
-## 5. Chapter Summary and Local Knowledge Graph
+## 5. Chapter Summary and Local Knowledge Map
 
 ### 5.1 Key Points
 

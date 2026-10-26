@@ -141,7 +141,7 @@ The information content differs by an order of magnitude. More crucially, collec
 
 ---
 
-## 5. Chapter Summary and Local Knowledge Graph
+## 5. Chapter Summary and Local Knowledge Map
 
 ### 5.1 Key Points
 
