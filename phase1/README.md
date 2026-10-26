@@ -36,31 +36,31 @@ Stage 1 in the plan has 7 knowledge points. They are not a flat list but a three
 
 ```mermaid
 flowchart TD
-    subgraph L1["第一层：为什么（诊断）"]
-        A1["LLM 生成机制<br>下一 token 预测"]
-        A2["四类系统性失效<br>幻觉依赖 / 模式化复制<br>缺失安全属性 / 上下文坍缩"]
-        A3["感知—实测落差<br>METR 的 +19% 与 −20%"]
-        A4["术语分层<br>vibe / vibe engineering<br>/ agentic engineering"]
+    subgraph L1["Layer 1: why (diagnosis)"]
+        A1["LLM generation mechanism<br>next-token prediction"]
+        A2["Four classes of systematic failure<br>hallucinated dependency / pattern completion<br>missing safety property / context collapse"]
+        A3["Perception vs. measured gap<br>METR's +19% and −20%"]
+        A4["Terminology layers<br>vibe / vibe engineering<br>/ agentic engineering"]
     end
 
-    subgraph L2["第二层：喂什么（输入）"]
-        B1["上下文工程<br>窗口 ≠ 有效注意力"]
-        B2["渐进披露<br>L0 索引 / L1 契约 / L2 全文"]
-        B3["项目规则文件<br>只有可判定的才是规则"]
+    subgraph L2["Layer 2: what to feed (input)"]
+        B1["Context engineering<br>window ≠ effective attention"]
+        B2["Progressive disclosure<br>L0 index / L1 contract / L2 full text"]
+        B3["Project rules file<br>only decidable items count as rules"]
     end
 
-    subgraph L3["第三层：谁来判（装置）"]
-        C1["夹具的两半<br>前馈 / 反馈"]
-        C2["三条最小门禁<br>lint / 类型 / 单测"]
-        C3["预发布环境<br>最后一道人眼门禁"]
-        C4["工具三形态边界<br>CLI / IDE / 云端构建器"]
-        C5["决策清单<br>何时交给 AI / 何时自己写"]
+    subgraph L3["Layer 3: who judges (the apparatus)"]
+        C1["The harness's two halves<br>feedforward / feedback"]
+        C2["Three minimal gates<br>lint / types / unit tests"]
+        C3["Preview environment<br>the last human-eye gate"]
+        C4["Three tool-form boundaries<br>CLI / IDE / cloud builder"]
+        C5["Decision checklist<br>when to hand it to AI / when to write it yourself"]
     end
 
-    subgraph L4["第四层：凭什么信（校准）"]
-        D1["五段记账<br>T_true"]
-        D2["首轮验收率 FPA"]
-        D3["小样本的说话方式<br>方向 / 待续"]
+    subgraph L4["Layer 4: why to trust it (calibration)"]
+        D1["Five-segment ledger<br>T_true"]
+        D2["First-pass acceptance rate FPA"]
+        D3["How small samples speak<br>direction / to be continued"]
     end
 
     A1 --> A2 --> A3
@@ -75,7 +75,7 @@ flowchart TD
     C2 --> C5
     C4 --> C5
     C5 --> D1 --> D2 --> D3
-    D3 -.->|"为阶段 2 提供主指标"| E["阶段 2：规格驱动开发"]
+    D3 -.->|"provides the main metric for Stage 2"| E["Stage 2: Spec-Driven Development"]
 
     style A2 fill:#1F2933,color:#FFFFFF
     style C1 fill:#1F2933,color:#FFFFFF
@@ -113,37 +113,37 @@ A fixed six-part structure; the order is not typographic habit but cognitive ord
 ## 4. Repository structure
 
 ```text
-phase1/                              # 本册 = 阶段 1，自包含
-├── README.md                        # 本文件：阶段导读与知识图谱
+phase1/                              # this volume = Stage 1, self-contained
+├── README.md                        # this file: stage intro and knowledge map
 ├── chapters/
-│   ├── ch01-speed-illusion.md       # 速度的错觉
-│   ├── ch02-context-over-prompt.md  # 喂什么，比怎么说更上位
-│   ├── ch03-two-halves-of-harness.md# 夹具的两半
+│   ├── ch01-speed-illusion.md       # the speed illusion
+│   ├── ch02-context-over-prompt.md  # what you feed matters more than how you phrase it
+│   ├── ch03-two-halves-of-harness.md# the two halves of the harness
 │   └── ch04-calibrate-with-your-own-numbers.md
-├── assets/                          # 全部配图（240 dpi，可重新生成）
-│   ├── ch01/  fig-01 感知落差 · fig-02 上下文坍缩 · fig-03 记账口径
-│   ├── ch02/  fig-01 三层渐进披露
-│   ├── ch03/  fig-01 夹具两半 · fig-02 门禁左移成本
-│   └── ch04/  fig-01 五段记账模板
+├── assets/                          # all figures (240 dpi, regenerable)
+│   ├── ch01/  fig-01 perception gap · fig-02 context collapse · fig-03 accounting conventions
+│   ├── ch02/  fig-01 three-layer progressive disclosure
+│   ├── ch03/  fig-01 the harness's two halves · fig-02 cost of shifting gates left
+│   └── ch04/  fig-01 five-segment ledger template
 └── code/
-    ├── make_figures.py              # 一键重画全部配图
-    ├── ch01/check_deps.py           # 依赖幻觉扫描器（三层判定）
-    ├── ch01/sample_ai_output.py     # 一份"看起来能跑"的 AI 产出
-    ├── ch02/build_context.py        # 三层输入生成器 + token 预算统计
-    ├── ch02/demo_repo/              # 演示仓库（11 个 py 文件，可跑测试）
-    ├── ch03/harness-template/       # ★ 本阶段核心交付物：夹具模板
+    ├── make_figures.py              # redraw all figures in one command
+    ├── ch01/check_deps.py           # dependency hallucination scanner (three-level verdict)
+    ├── ch01/sample_ai_output.py     # a piece of AI output that "looks like it runs"
+    ├── ch02/build_context.py        # three-layer input generator + token budget stats
+    ├── ch02/demo_repo/              # demo repo (11 py files, runnable tests)
+    ├── ch03/harness-template/       # ★ this stage's core deliverable: the harness template
     │   ├── AGENTS.md
-    │   ├── pyproject.toml           # ruff / mypy / pytest 配置
+    │   ├── pyproject.toml           # ruff / mypy / pytest config
     │   ├── .pre-commit-config.yaml
     │   ├── .github/workflows/ci.yml
     │   ├── src/csvkit/export.py
     │   ├── tests/test_export.py
     │   └── scripts/
-    │       ├── preview.sh           # 预发布：3 秒起一个可看页面
-    │       └── demo_gate_catch.sh   # 演示门禁抓住真实回归
+    │       ├── preview.sh           # preview: bring up a viewable page in 3 seconds
+    │       └── demo_gate_catch.sh   # demo: the gate catches a real regression
     └── ch04/
-        ├── ab_log.py                # 五段记账汇总 + bootstrap 区间
-        └── sample_log.csv           # 示例数据（编的，仅为演示格式）
+        ├── ab_log.py                # five-segment ledger summary + bootstrap interval
+        └── sample_log.csv           # sample data (made up, only to demo the format)
 ```
 
 ---

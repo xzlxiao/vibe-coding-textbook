@@ -314,15 +314,15 @@ Two tasks are not enough to draw a conclusion, but enough to let you see the dir
 
 ```mermaid
 flowchart TD
-    A["上下文坍缩<br>（第 01 章 ④）"] --> B["上下文工程<br>决定谁能进入窗口"]
-    B --> C["杠杆 1：规则文件<br>每轮常驻，可判定"]
-    B --> D["杠杆 2：渐进披露<br>L0 索引 / L1 契约 / L2 全文"]
-    B --> E["杠杆 3：结构化外置<br>规格 · ADR · 测试即文档"]
-    B --> F["杠杆 4：会话卫生<br>子任务分会话"]
-    C --> G["第 03 章：夹具的<br>前馈控制"]
+    A["Context collapse<br>(Chapter 01, class ④)"] --> B["Context engineering<br>decides who gets into the window"]
+    B --> C["Lever 1: rules file<br>present every round, decidable"]
+    B --> D["Lever 2: progressive disclosure<br>L0 index / L1 contract / L2 full text"]
+    B --> E["Lever 3: externalize structure<br>spec · ADR · tests as documentation"]
+    B --> F["Lever 4: session hygiene<br>new session per subtask"]
+    C --> G["Chapter 03: the harness's<br>feedforward control"]
     D --> G
-    E --> H["阶段 2：规格驱动开发"]
-    G --> I["门禁：反馈控制<br>（第 03 章）"]
+    E --> H["Stage 2: Spec-driven development"]
+    G --> I["Gates: feedback control<br>(Chapter 03)"]
 
     style B fill:#1F2933,color:#FFFFFF
 ```
@@ -391,16 +391,16 @@ Key conclusion: the size of three-layer input is tied to "how many files this ta
 What a passing one looks like (example, not a template):
 
 ```
-## 命令
-ruff check . / mypy src / pytest -q    # 三条全绿才算完成
+## Commands
+ruff check . / mypy src / pytest -q    # done only when all three are green
 
-## 禁区
-- 不改 COLUMNS 的顺序
-- 不新增依赖（除非 PR 说明标准库为什么不够）
-- 不在 src/ 里 print 或读环境变量
+## Off limits
+- Do not change the order of COLUMNS
+- No new dependencies (unless the PR explains why the standard library is not enough)
+- No print and no reading environment variables in src/
 
-## 完成定义
-三条命令全绿 + 新增行为有对应测试 + 回复里贴原始输出
+## Definition of done
+All three commands green + new behavior covered by tests + raw output pasted in the reply
 ```
 
 A typical failure: 200 lines written, containing "architecture philosophy", "team culture", "code taste", yet not one item verifiable by `grep` or a command. The actual function of such a file is **making yourself feel good**.

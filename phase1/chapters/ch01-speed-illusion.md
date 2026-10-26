@@ -36,7 +36,7 @@ It is 4pm on Friday, and you need to add an "export CSV" feature to an internal 
 
 You throw the requirement to the agent: *"Add an export button that exports the current table as CSV — watch out for garbled Chinese."*
 
-Ninety seconds later it hands back 180 lines of code: a Flask route, a serialization function, a frontend download button, plus a `try/except` and a comment line `# 处理编码问题` thrown in for good measure. You click the button, the file downloads, Excel opens it, and the Chinese looks fine.
+Ninety seconds later it hands back 180 lines of code: a Flask route, a serialization function, a frontend download button, plus a `try/except` and a comment line `# handle encoding issues` thrown in for good measure. You click the button, the file downloads, Excel opens it, and the Chinese looks fine.
 
 **Your ledger books one entry right here: this feature cost 15 minutes.**
 
@@ -320,12 +320,12 @@ So it is the **first** gate, not the only one. And the "package exists but the A
 
 ```mermaid
 flowchart LR
-    A["第 01 章<br>四类失效 + 两种记账口径"] -->|"结论 1：需要外部判定"| B["第 02 章<br>上下文工程（喂什么）"]
-    A -->|"结论 2：需要自动判定"| C["第 03 章<br>夹具的两半（前后馈）"]
-    A -->|"结论 3：需要自己的数字"| D["第 04 章<br>A/B 实测校准"]
-    B --> E["阶段 2<br>规格驱动开发"]
+    A["Chapter 01<br>Four failure classes + two accounting conventions"] -->|"Conclusion 1: external judgment needed"| B["Chapter 02<br>Context engineering (what to feed)"]
+    A -->|"Conclusion 2: automated judgment needed"| C["Chapter 03<br>The two halves of the harness (feedforward / feedback)"]
+    A -->|"Conclusion 3: you need your own numbers"| D["Chapter 04<br>A/B measured calibration"]
+    B --> E["Stage 2<br>Spec-driven development"]
     C --> E
-    D --> F["阶段 3<br>把 AI 代码当不可信输入"]
+    D --> F["Stage 3<br>Treat AI code as untrusted input"]
 
     style A fill:#1F2933,color:#FFFFFF
     style E fill:#F7F9FB
@@ -344,7 +344,7 @@ flowchart LR
 
 ### Tier 2 · Deduction and hands-on
 
-4. Use `code/ch01/check_deps.py` to scan the most recent AI-generated code in your own project (`--online`). Organize the results into the three classes `absent / exists-未安装 / installed`, and answer: which class requires changing the code, and which only requires changing the environment?
+4. Use `code/ch01/check_deps.py` to scan the most recent AI-generated code in your own project (`--online`). Organize the results into the three classes `absent / exists-not-installed / installed`, and answer: which class requires changing the code, and which only requires changing the environment?
 5. Retroactively record T_true for a task you recently finished: split the time into the three segments `T_first / T_rework / T_review`. If you cannot recall the last two segments, what does that tell you?
 
 ### Tier 3 · Boundaries and transfer

@@ -246,12 +246,12 @@ Three notes:
 
 ```mermaid
 flowchart LR
-    A["第 01 章<br>四类失效 + T_true"] --> D["第 04 章<br>用自己的数字校准"]
-    B["第 02 章<br>三层输入"] --> D
-    C["第 03 章<br>夹具与门禁"] --> D
-    D --> E["阶段 1 验收<br>五条标准"]
-    E --> F["阶段 2<br>规格驱动开发"]
-    D -.->|"FPA 成为阶段 2 的主指标"| F
+    A["Chapter 01<br>Four failure classes + T_true"] --> D["Chapter 04<br>Calibrate with your own numbers"]
+    B["Chapter 02<br>Three-layer input"] --> D
+    C["Chapter 03<br>Harness and gates"] --> D
+    D --> E["Stage 1 acceptance<br>five criteria"]
+    E --> F["Stage 2<br>Spec-driven development"]
+    D -.->|"FPA becomes the main metric for Stage 2"| F
 
     style D fill:#1F2933,color:#FFFFFF
 ```

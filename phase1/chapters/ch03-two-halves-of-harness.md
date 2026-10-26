@@ -184,17 +184,17 @@ The goal is not "assemble the fullest toolchain" but: **a new member following t
 
 ```text
 harness-template/
-├── AGENTS.md                  # 前馈：给智能体的宪法
-├── pyproject.toml             # 三条门禁的配置都在这里
-├── .pre-commit-config.yaml    # 门禁左移到提交前
-├── .github/workflows/ci.yml   # 门禁的最终判决
+├── AGENTS.md                  # feedforward: the constitution for the agent
+├── pyproject.toml             # all three gates are configured here
+├── .pre-commit-config.yaml    # gates shift left to before commit
+├── .github/workflows/ci.yml   # the gate's final verdict
 ├── src/csvkit/
 │   ├── __init__.py
-│   └── export.py              # 只有 30 行的业务实现
-├── tests/test_export.py       # 5 条测试，其中 3 条是契约
+│   └── export.py              # a 30-line business implementation
+├── tests/test_export.py       # 5 tests, 3 of them contracts
 └── scripts/
-    ├── preview.sh             # 预发布：3 秒起一个可看的页面
-    └── demo_gate_catch.sh     # 演示：门禁抓住一次真实回归
+    ├── preview.sh             # preview: a viewable page in 3 seconds
+    └── demo_gate_catch.sh     # demo: the gate catches a real regression
 ```
 
 The complete files are in `code/ch03/harness-template/`. Below we only cover **why it is written this way**.
@@ -363,19 +363,19 @@ All four together take less than half a day, and they cover 60% of this stage's 
 
 ```mermaid
 flowchart TD
-    A["第 01 章：四类失效"] --> B["夹具（Harness）"]
-    C["第 02 章：三层输入"] --> B
-    B --> D["前馈<br>AGENTS.md · Skills · 规格 · 模板"]
-    B --> E["反馈<br>lint · 类型 · 单测 · 变异 · SAST · 预览"]
-    D --> F["生成"]
-    E --> G["判定与拦截"]
+    A["Chapter 01: four failure classes"] --> B["Harness"]
+    C["Chapter 02: three-layer input"] --> B
+    B --> D["Feedforward<br>AGENTS.md · Skills · specs · templates"]
+    B --> E["Feedback<br>lint · types · unit tests · mutation · SAST · preview"]
+    D --> F["Generate"]
+    E --> G["Judge and block"]
     F --> G
-    G --> H{"门禁说不清？"}
-    H -->|"是"| I["人裁决"]
-    H -->|"否"| J["合并"]
+    G --> H{"Can't the gate tell?"}
+    H -->|"Yes"| I["Human adjudication"]
+    H -->|"No"| J["Merge"]
     I --> J
-    J --> K["阶段 2：规格驱动<br>（把前馈做成可执行）"]
-    J --> L["阶段 3：分层门禁<br>（把反馈做成体系）"]
+    J --> K["Stage 2: spec-driven<br>(make feedforward executable)"]
+    J --> L["Stage 3: layered gates<br>(turn feedback into a system)"]
 
     style B fill:#1F2933,color:#FFFFFF
 ```
