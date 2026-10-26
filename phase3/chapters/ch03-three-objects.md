@@ -145,7 +145,7 @@ check2 行为·精确匹配    通过 · 一字不差               失败 · �
 
 **A passes, B fails.**
 
-Note why B fails: its output is "订单 A1024：退款 128.00 元已受理，3 个工作日左右回到您的账户。" — the content is correct word for word, only the wording differs.
+Note why B fails: its output is "Order A1024: the refund of 128.00 has been accepted; it will reach your account in about 3 business days." — the content is correct word for word, only the wording differs.
 
 **This is not B's bug; this is check2's bug.** It tests wording, not facts. And what you want is obviously the facts.
 
@@ -294,7 +294,7 @@ The right practice: thresholds should come from the data (like "95% of productio
 Take "the user complains that shipping is slow" as an example:
 
 1. **No buck-passing words**: sentences like "this is not our problem" or "you didn't read it carefully" do not appear (a word list + regex works).
-2. **Gives a concrete action**: must contain at least one executable next step ("已为您催单" "将在 24 小时内回复").
+2. **Gives a concrete action**: must contain at least one executable next step ("we have rushed your order", "we will reply within 24 hours").
 3. **Does not promise what cannot be delivered**: no concrete compensation amounts (unless a real amount computed from order data).
 4. **Correct form of address**: contains the user's actual name, not "dear user".
 5. **Length and structure**: no more than N characters, and contains one paragraph of empathy + one paragraph of action.

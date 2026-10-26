@@ -86,7 +86,6 @@ flowchart TD
         C2 --> C3["逃逸率"]
         C3 --> C4["DORA 四指标 · 返工率"]
         C4 --> C5["可维护性信号：重复块 · churn"]
-
     end
 
     subgraph L3["L3 判定层：这一档要不要人看"]
