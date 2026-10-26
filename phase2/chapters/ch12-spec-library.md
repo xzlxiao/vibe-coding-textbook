@@ -127,9 +127,9 @@ No complex model needed. Find three people not on this project and ask three que
 
 **The third question stings most**: if the answer is "only Lao Wang knows", that is not "Lao Wang is great"; it is **the project has a single point of failure**.
 
-![Figure 12-1：Cognitive debt accumulating over delivery weeks](../assets/ch12/fig-01-cognitive-debt.png)
+![Figure 12-1: Cognitive debt accumulating over delivery weeks](../assets/ch12/fig-01-cognitive-debt.png)
 
-*Figure 12-1：The vertical axis is "minutes needed to answer one 'why'". Orange is the path without specs - almost overlapping early on, sharply diverging after week 10; green is the path with specs, growing gently. The numbers in the figure are a model illustration, not measurements; what you should take away is the divergence trend of the two lines, and the order of magnitude "the divergence happens in weeks 8-12".*
+*Figure 12-1: The vertical axis is "minutes needed to answer one 'why'". Orange is the path without specs - almost overlapping early on, sharply diverging after week 10; green is the path with specs, growing gently. The numbers in the figure are a model illustration, not measurements; what you should take away is the divergence trend of the two lines, and the order of magnitude "the divergence happens in weeks 8-12".*
 
 ### 2.6 Archive It, or Delete It
 

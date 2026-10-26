@@ -117,9 +117,9 @@ Take the rule "after a cancellation, wait 15 minutes before releasing the slot".
 
 Spread it out in one figure (Figure 1-1). The horizontal axis is the stage at which the defect is found; the vertical axis is the relative fix cost (set to 1 when writing the spec), on a logarithmic scale, because the gap is in orders of magnitude, not multiples.
 
-![Figure 1-1：The same defect: the later it is found, the fix cost rises by orders of magnitude](../assets/ch01/fig-01-rework-cost.png)
+![Figure 1-1: The same defect: the later it is found, the fix cost rises by orders of magnitude](../assets/ch01/fig-01-rework-cost.png)
 
-*Figure 1-1：The orange line is the typical path without a spec - defects are scattered across stages by default values, and each later stage costs more; the green line is with a spec, where defects are "pulled back" to the two leftmost stages. Watch the difference in slope between the two lines, not any specific multiplier.*
+*Figure 1-1: The orange line is the typical path without a spec - defects are scattered across stages by default values, and each later stage costs more; the green line is with a spec, where defects are "pulled back" to the two leftmost stages. Watch the difference in slope between the two lines, not any specific multiplier.*
 
 **How to read this figure matters more than remembering the numbers**:
 

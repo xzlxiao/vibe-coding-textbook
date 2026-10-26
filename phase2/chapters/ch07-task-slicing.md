@@ -89,9 +89,9 @@ Why batch at all? Two opposing forces pull:
 - **Batches too small**: context must be reloaded every time, and integration debt accumulates (a merge after every batch).
 - **Batches too large**: the context blows up, and the model starts forgetting earlier decisions (the context collapse of Chapter 1).
 
-![Figure 7-1：Batch size vs. rework probability and context usage](../assets/ch07/fig-01-batch-size.png)
+![Figure 7-1: Batch size vs. rework probability and context usage](../assets/ch07/fig-01-batch-size.png)
 
-*Figure 7-1：Green is context usage (rising with task count and saturating); orange is rework probability (U-shaped: too small accumulates integration debt, too large loses context). The shaded band 2-4 is the practical range. Note this is a teaching model, not a measured curve - your own optimal range must be found with Chapter 9's metrics.*
+*Figure 7-1: Green is context usage (rising with task count and saturating); orange is rework probability (U-shaped: too small accumulates integration debt, too large loses context). The shaded band 2-4 is the practical range. Note this is a teaching model, not a measured curve - your own optimal range must be found with Chapter 9's metrics.*
 
 ---
 
