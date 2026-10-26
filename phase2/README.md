@@ -242,7 +242,7 @@ phase2/                     # this volume (Stage 2)
 │   ├── ch11-end-to-end.md
 │   └── ch12-spec-library.md
 ├── assets/
-│   ├── ch01/  ch07/  ch09/  ch12/  # chapters with figures: fig-NN-<slug>.png (en) / fig-NN-<slug>.zh.png (zh), ≥200 DPI
+│   ├── ch01/  ch07/  ch09/  ch12/  # chapters with figures: fig-NN-<slug>.png (en) / fig-NN-<slug>.zh.png (zh), ≥200 DPI; ch09's figure is not yet referenced in the text
 ├── code/
 │   ├── figures/                   # generation script for all figures (make_figures.py)
 │   ├── ch09/                     # metrics.csv template and stats script

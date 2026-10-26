@@ -242,7 +242,7 @@ phase2/                     # 本册（阶段 2）
 │   ├── ch11-end-to-end.zh.md
 │   └── ch12-spec-library.zh.md
 ├── assets/
-│   ├── ch01/  ch07/  ch09/  ch12/  # 有图各章 fig-NN-<slug>.png（en）/ fig-NN-<slug>.zh.png（zh），≥200 DPI
+│   ├── ch01/  ch07/  ch09/  ch12/  # 有图各章 fig-NN-<slug>.png（en）/ fig-NN-<slug>.zh.png（zh），≥200 DPI；ch09 的图暂未被正文引用
 ├── code/
 │   ├── figures/                   # 全部配图的生成脚本（make_figures.py）
 │   ├── ch09/                     # metrics.csv 模板与统计脚本

@@ -397,7 +397,7 @@ All carry YAML currency fingerprints and the authoritative references of Section
 
 ### 11.2 Where the material went: Plan A executed
 
-The original combined draft has been split along the outline and deepened; the old draft is archived as `_archive/_draft-v0-combined.md` (26,000 characters, read-only reference, no longer maintained).
+The original combined draft has been split along the outline and deepened; the old draft has been deleted.
 
 | Chapter | Carried over from the original draft | Newly written |
 |---|---|---|

@@ -397,7 +397,7 @@ python3 phase4/code/ch06/replay_probe.py --base-url https://demo.supabase.co \
 
 ### 11.2 素材去向：方案 A 已执行
 
-原综合稿已按大纲拆分并补深，旧稿归档为 `_archive/_draft-v0-combined.md`（2.6 万字，只读参考，不再维护）。
+原综合稿已按大纲拆分并补深，旧稿已删除。
 
 | 章 | 从原稿接过来的 | 新写的 |
 |---|---|---|

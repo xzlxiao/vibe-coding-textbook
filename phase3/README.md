@@ -310,7 +310,7 @@ phase3/
 
 **One command to run it all**: `cd code && bash pipeline.sh` (fixed version all green) / `bash pipeline.sh coupon_service.py` (original version red on three gates).
 
-**About the existing material**: `chapters/ch03-untrusted-ai-code.md` is a **single-chapter compressed version** written early in this phase — twenty thousand words, squeezing the skeletons of twelve chapters into one chapter. It is not an official chapter of this book and has been moved into `drafts/`. The reusable parts in it (the coupon redemption case, the four test suites, the mutation comparison, the concurrency reproduction, the three figures) will be split by new chapter numbers into ch01, ch02, ch06, ch07, ch08.
+**About the existing material**: `chapters/ch03-untrusted-ai-code.md` is a **single-chapter compressed version** written early in this phase — twenty thousand words, squeezing the skeletons of twelve chapters into one chapter. It is not an official chapter of this book and has been deleted. The reusable parts in it (the coupon redemption case, the four test suites, the mutation comparison, the concurrency reproduction, the three figures) will be split by new chapter numbers into ch01, ch02, ch06, ch07, ch08.
 
 ---
 
