@@ -17,7 +17,7 @@ AI has cut the cost of "writing code" down to minutes, but **the delivery bottle
 | 1 | *Vibe Coding: Putting the "Vibe" into a Harness* | Why should I trust that this generation is correct? | [`phase1/`](phase1/) | 4 |
 | 2 | *Write the Spec First, Then Let the AI Build* | How do I get it to do things right to the standard I set? | [`phase2/`](phase2/) | 12 |
 | 3 | *Treating AI Code as Untrusted Input* | What makes this code fit to ship? | [`phase3/`](phase3/) | 12 |
-| 4 | *Contained: Attack Surface and Blast Radius* | Can an AI system be kept contained? | [`phase4/`](phase4/) | 10 |
+| 4 | *Contained: The Attack Surface and Blast Radius of AI Systems* | Can an AI system be kept contained? | [`phase4/`](phase4/) | 10 |
 | 5 | *From Running to Getting Paid* | Is this worth continuing to invest in? | [`phase5/`](phase5/) | 10 |
 
 **48 chapters, 58 figures (one Chinese set and one English set, 116 PNG files in total), with runnable forensics scripts and delivery templates.**
