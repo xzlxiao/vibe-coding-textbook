@@ -233,8 +233,7 @@ def check_m5_captions(rep: Report) -> None:
 # 配对例外与骨架豁免（计划 D2 / §5.1，写死）
 EXEMPT_UNPAIRED = ["phase1/code/ch03/harness-template/AGENTS.md"]  # 作者已签认：工具接口文件不配对
 NON_PAIRING_DOMAIN = ["docs/glossary.md"]  # 双语单文件，不属于配对域（D2）
-EXEMPT_M1_SKELETON = ["README.md", "phase1/README.md", "phase2/README.md",
-                      "phase3/README.md", "phase4/README.md", "phase5/README.md"]
+EXEMPT_M1_SKELETON = []  # 阶段 4 清零：6 个骨架对英文正文已补全，M1 全量实断言
 
 
 def pair_path(path):
