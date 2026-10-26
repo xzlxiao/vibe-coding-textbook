@@ -77,31 +77,31 @@ These three scenarios map to this book's three parts: **why anyone would pay / w
 
 ```mermaid
 flowchart TD
-    subgraph P1["第一部分 · 商业前提：凭什么收钱"]
-        A1["能跑不等于能收钱<br/>四道门体检"]
-        A2["单位经济<br/>一次请求的成本结构"]
-        A3["MVP 切割<br/>故意不做的清单"]
+    subgraph P1["Part One · Business premises: what makes it chargeable"]
+        A1["Running is not charging<br/>the four-gate checkup"]
+        A2["Unit economics<br/>the cost structure of one request"]
+        A3["MVP slicing<br/>the deliberately-not-doing list"]
         A1 --> A2 --> A3
     end
 
-    subgraph P2["第二部分 · 上线工程：凭什么敢开"]
-        B1["发布与回滚<br/>回滚是练出来的"]
-        B2["可观测性<br/>三类信号加五个 AI 专属信号"]
-        B3["灾备与恢复<br/>RTO 与 RPO"]
-        B4["成本工程<br/>四道闸与熔断"]
+    subgraph P2["Part Two · Launch engineering: what makes you dare to open"]
+        B1["Release and rollback<br/>rollback is drilled, not written"]
+        B2["Observability<br/>three signal classes plus five AI-specific signals"]
+        B3["Disaster recovery<br/>RTO and RPO"]
+        B4["Cost engineering<br/>four gates and the circuit breaker"]
         B1 --> B2 --> B3 --> B4
     end
 
-    subgraph P3["第三部分 · 边界与经营：凭什么活得久"]
-        C1["合规边界<br/>风险分级与备案登记"]
-        C2["债与重写<br/>认知债与技术债"]
-        C3["收钱之后<br/>定价 退款 留存"]
+    subgraph P3["Part Three · Boundaries and operations: what makes it last"]
+        C1["Compliance boundaries<br/>risk tiers and registration"]
+        C2["Debt and rewrites<br/>cognitive debt and tech debt"]
+        C3["After getting paid<br/>pricing, refunds, retention"]
         C1 --> C2 --> C3
     end
 
     A3 --> B1
     B4 --> C1
-    C3 --> D1["综合实战<br/>28 天上线剧本"]
+    C3 --> D1["Capstone<br/>the 28-day launch playbook"]
 ```
 
 **How to read the figure**: the three vertical boxes are the three parts; the horizontal arrows mean "the output of one part becomes the input of the next". Note the `A3 → B1` edge: **a release without locked scope equals no release** — if the MVP is not cut cleanly, the rollback plan cannot be designed, because you do not know which features must survive. Likewise `B4 → C1`: without a clear cost structure, compliance cost cannot be estimated, and you will treat "should we enter the European market" as a values question when it is really an arithmetic one.
@@ -338,8 +338,8 @@ This book assumes you have finished Stages 1–4. If not, you need not reread th
 
 ```text
 phase5/
-├── README.md                            # 本文件：全景图谱、分级大纲、学习路线
-├── chapters/                          # 十章正文
+├── README.md                            # this file: panoramic map, tiered outline, study route
+├── chapters/                          # ten chapters
 │   ├── ch01-can-run-not-can-charge.md
 │   ├── ch02-unit-economics.md
 │   ├── ch03-mvp-scope.md
@@ -350,21 +350,21 @@ phase5/
 │   ├── ch08-compliance.md
 │   ├── ch09-debt-rewrite.md
 │   └── ch10-launch-playbook.md
-├── assets/                            # 经质量门禁核验的高清图
+├── assets/                            # high-res figures verified by the quality gates
 │   ├── ch01/ ... ch10/
-├── code/                              # 可直接运行的配套代码
-│   ├── _figstyle.py                   # 配图统一样式与绘图助手（被 import）
-│   ├── make_figures_p5.py             # 全部 20 张配图的生成脚本
-│   ├── ch02/unit_economics.py         # 单位经济计算器（三档用量 + 敏感性）
-│   ├── ch03/mvp_matrix.py             # 功能四象限打分
-│   ├── ch04/rollback_drill.py         # 回滚演练计时与记录模板
-│   ├── ch05/slo_burn.py               # 错误预算与燃烧率
-│   ├── ch06/rto_calc.py               # RTO/RPO 反推与实测对照
-│   ├── ch07/budget_guard.py           # 预算熔断参考实现（可嵌入）
-│   ├── ch08/compliance_matrix.py      # 风险分级与义务清单生成
-│   ├── ch09/health_dashboard.py       # 健康度看板绘图
-│   └── ch10/launch_checklist.py       # 上线日检查单（可打勾、可导出）
-└── templates/                         # 可直接抄的交付物模板
+├── code/                              # runnable companion code
+│   ├── _figstyle.py                   # shared figure style and plotting helpers (imported)
+│   ├── make_figures_p5.py             # generation script for all 20 figures
+│   ├── ch02/unit_economics.py         # unit economics calculator (three tiers + sensitivity)
+│   ├── ch03/mvp_matrix.py             # feature four-quadrant scoring
+│   ├── ch04/rollback_drill.py         # rollback drill timing and record template
+│   ├── ch05/slo_burn.py               # error budget and burn rate
+│   ├── ch06/rto_calc.py               # RTO/RPO back-calculation vs measured
+│   ├── ch07/budget_guard.py           # budget circuit-breaker reference implementation (embeddable)
+│   ├── ch08/compliance_matrix.py      # risk tiering and obligation list generation
+│   ├── ch09/health_dashboard.py       # health dashboard plotting
+│   └── ch10/launch_checklist.py       # launch-day checklist (tickable, exportable)
+└── templates/                         # delivery templates you can copy as-is
     ├── revenue-decision-record.md
     ├── monthly-cost-per-user.csv
     ├── rollback-drill-record.md
@@ -391,7 +391,7 @@ phase5/
 
 1. Every figure must state in its caption whether it is **measured data** or **structural illustration**. Drawing an illustration as data is fabricating evidence.
 2. External numbers must carry source and time, plus the original scope qualifier (for example, Veracode's 56% is the generation failure rate under "original model, no safety prompts", not the post-launch failure rate).
-3. Monetary figures all carry `2026-10 快照，以你签约为准` in the corner.
+3. Monetary figures all carry `2026-10 snapshot, subject to your own contract` in the corner.
 
 **Python environment**: `matplotlib` + `numpy`. macOS lacks Noto Sans CJK; the font fallback order is `Hiragino Sans GB → Arial Unicode MS → STHeiti → PingFang SC`, otherwise Chinese renders as tofu blocks. After generating, eyeball each figure with `view_file`.
 

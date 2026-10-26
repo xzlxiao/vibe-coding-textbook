@@ -42,9 +42,9 @@ But the real problem is not the 22 minutes; it is that only at 14:19 did you dis
 
 ```mermaid
 flowchart LR
-    P["痛点：发布出问题，回滚手忙脚乱"] --> N["朴素做法：写好回滚文档，发在群里"]
-    N --> F["问题：文档没被读过，也没被验证过"]
-    F --> S["本章方案：把回滚拆成三层，每层都演练一次"]
+    P["Pain point: a release goes wrong and the rollback is chaos"] --> N["Naive move: write the rollback doc and post it in the group chat"]
+    N --> F["Problem: the doc was never read and never verified"]
+    F --> S["This chapter's move: split rollback into three layers and drill each once"]
 ```
 
 ### 1.2 Intuitive Analogy: Safety Rope and Seat Belt
@@ -219,14 +219,14 @@ In Chapter 10's launch-day checklist, these three items are R1–R3.
 
 ```mermaid
 flowchart TD
-    A["发布"] --> B["四种形态"]
-    B --> C["特性开关：最快回滚"]
-    A --> D["回滚三层"]
-    D --> E["代码 / 配置：分钟级"]
-    D --> F["数据：expand-contract"]
-    F --> G["演练：四段计时"]
-    G --> H["上线检查单 R1—R3"]
-    H -.->|"第 05 章"| I["可观测性：把「发现」压到 5 分钟"]
+    A["Release"] --> B["Four forms"]
+    B --> C["Feature flags: the fastest rollback"]
+    A --> D["Rollback in three layers"]
+    D --> E["Code / config: minutes"]
+    D --> F["Data: expand-contract"]
+    F --> G["Drill: time the four segments"]
+    G --> H["Launch checklist R1—R3"]
+    H -.->|"Chapter 05"| I["Observability: squeeze 'detection' down to 5 minutes"]
 ```
 
 ---

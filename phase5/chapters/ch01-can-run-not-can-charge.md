@@ -38,9 +38,9 @@ The real problem was planted two months ago: **those words "pretty good" answer 
 
 ```mermaid
 flowchart LR
-    P["原始痛点：做了两个月，上线 0 付费"] --> N["朴素做法：改文案、降价、加功能"]
-    N --> F["结果：三个变量一起动，不知道是哪个起作用"]
-    F --> S["本章方案：先用四道门定位，只补那一道"]
+    P["Raw pain point: two months of work, zero paying users at launch"] --> N["Naive move: rewrite the copy, cut the price, add features"]
+    N --> F["Result: three variables moved at once; no idea which one worked"]
+    F --> S["This chapter's move: locate with the four gates first, patch only that gate"]
 ```
 
 ### 1.2 Intuitive Analogy: Hosting Dinner vs. Opening a Restaurant
@@ -155,14 +155,14 @@ The information content differs by an order of magnitude. More crucially, collec
 
 ```mermaid
 flowchart TD
-    C1["能跑（技术可行）"] --> C2["四门体检：定位缺口"]
-    C2 --> C3["① 有人愿意付：先收一笔钱"]
-    C2 --> C4["② 可计价单位：定义计费边界"]
-    C2 --> C5["③ 交付得出去：去人工化"]
-    C2 --> C6["④ 担得起责任：写清最坏情况"]
-    C3 --> C7["单次成本与毛利"]
-    C7 -.->|"第 02 章"| NEXT["单位经济：算清一次请求值多少钱"]
-    C4 -.->|"第 03 章"| NEXT2["MVP 切割：只做闭环要件"]
+    C1["It runs (technically feasible)"] --> C2["Four-gate checkup: locate the gap"]
+    C2 --> C3["① Someone will pay: collect money first"]
+    C2 --> C4["② A billable unit: define the billing boundary"]
+    C2 --> C5["③ Deliverable: de-manual it"]
+    C2 --> C6["④ Liability affordable: write down the worst case"]
+    C3 --> C7["Per-request cost and margin"]
+    C7 -.->|"Chapter 02"| NEXT["Unit economics: what one request is worth"]
+    C4 -.->|"Chapter 03"| NEXT2["MVP slicing: closed-loop essentials only"]
 ```
 
 ---

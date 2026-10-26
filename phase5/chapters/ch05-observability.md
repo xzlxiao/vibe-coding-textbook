@@ -36,9 +36,9 @@ You open the backend and find that two hours ago the upstream transcription API 
 
 ```mermaid
 flowchart LR
-    P["痛点：服务活着，功能死了"] --> N["朴素做法：加个 ping 检查"]
-    N --> F["问题：ping 只能证明进程在，不能证明结果对"]
-    F --> S["本章方案：症状告警 + 错误预算 + AI 专属信号"]
+    P["Pain point: the service is alive, the feature is dead"] --> N["Naive move: add a ping check"]
+    N --> F["Problem: ping only proves the process exists, not that results are right"]
+    F --> S["This chapter's move: symptom alerts + error budget + AI-specific signals"]
 ```
 
 ### 1.2 Intuitive Analogy: The Point of a Dashboard
@@ -82,7 +82,7 @@ The first and the fifth belong on the same chart. **The shape of the cost curve 
 An SLO (service level objective) is a percentage, say 99.5%. Its complement is the "allowed failure ratio", and multiplied by the time window that gives the **error budget**:
 
 $$
-\text{预算分钟} = (1 - \text{SLO}) \times 30 \times 24 \times 60
+\text{budget minutes} = (1 - \text{SLO}) \times 30 \times 24 \times 60
 $$
 
 99.5% → 216 minutes/month, about 3.6 hours. This number is very useful because it turns "we want stability" into something negotiable: **how many minutes are left to burn this month.**
@@ -187,12 +187,12 @@ A1 is the one most easily missed. Most monitoring only counts HTTP 200, and "200
 Installing is not the same as working. You must deliberately induce a failure in staging and time the alerts:
 
 ```text
-步骤 1  把上游转写接口的超时时间改成 1ms（模拟 429）
-步骤 2  发起 20 次真实请求
-步骤 3  掐表等 A2 触发，记录耗时
-步骤 4  把 summary 的生成逻辑改成返回空字符串
-步骤 5  重复 20 次，等 A1 触发，记录耗时
-步骤 6  恢复配置，确认告警自动恢复（不会一直响）
+Step 1  Set the upstream transcription API timeout to 1ms (simulating a 429)
+Step 2  Fire 20 real requests
+Step 3  Start the stopwatch and wait for A2 to fire; record the elapsed time
+Step 4  Change the summary generation logic to return an empty string
+Step 5  Repeat 20 times, wait for A1 to fire; record the elapsed time
+Step 6  Restore the config and confirm the alerts auto-resolve (they must not ring forever)
 ```
 
 The criterion: **every alert fires within 5 minutes, and clears itself within 10 minutes after recovery.** For the ones that fail this, change the threshold or the window; do not change the objective.
@@ -227,15 +227,15 @@ Step 6 is the most often ignored. An alert that does not auto-clear will wake yo
 
 ```mermaid
 flowchart TD
-    A["三类信号"] --> B["四个黄金信号"]
-    A --> C["五个 AI 专属信号"]
-    C --> D["token 速率 / 单请求成本"]
+    A["Three signal classes"] --> B["The four golden signals"]
+    A --> C["Five AI-specific signals"]
+    C --> D["Token rate / per-request cost"]
     B --> E["SLO"]
     C --> E
-    E --> F["错误预算：分钟"]
-    F --> G["燃烧率 → 告警级别"]
-    G --> H["三条最小告警"]
-    H -.->|"第 06 章"| I["灾备：从「知道」到「恢复」"]
+    E --> F["Error budget: minutes"]
+    F --> G["Burn rate → alert level"]
+    G --> H["Three minimal alerts"]
+    H -.->|"Chapter 06"| I["Disaster recovery: from 'knowing' to 'recovered'"]
 ```
 
 ---

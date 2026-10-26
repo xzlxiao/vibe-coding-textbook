@@ -36,9 +36,9 @@ Three months pass; the launch date moves from "next Monday" to "end of this mont
 
 ```mermaid
 flowchart LR
-    P["痛点：永远差一点，永远不上线"] --> N["朴素做法：等一切都准备好"]
-    N --> F["问题：没有终点的准备等于没有准备"]
-    F --> S["本章方案：倒计时 + 检查单 + 明确的阻断项"]
+    P["Pain point: always a little short, never launches"] --> N["Naive move: wait until everything is ready"]
+    N --> F["Problem: preparation with no end date is the same as no preparation"]
+    F --> S["This chapter's move: a countdown + a checklist + explicit blockers"]
 ```
 
 ### 1.2 Intuitive Analogy: Launch Countdown
@@ -218,16 +218,16 @@ These three signals tell you respectively: where the mainstream price band sits,
 
 ```mermaid
 flowchart TD
-    A["① 四门体检：卡在哪"] --> B["② 单位经济：值不值得做"]
-    B --> C["③ MVP：只做闭环要件"]
-    C --> D["④ 发布与回滚：能退回去"]
-    D --> E["⑤ 可观测性：能提前知道"]
-    E --> F["⑥ 灾备：数据能回来"]
-    F --> G["⑦ 成本工程：账能控住"]
-    G --> H["⑧ 合规：边界说得清"]
-    H --> I["⑨ 债与重写：结构撑不撑得住"]
-    I --> J["⑩ 28 天：把它们跑一遍"]
-    J -.->|"循环"| A
+    A["① Four-gate checkup: where are you stuck"] --> B["② Unit economics: is it worth doing"]
+    B --> C["③ MVP: closed-loop essentials only"]
+    C --> D["④ Release and rollback: you can back out"]
+    D --> E["⑤ Observability: you know in advance"]
+    E --> F["⑥ Disaster recovery: the data comes back"]
+    F --> G["⑦ Cost engineering: the bill stays controlled"]
+    G --> H["⑧ Compliance: the boundaries are stateable"]
+    H --> I["⑨ Debt and rewrites: does the structure hold"]
+    I --> J["⑩ 28 days: run them all once"]
+    J -.->|"Loop"| A
 ```
 
 This figure has an implicit throughline: **the first nine chapters answer "is this worth continuing"; the tenth answers "how to make it actually happen".**

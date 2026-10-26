@@ -36,9 +36,9 @@ No single part of the system "erred". It simply **had no upper bound**.
 
 ```mermaid
 flowchart LR
-    P["痛点：账单一个月涨 6 倍"] --> N["朴素做法：盯着账单，月底才发现"]
-    N --> F["问题：发现时钱已经花完，且不知道是谁花的"]
-    F --> S["本章方案：四道闸 + 单用户限额 + 全局熔断"]
+    P["Pain point: the bill grew 6x in one month"] --> N["Naive move: watch the bill and find out at month end"]
+    N --> F["Problem: by the time you notice, the money is gone and nobody knows who spent it"]
+    F --> S["This chapter's move: four gates + per-user caps + a global circuit breaker"]
 ```
 
 ### 1.2 Intuitive Analogy: Electricity Meter and Circuit Breaker
@@ -224,13 +224,13 @@ Small teams pick the latter, but must write it on the help page: "Daily quota re
 
 ```mermaid
 flowchart TD
-    A["成本结构"] --> B["最大项决定第一道闸"]
-    B --> C["输入裁剪"]
-    C --> D["缓存：先测命中率"]
-    D --> E["路由：按任务难度"]
-    E --> F["熔断：三级预算"]
-    F --> G["单请求成本信号"]
-    G -.->|"第 08 章"| H["合规成本：另一类固定支出"]
+    A["Cost structure"] --> B["The biggest item picks the first gate"]
+    B --> C["Input trimming"]
+    C --> D["Caching: measure hit rate first"]
+    D --> E["Routing: by task difficulty"]
+    E --> F["Circuit breaker: three budget tiers"]
+    F --> G["Per-request cost signal"]
+    G -.->|"Chapter 08"| H["Compliance cost: another kind of fixed spend"]
 ```
 
 ---

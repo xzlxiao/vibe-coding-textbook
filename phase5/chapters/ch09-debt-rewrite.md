@@ -30,15 +30,15 @@ upstream_urls:
 
 The product has been live six months; you have 180 paying users. Nothing is missing from the feature list, but every change has slowed down.
 
-Changing one "export format" touches four files, two templates, one type definition. Afterwards three tests fail, and one of them takes you twenty minutes to understand. You open a function you wrote three months ago and the only comment is one line: `// 处理特殊情况`.
+Changing one "export format" touches four files, two templates, one type definition. Afterwards three tests fail, and one of them takes you twenty minutes to understand. You open a function you wrote three months ago and the only comment is one line: `// handle special cases`.
 
 You start wondering: is it time to rewrite?
 
 ```mermaid
 flowchart LR
-    P["痛点：改一个需求要动四个文件"] --> N["朴素做法：想重写，但怕半年白干"]
-    N --> F["问题：没有判据，只有情绪"]
-    F --> S["本章方案：四个指标 + 四条判据 + 打分卡"]
+    P["Pain point: one requirement change touches four files"] --> N["Naive move: you want to rewrite, but fear six months wasted"]
+    N --> F["Problem: no criteria, only feelings"]
+    F --> S["This chapter's move: four metrics + four criteria + a scorecard"]
 ```
 
 ### 1.2 Intuitive Analogy: Load-Bearing Walls
@@ -160,9 +160,9 @@ def consecutive_worse(values, good, span=4):
 **Third, the three "minimal actions" the program outputs are the real deliverable of this chapter.**
 
 ```text
-1. 把改动半径最大的那个模块抽出一个接口层，先隔离，不重写；
-2. 给最常改的两条路径补上端到端用例，把门禁通过率拉回来；
-3. 四周后重跑这张看板：斜率变平 = 补对了；继续恶化 = 再谈推倒。
+1. Extract an interface layer around the module with the largest change radius; isolate it first, do not rewrite;
+2. Add end-to-end cases for the two most-changed paths and pull the gate pass rate back up;
+3. Re-run this dashboard in four weeks: the slope flattens = you patched the right thing; still worsening = then talk about a rebuild.
 ```
 
 What these three share: **all are small surgeries, all finish within two weeks, none affects users who are currently using the product.**
@@ -206,14 +206,14 @@ Rule 3 is the most expensive and the most effective. It turns "I think the new s
 
 ```mermaid
 flowchart TD
-    A["四个指标"] --> B["趋势判断"]
-    B --> C{"几条越线"}
-    C -->|"1 条"| D["补那一条"]
-    C -->|"3 条以上"| E["打分卡确认"]
-    E --> F["先做最小手术"]
-    F --> G["四周后复评"]
-    G -->|"仍恶化"| H["绞杀者式重写"]
-    H -.->|"第 10 章"| I["上线包：把看板纳入日常"]
+    A["Four metrics"] --> B["Trend judgment"]
+    B --> C{"How many crossed the line?"}
+    C -->|"1"| D["Patch that one"]
+    C -->|"3 or more"| E["Confirm with the scorecard"]
+    E --> F["Do the minimal surgery first"]
+    F --> G["Re-evaluate after four weeks"]
+    G -->|"Still worsening"| H["Strangler-style rewrite"]
+    H -.->|"Chapter 10"| I["Release Package: make the dashboard routine"]
 ```
 
 ---

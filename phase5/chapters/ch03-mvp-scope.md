@@ -38,9 +38,9 @@ Software is exactly the same. Every feature you list in the requirement pool is 
 
 ```mermaid
 flowchart LR
-    P["痛点：第一版做了 20 个功能，用了三个月"] --> N["朴素做法：继续加，因为「还差一点」"]
-    N --> F["结果：永远上不了线，或上线后没人用"]
-    F --> S["本章方案：只保留付费闭环要件，其余写进「故意不做」"]
+    P["Pain point: v1 had 20 features and took three months"] --> N["Naive move: keep adding, because it's still missing a little"]
+    N --> F["Result: it never launches, or it launches and nobody uses it"]
+    F --> S["This chapter's move: keep only the paid-loop essentials; the rest goes on the deliberately-not-doing list"]
 ```
 
 ### 1.2 Intuitive Analogy: The Four-Link Chain
@@ -91,7 +91,7 @@ Many features are not "unaffordable to build" but "unaffordable to keep". Team s
 So maintenance cost must be folded into the score. The weight this book uses is 0.4:
 
 $$
-C_{\text{真实}} = C_{\text{实现}} + 0.4 \times C_{\text{维护}}
+C_{\text{true}} = C_{\text{implementation}} + 0.4 \times C_{\text{maintenance}}
 $$
 
 This weight is not truth; it is a reminder: **maintenance cost must at least be counted; even if the weight is estimated wrong, that beats ignoring it.**
@@ -217,13 +217,13 @@ Item 5 is often ignored. It solves two problems at once: lowering expectations (
 
 ```mermaid
 flowchart TD
-    A["需求池"] --> B{"缺了它闭环断不断"}
-    B -->|"断"| C["要件：现在做"]
-    B -->|"不断"| D["贡献 × 真实成本"]
-    D --> E["现在做 / 以后做 / 永远不做"]
-    C --> F["上线判据五条"]
-    E --> G["带触发条件的不做清单"]
-    F -.->|"第 04 章"| H["可回滚的发布"]
+    A["Requirement pool"] --> B{"Does the loop break without it?"}
+    B -->|"Breaks"| C["Essential: do it now"]
+    B -->|"Doesn't break"| D["Contribution × true cost"]
+    D --> E["Do now / do later / never do"]
+    C --> F["Five launch criteria"]
+    E --> G["The not-doing list with triggers"]
+    F -.->|"Chapter 04"| H["A release you can roll back"]
 ```
 
 ---

@@ -42,9 +42,9 @@ You remember you have daily backups. The 3 a.m. one is still there.
 
 ```mermaid
 flowchart LR
-    P["痛点：数据删了，备份有，但不敢用"] --> N["朴素做法：把备份文件下载下来，试试能不能还原"]
-    N --> F["问题：还原要 82 分钟，期间服务不可用"]
-    F --> S["本章方案：定期演练 + 分级备份 + 降级策略"]
+    P["Pain point: data deleted, backups exist, but nobody dares to restore"] --> N["Naive move: download the backup file and try to restore it"]
+    N --> F["Problem: the restore takes 82 minutes, service down the whole time"]
+    F --> S["This chapter's move: regular drills + tiered backups + degradation strategy"]
 ```
 
 ### 1.2 Intuitive Analogy: Drills and Real Fire
@@ -204,17 +204,17 @@ The last action is often skipped, but it matters most: **a promise better than t
 
 ```mermaid
 flowchart TD
-    A["故障发生"] --> B["发现：告警"]
-    B --> C["决策：值班卡"]
-    C --> D["恢复：备份 + 重建"]
-    D --> E["验证：冒烟用例"]
+    A["Failure happens"] --> B["Detection: alerts"]
+    B --> C["Decision: the on-call card"]
+    C --> D["Recovery: backup + rebuild"]
+    D --> E["Verification: smoke cases"]
     B --> F["RTO"]
     C --> F
     D --> F
-    D --> G["RPO：备份频率"]
-    G --> H["数据分级"]
-    H --> I["可重建 / 不可重建"]
-    I -.->|"第 07 章"| J["成本：备份与存储的取舍"]
+    D --> G["RPO: backup frequency"]
+    G --> H["Data tiering"]
+    H --> I["Rebuildable / not rebuildable"]
+    I -.->|"Chapter 07"| J["Cost: the backup vs storage trade-off"]
 ```
 
 ---

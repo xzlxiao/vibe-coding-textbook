@@ -38,10 +38,10 @@ AI products die here most easily, because of one property: **marginal cost is no
 
 ```mermaid
 flowchart LR
-    R["收入 39 元"] --> V["减：变动成本<br/>用一次就多花一次的钱"]
-    V --> CM["贡献毛利<br/>能拿来养固定成本的钱"]
-    CM --> F["减：固定成本<br/>域名/数据库/监控"]
-    F --> P["营业利润"]
+    R["Revenue ¥39"] --> V["Minus: variable costs<br/>money spent once per use"]
+    V --> CM["Contribution margin<br/>money left to cover fixed costs"]
+    CM --> F["Minus: fixed costs<br/>domain / database / monitoring"]
+    F --> P["Operating profit"]
 ```
 
 **The boundary of this analogy**: a milk-tea shop has inventory and wastage; an AI product has caching and retries; the structure is similar, but the "wastage" of an AI product (failed calls, retried requests, over-long contexts) is often far higher than a milk-tea shop's discard rate, and it is invisible.
@@ -66,7 +66,7 @@ First distinguish two kinds of cost; this is the precondition for all later calc
 Taking the "Minutes" assistant as an example, one 50-minute meeting:
 
 $$
-C_{\text{单次}} = \underbrace{M \times p_{\text{asr}}}_{\text{转写}} + \underbrace{\frac{M \times s}{1024} \times p_{\text{store}}}_{\text{存储}} + \underbrace{\left(\frac{T_{\text{in}} p_{\text{in}} + T_{\text{out}} p_{\text{out}}}{10^6}\right)}_{\text{模型调用}} + \underbrace{e}_{\text{检索摊销}}
+C_{\text{per-request}} = \underbrace{M \times p_{\text{asr}}}_{\text{transcription}} + \underbrace{\frac{M \times s}{1024} \times p_{\text{store}}}_{\text{storage}} + \underbrace{\left(\frac{T_{\text{in}} p_{\text{in}} + T_{\text{out}} p_{\text{out}}}{10^6}\right)}_{\text{model calls}} + \underbrace{e}_{\text{retrieval amortized}}
 $$
 
 Explaining each symbol in turn:
@@ -94,7 +94,7 @@ Note the difference in magnitude here: **transcription takes sixty percent, the 
 Gross margin = contribution margin / revenue. It is not decided by pricing alone but by three numbers together: **unit price × usage × per-request cost**.
 
 $$
-\text{盈亏平衡用量} = \frac{P(1 - r_{\text{pay}})}{C_{\text{单次}}}
+\text{break-even usage} = \frac{P(1 - r_{\text{pay}})}{C_{\text{per-request}}}
 $$
 
 Where $P$ is the subscription price and $r_{\text{pay}}$ is the payment channel fee rate (0.6% in this example). The meaning of this formula is plain: when the money you receive (after the channel fee) just covers the variable cost, that is the break-even point; every meeting beyond it is net loss.
@@ -214,13 +214,13 @@ So pricing 39 yuan with the standard tier is not safe enough. Three options: pri
 
 ```mermaid
 flowchart TD
-    A["单次成本"] --> B["转写 / 存储 / 模型 / 检索"]
-    B --> C["成本方差：档位 × 上下文 × 重试"]
-    A --> D["盈亏平衡用量"]
-    D --> E["定价的安全边界"]
-    C --> F["成本工程：四道闸"]
-    E -.->|"第 03 章"| G["MVP 切割：先砍出正毛利"]
-    F -.->|"第 07 章"| H["预算 / 路由 / 熔断"]
+    A["Per-request cost"] --> B["Transcription / storage / model / retrieval"]
+    B --> C["Cost variance: tier × context × retries"]
+    A --> D["Break-even usage"]
+    D --> E["The safety margin of pricing"]
+    C --> F["Cost engineering: the four gates"]
+    E -.->|"Chapter 03"| G["MVP slicing: cut to positive margin first"]
+    F -.->|"Chapter 07"| H["Budget / routing / circuit breaker"]
 ```
 
 ---

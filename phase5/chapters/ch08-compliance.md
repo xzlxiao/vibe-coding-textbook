@@ -38,9 +38,9 @@ The real answer is: **you are most likely not in the "high-risk" tier; the Augus
 
 ```mermaid
 flowchart LR
-    P["痛点：不知道自己要合什么规"] --> N["朴素做法：搜到哪条算哪条，越搜越慌"]
-    N --> F["问题：把别档的义务套在自己身上，或漏掉本档的"]
-    F --> S["本章方案：先定档，再按档取义务清单"]
+    P["Pain point: you don't know which rules you must comply with"] --> N["Naive move: follow whatever you happen to find; the more you search, the more scared you get"]
+    N --> F["Problem: applying another tier's obligations to yourself, or missing your own"]
+    F --> S["This chapter's move: fix the tier first, then pull the obligation list for that tier"]
 ```
 
 ### 1.2 Intuitive Analogy: Licenses and Business Scope
@@ -193,15 +193,15 @@ The fourth row's approach is worth learning: **obligations that do not apply sti
 This document is a required piece of Chapter 10's release package; five sections are enough:
 
 ```text
-1. 我卖到哪：面向中国境内公众 + 对欧盟用户开放（未主动推广）
-2. 我在哪一档：EU AI Act 有限风险，依据第 50 条；国内走登记通道
-3. 现在必须做：AI 告知、内容标识、机器可读标记、模型名称与编号公示、
-   自动续费双重提示、取消入口 ≤ 2 层
-4. 可以排期：数据出境评估（若启用境外 API）、备份删除机制（30 天窗口）
-5. 触发动作：
-   - 出现深度伪造投诉 → 立即停机并复核生成链路
-   - 用户要求删除 → 7 天内完成主库删除，30 天内完成备份轮转
-   - 模型供应商变更 → 重新核对登记信息与公示内容
+1. Where I sell: to the public in mainland China + open to EU users (no active promotion)
+2. My tier: EU AI Act limited risk, under Article 50; the domestic route goes through registration
+3. Must do now: AI disclosure, content labeling, machine-readable marking, publishing the model name and ID,
+   double notice on auto-renewal, cancellation entry within ≤ 2 levels
+4. Can be scheduled: cross-border data assessment (if overseas APIs are enabled), backup deletion mechanism (30-day window)
+5. Triggered actions:
+   - A deepfake complaint arrives → stop the feature immediately and re-check the generation chain
+   - A user asks for deletion → primary-store deletion within 7 days, backup rotation within 30 days
+   - The model vendor changes → re-verify the registration info and published content
 ```
 
 Section 5 is the most easily ignored part and the one that most shows professionalism. **Compliance is not a checklist; it is a set of "under what circumstances must what be done" triggers.**
@@ -234,15 +234,15 @@ Section 5 is the most easily ignored part and the one that most shows profession
 
 ```mermaid
 flowchart TD
-    A["定档"] --> B["卖到哪：EU / 国内 / 仅企业"]
-    A --> C["做什么：禁止 / 高 / 有限 / 最小"]
-    B --> D["义务清单"]
+    A["Tiering"] --> B["Where you sell: EU / domestic / enterprise-only"]
+    A --> C["What you do: prohibited / high / limited / minimal"]
+    B --> D["Obligation list"]
     C --> D
-    D --> E["透明度：AI 告知"]
-    D --> F["标识：显式 + 机器可读"]
-    D --> G["登记 / 公示"]
-    D --> H["支付：续费与取消"]
-    H -.->|"第 10 章"| I["上线包：一页合规说明"]
+    D --> E["Transparency: AI disclosure"]
+    D --> F["Labeling: explicit + machine-readable"]
+    D --> G["Registration / publication"]
+    D --> H["Payments: renewals and cancellation"]
+    H -.->|"Chapter 10"| I["Release Package: a one-page compliance note"]
 ```
 
 ---
