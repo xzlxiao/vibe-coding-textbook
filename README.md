@@ -20,7 +20,7 @@ AI has cut the cost of "writing code" down to minutes, but **the delivery bottle
 | 4 | *Contained: Attack Surface and Blast Radius* | Can an AI system be kept contained? | [`phase4/`](phase4/) | 10 |
 | 5 | *From Running to Getting Paid* | Is this worth continuing to invest in? | [`phase5/`](phase5/) | 10 |
 
-**48 chapters, 58 figures (one Chinese set and one English set, 116 PNG files in total), with runnable forensics scripts and delivery templates.** _数量口径句：共 48 章、58 张图_
+**48 chapters, 58 figures (one Chinese set and one English set, 116 PNG files in total), with runnable forensics scripts and delivery templates.**
 
 ## How to Read
 
