@@ -151,16 +151,16 @@ The criterion: **the content of the signature must be readable by others three m
 
 ```mermaid
 flowchart TD
-    A["第 09 章：有了数"] --> B["第 10 章：把数变成档位"]
-    B --> C["R 可逆性"]
-    B --> D["B 影响半径"]
-    B --> E["O 可观测性"]
-    C --> F["总分 → 四档"]
+    A["Chapter 09: now you have the numbers"] --> B["Chapter 10: turning numbers into tiers"]
+    B --> C["Reversibility R"]
+    B --> D["Blast radius B"]
+    B --> E["Observability O"]
+    C --> F["Total score → four tiers"]
     D --> F
     E --> F
-    F --> G["自动 / 轻量 / 人工 / 高级别"]
-    G --> H["第 12 章：档位决定流水线强度"]
-    G -.->|"档位与现状不符"| I["当前的风险口"]
+    F --> G["Auto / Lightweight / Human / High-level"]
+    G --> H["Chapter 12: the tier sets the pipeline's strength"]
+    G -.->|"Tier does not match reality"| I["The current risk exposure"]
 ```
 
 ### 5.3 Interfaces to the Previous and Next Chapters
@@ -223,12 +223,12 @@ Ordering principle: first list "high score but currently auto-merging" — those
 #### 5. PR template
 
 ```markdown
-## 这次改动
-- 可逆性：□0 一次回滚 □1 需修复脚本 □2 不可逆
-- 影响半径：□0 单用户 □1 单功能 □2 全站
-- 可观测性：□0 有指标告警 □1 只有日志 □2 只能靠投诉
-- 合计：__ 分 → 档位：__
-- 若 ≥4：失败模式是什么？回滚方案是什么？（必填）
+## This change
+- Reversibility: □0 one rollback □1 needs a repair script □2 irreversible
+- Blast radius: □0 single user □1 single feature □2 whole site
+- Observability: □0 metrics + alerts □1 logs only □2 complaints only
+- Total: __ points → tier: __
+- If ≥4: what is the failure mode? What is the rollback plan? (required)
 ```
 
 **Preventing "all 0s"**: add an automated check — if R=0 but the change touches messaging/charging/deletion-class keywords, or B=0 but the change touches shared tables, require supplementary notes. **Make "filling it wrong" more troublesome than "filling it right".**

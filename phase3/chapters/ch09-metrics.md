@@ -217,16 +217,16 @@ This is the process of "from numbers to judgment". **A single number never const
 
 ```mermaid
 flowchart TD
-    A["第 06—08 章：五道闸"] --> B["第 09 章：怎么知道闸在起作用"]
-    B --> C["领先指标"]
-    B --> D["滞后指标"]
-    C --> C1["覆盖率 / 变异分数"]
-    C --> C2["重复块 / churn / 重构占比"]
-    D --> D1["逃逸率"]
-    D --> D2["变更失败率 / MTTR"]
-    C1 -.->|"可被刷"| E["需要外部校准"]
+    A["Chapters 06–08: five gates"] --> B["Chapter 09: how to know the gates work"]
+    B --> C["Leading indicators"]
+    B --> D["Lagging indicators"]
+    C --> C1["Coverage / mutation score"]
+    C --> C2["Duplicated blocks / churn / refactoring share"]
+    D --> D1["Escape rate"]
+    D --> D2["Change failure rate / MTTR"]
+    C1 -.->|"Farmable"| E["Needs external calibration"]
     D1 --> E
-    E --> F["第 10 章：把判断变成流程"]
+    E --> F["Chapter 10: turning judgment into a process"]
 ```
 
 ### 5.3 Interfaces to the Previous and Next Chapters

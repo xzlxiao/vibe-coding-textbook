@@ -194,15 +194,15 @@ One-sentence summary: **the mutation score is the thermometer of "regression pro
 
 ```mermaid
 flowchart TD
-    A["第 06 章：两种烂法"] --> B["第 07 章：给测试打分"]
-    B --> C["变异体：故意改坏"]
-    C --> D["杀死：有断言守住"]
-    C --> E["存活：没人守"]
-    C --> F["等价：改了等于没改"]
-    D --> G["变异分数"]
-    G --> H["只测防回归"]
-    H -.->|"测不到"| I["抗重构：靠第 06 章的重构探针"]
-    G --> J["正确用法：趋势 + 同代码对比"]
+    A["Chapter 06: two kinds of badness"] --> B["Chapter 07: grading the tests"]
+    B --> C["Mutants: deliberately broken"]
+    C --> D["Killed: an assertion holds it"]
+    C --> E["Survived: nobody holds it"]
+    C --> F["Equivalent: changed yet unchanged"]
+    D --> G["Mutation score"]
+    G --> H["Only measures anti-regression"]
+    H -.->|"Cannot measure"| I["Refactoring resistance: via Chapter 06's refactor probe"]
+    G --> J["Correct use: trends + same-code comparisons"]
 ```
 
 ### 5.3 Interfaces to the Previous and Next Chapters

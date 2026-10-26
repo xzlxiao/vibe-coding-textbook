@@ -73,17 +73,17 @@ This is why you cannot test it exhaustively: what you must prove is a universal 
 
 ```mermaid
 sequenceDiagram
-    participant A as 请求 A
-    participant DB as 数据库
-    participant B as 请求 B
+    participant A as Request A
+    participant DB as Database
+    participant B as Request B
     A->>DB: SELECT used=0, quota=1
     DB-->>A: 0
     B->>DB: SELECT used=0, quota=1
     DB-->>B: 0
-    Note over A,B: 两边都判断"还有余额"
+    Note over A,B: both sides judge "balance remains"
     A->>DB: UPDATE used=1
     B->>DB: UPDATE used=1
-    Note over DB: 最终 used=1，成功 2 次
+    Note over DB: final used=1, 2 successes
 ```
 
 ### 2.2 Three Responses, Each With a Dead End
@@ -233,17 +233,17 @@ Their shared shape: **translate "a property that only surfaces at runtime" into 
 
 ```mermaid
 flowchart TD
-    A["第 07 章：变异测试也测不到并发"] --> B["第 08 章：盲区"]
-    B --> C["并发 / 时序"]
-    B --> D["资源 / 泄漏"]
-    B --> E["规模 / 无界"]
-    C --> F["概率性检出：压测"]
-    C --> G["确定性复现：手工交错"]
-    C --> H["约束下沉：唯一索引 + 条件更新"]
-    F --> F1["通过 ≠ 安全"]
-    H --> H1["可进 CI，0.1 秒"]
-    H1 --> I["第 12 章：流水线里的一道闸"]
-    B -.->|"第 04 阶段"| J["威胁建模：把性质写成清单"]
+    A["Chapter 07: mutation testing cannot catch concurrency either"] --> B["Chapter 08: blind spots"]
+    B --> C["Concurrency / timing"]
+    B --> D["Resources / leaks"]
+    B --> E["Scale / unboundedness"]
+    C --> F["Probabilistic detection: stress tests"]
+    C --> G["Deterministic reproduction: manual interleaving"]
+    C --> H["Constraint pushdown: unique index + conditional update"]
+    F --> F1["Passing ≠ safe"]
+    H --> H1["CI-friendly, 0.1 seconds"]
+    H1 --> I["Chapter 12: one gate in the pipeline"]
+    B -.->|"Phase 04"| J["Threat modeling: turning properties into a checklist"]
 ```
 
 ### 5.3 Interfaces to the Previous and Next Chapters

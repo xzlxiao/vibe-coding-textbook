@@ -166,15 +166,15 @@ That is the meaning of layering: **every layer has a definite capability boundar
 
 ```mermaid
 flowchart TD
-    A["第 04 章：依赖门禁"] --> B["第 05 章：静态门禁"]
-    B --> C["能力形状：只能匹配'存在'"]
-    C --> D["能抓：拼接 SQL / 密钥 / 未使用变量"]
-    C --> E["不能抓：缺失 / 时序 / 跨函数语义"]
-    B --> F["误报经济学"]
-    F --> G["死亡螺旋：忽略 → 关闭 → 失效"]
-    D --> H["第 06 章：动态门禁接手行为"]
+    A["Chapter 04: the dependency gate"] --> B["Chapter 05: the static gate"]
+    B --> C["Capability shape: can only match 'existence'"]
+    C --> D["Catches: concatenated SQL / secrets / unused variables"]
+    C --> E["Cannot catch: absences / timing / cross-function semantics"]
+    B --> F["The economics of false positives"]
+    F --> G["Death spiral: ignore → disable → useless"]
+    D --> H["Chapter 06: the dynamic gate takes over behavior"]
     E --> H
-    E -.->|"时序与缺失"| I["第 08 章：盲区"]
+    E -.->|"Timing and absences"| I["Chapter 08: blind spots"]
 ```
 
 ### 5.3 Interfaces to the Previous and Next Chapters

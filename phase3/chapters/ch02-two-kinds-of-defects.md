@@ -71,14 +71,14 @@ If the verification method remains "humans read line by line", verification capa
 
 ```mermaid
 flowchart LR
-    P["痛点：读完了，还是漏"] --> N["朴素解释：读得不够仔细"]
-    N --> F1["读不完：生成快过阅读"]
-    N --> F2["读不出：缺失的东西没有形状"]
-    N --> F3["记不住：三天后说不清当时看过什么"]
-    F1 --> S["本章方案：先分类，再选验证方式"]
+    P["Pain point: finished reading, still missed things"] --> N["Naive explanation: not careful enough"]
+    N --> F1["Cannot finish: generation outruns reading"]
+    N --> F2["Cannot spot them: what is missing has no shape"]
+    N --> F3["Cannot remember: three days later, what did I even see"]
+    F1 --> S["This chapter's plan: classify first, then pick the verification method"]
     F2 --> S
     F3 --> S
-    S --> R["commission 交给看，omission 交给跑和锁"]
+    S --> R["commission goes to reading, omission goes to running and locking"]
 ```
 
 ## 2. First Principles: Two Kinds of Defects, One Visible, One Invisible
@@ -112,13 +112,13 @@ This is why "I read it line by line" does not equal "I verified it" in productio
 
 ```mermaid
 flowchart TD
-    D["AI 代码的缺陷"] --> C["commission：做错了"]
-    D --> O["omission：该做的没做"]
-    C --> C1["逐行阅读：擅长"]
-    C --> C2["SAST 与类型检查：擅长"]
-    O --> O1["逐行阅读：不擅长，取决于脑中清单"]
-    O --> O2["执行型门禁：仅在性质被写成断言时有效"]
-    O --> O3["没人写下的性质：没有任何门禁能看见"]
+    D["Defects in AI code"] --> C["commission: done wrong"]
+    D --> O["omission: what should exist does not"]
+    C --> C1["Line-by-line reading: good at it"]
+    C --> C2["SAST and type checking: good at it"]
+    O --> O1["Line-by-line reading: not good at it, depends on the checklist in your head"]
+    O --> O2["Execution-type gates: effective only when the property is written as an assertion"]
+    O --> O3["Properties nobody wrote down: no gate can see them"]
 ```
 
 The node at the bottom right (O3) is the theme of Chapter 08. Remember it for now.
@@ -253,17 +253,17 @@ Group the conclusions of the previous table by commission / omission, and the ve
 
 ```mermaid
 flowchart TD
-    A["起点：为什么读不完还要读"] --> B["缺陷二分"]
-    B --> C["commission：有形状"]
-    B --> D["omission：无形状"]
-    C --> E["读 + SAST 有效"]
-    D --> F["需要脑中清单"]
-    F --> G["规格 → 应该有什么清单"]
-    G --> H["逐条核对 → 缺口显形"]
-    H --> I["缺口交给执行与约束"]
-    E --> J["第 05 章 静态门禁"]
-    I --> K["第 06—08 章 动态与盲区"]
-    D -.->|"极端形态"| L["第 08 章：没人写下的性质"]
+    A["Starting point: why keep reading what you cannot finish"] --> B["Two kinds of defects"]
+    B --> C["commission: has shape"]
+    B --> D["omission: has no shape"]
+    C --> E["Reading + SAST works"]
+    D --> F["Needs the checklist in your head"]
+    F --> G["Spec → the 'what should exist' checklist"]
+    G --> H["Check item by item → gaps become visible"]
+    H --> I["Hand gaps to execution and constraints"]
+    E --> J["Chapter 05: static gates"]
+    I --> K["Chapters 06–08: dynamic and blind spots"]
+    D -.->|"extreme form"| L["Chapter 08: properties nobody wrote down"]
 ```
 
 ### 5.3 Interfaces to the Previous and Next Chapters

@@ -44,18 +44,18 @@ A single fake package name is not scary; if it cannot be installed, it just erro
 
 ```mermaid
 sequenceDiagram
-    participant M as 模型
-    participant A as 攻击者
-    participant R as 公共注册表
-    participant D as 你
-    M->>M: 对同一提示词反复生成
-    Note over M: 43% 的假包名每次查询都复现
-    A->>R: 注册这个名字，发布一个能用的包
-    Note over R: 功能正确，额外加一行读 ~/.ssh
-    M->>D: 在你的项目里写 import
+    participant M as Model
+    participant A as Attacker
+    participant R as Public registry
+    participant D as You
+    M->>M: generate repeatedly for the same prompt
+    Note over M: 43% of the hallucinated package names reproduce on every query
+    A->>R: register that name, publish a working package
+    Note over R: works correctly, plus one extra line reading ~/.ssh
+    M->>D: write an import in your project
     D->>R: pip install
-    R-->>D: 装上的是攻击者的包
-    Note over D: 测试全绿，SAST 无告警
+    R-->>D: what gets installed is the attacker's package
+    Note over D: tests all green, no SAST alerts
 ```
 
 Of the four steps, you cannot see the first three. The only thing you can see is the fourth step's `pip install`, and it looks like any other installation.
@@ -178,10 +178,10 @@ One package per line in `allowed_deps.txt`, but the real work is not writing tha
 The answers to these three questions should be written into the commit message or PR description, not just leaving a package name. **Three months from now you will thank your past self.**
 
 ```text
-# allowed_deps.txt 的正确形态（示例，本章示例不需要任何第三方包）
-# 每行一个包名，注释里写"为什么允许"与"什么时候复核"
-fastapi==0.115.0        # 2026-10 加入；Web 框架，来源 pypi.org/project/fastapi；下次复核 2027-04
-psycopg[binary]==3.2.3  # 2026-10 加入；Postgres 驱动；来源官方仓库；复核 2027-04
+# what allowed_deps.txt should look like (example; this chapter's example needs no third-party packages)
+# one package name per line; the comment states "why it is allowed" and "when to review it"
+fastapi==0.115.0        # added 2026-10; web framework, source pypi.org/project/fastapi; next review 2027-04
+psycopg[binary]==3.2.3  # added 2026-10; Postgres driver; source: official repository; review 2027-04
 ```
 
 ### 3.4 When This Gate Will Lie to You
@@ -221,16 +221,16 @@ The last row deserves attention: this chapter's `test_coupon_behavior.py` uses `
 
 ```mermaid
 flowchart TD
-    A["第 03 章：三种对象"] --> B["第 04 章：供应链门禁"]
-    B --> C["幻觉依赖：补全机制"]
-    C --> D["可复现 43%"]
-    D --> E["可抢注"]
-    E --> F["四步攻击链"]
-    B --> G["防线一：允许清单（人工 + 默认拒绝）"]
-    B --> H["防线二：锁文件 + 哈希"]
-    B --> I["防线三：SBOM 与来源验证"]
-    G --> J["第 05 章：静态门禁"]
-    G -.->|"失效点"| K["动态 import / 传递依赖"]
+    A["Chapter 03: the three objects"] --> B["Chapter 04: the supply chain gate"]
+    B --> C["Hallucinated dependency: the completion mechanism"]
+    C --> D["43% reproducible"]
+    D --> E["Can be squatted"]
+    E --> F["Four-step attack chain"]
+    B --> G["Defense line 1: allowlist (human-maintained + deny by default)"]
+    B --> H["Defense line 2: lock file + hashes"]
+    B --> I["Defense line 3: SBOM and source verification"]
+    G --> J["Chapter 05: static gates"]
+    G -.->|"Failure point"| K["Dynamic import / transitive dependencies"]
 ```
 
 ### 5.3 Interfaces to the Previous and Next Chapters

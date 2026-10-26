@@ -226,22 +226,22 @@ If two of the three fall in the "rewrite" column, seriously consider rewriting; 
 
 ```mermaid
 flowchart TD
-    A["第 01 章：验证位置错位"] --> B["第 02 章：缺陷二分"]
-    B --> C["第 03 章：三种验证对象"]
-    C --> D["Part 2 门禁：AI 作为作者"]
-    C --> E["第 11 章：评测集，AI 作为组件"]
-    D --> D1["04 供应链"]
-    D --> D2["05 静态"]
-    D --> D3["06 动态"]
-    D --> D4["07 变异"]
-    D --> D5["08 盲区"]
-    D1 --> F["第 09 章：度量"]
+    A["Chapter 01: misplaced verification"] --> B["Chapter 02: two kinds of defects"]
+    B --> C["Chapter 03: three verification objects"]
+    C --> D["Part 2 Gates: AI as the author"]
+    C --> E["Chapter 11: evaluation sets, AI as a component"]
+    D --> D1["04 supply chain"]
+    D --> D2["05 static"]
+    D --> D3["06 dynamic"]
+    D --> D4["07 mutation"]
+    D --> D5["08 blind spots"]
+    D1 --> F["Chapter 09: measurement"]
     D5 --> F
-    F --> G["第 10 章：风险分档"]
+    F --> G["Chapter 10: risk tiers"]
     E --> G
-    G --> H["第 12 章：流水线"]
-    H --> I["产出：敢上线的可辩护判断"]
-    I -.->|"仍存在的盲区"| J["威胁建模（第 04 阶段）"]
+    G --> H["Chapter 12: the pipeline"]
+    H --> I["Output: a defensible judgment you dare to ship"]
+    I -.->|"Blind spots that remain"| J["Threat modeling (Phase 04)"]
 ```
 
 ### 5.4 Three Sentences to Take Away

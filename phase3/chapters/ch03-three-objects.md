@@ -78,14 +78,14 @@ Look closely at row 6: **the first two can give a binary "pass"; the third canno
 
 ```mermaid
 flowchart TD
-    Q["要验证的东西"] --> A{"它有确定的<br/>正确答案吗"}
-    A -->|"有，且输入可枚举"| B{"它的正确性<br/>体现在返回值上<br/>还是副作用上"}
-    B -->|"返回值"| C["行为测试：<br/>给定输入断言输出"]
-    B -->|"副作用"| D["契约测试 / 状态断言：<br/>断言数据库、队列、外部调用"]
-    A -->|"没有唯一答案"| E{"你能拿到<br/>人类标注吗"}
-    E -->|"能"| F["评测集：<br/>固定样本 + 指标 + 阈值"]
-    E -->|"不能"| G["性质断言 + 人工抽检：<br/>只约束硬事实，其余靠人"]
-    Q --> H["代码形态"] --> I["类型 / lint / SAST：<br/>只保证形状，不保证语义"]
+    Q["The thing to verify"] --> A{"Does it have a<br/>definite correct answer"}
+    A -->|"Yes, and inputs are enumerable"| B{"Does its correctness<br/>show in the return value<br/>or the side effects"}
+    B -->|"Return value"| C["Behavior tests:<br/>assert the output for a given input"]
+    B -->|"Side effects"| D["Contract tests / state assertions:<br/>assert on the database, queue, external calls"]
+    A -->|"No unique answer"| E{"Can you get<br/>human annotations"}
+    E -->|"Yes"| F["Evaluation set:<br/>fixed samples + metrics + thresholds"]
+    E -->|"No"| G["Property assertions + human spot checks:<br/>constrain only hard facts, the rest by humans"]
+    Q --> H["Code shape"] --> I["Types / lint / SAST:<br/>guarantee shape, not semantics"]
 ```
 
 This figure is worth copying down and sticking next to your monitor. It solves the question asked every day: "which kind of test should I write?"
@@ -219,14 +219,14 @@ check3 输出·性质断言    通过 · 20/20 次调用全项通过   通过 ·
 
 ```mermaid
 flowchart TD
-    A["第 02 章：应该有什么清单"] --> B["第 03 章：这一项该用哪种验证"]
-    B --> C["代码形态 → 类型 / lint / SAST"]
-    B --> D["运行行为 → 单测 / 契约 / 属性"]
-    B --> E["输出质量 → 评测集 / 性质断言"]
-    C --> F["第 05 章"]
-    D --> G["第 06—07 章"]
-    E --> H["第 11 章"]
-    B -.->|"三类都抓不到"| I["第 08 章：并发与资源"]
+    A["Chapter 02: the 'what should exist' checklist"] --> B["Chapter 03: which verification for this item"]
+    B --> C["Code shape → types / lint / SAST"]
+    B --> D["Runtime behavior → unit tests / contract tests / properties"]
+    B --> E["Output quality → evaluation set / property assertions"]
+    C --> F["Chapter 05"]
+    D --> G["Chapters 06–07"]
+    E --> H["Chapter 11"]
+    B -.->|"None of the three catch it"| I["Chapter 08: concurrency and resources"]
 ```
 
 ### 5.3 Interfaces to the Previous and Next Chapters

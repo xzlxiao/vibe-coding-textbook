@@ -82,7 +82,7 @@ The empirical ratio of the three is **6 : 3 : 1**. Too few real traffic samples 
 The right approach is to price different errors:
 
 ```text
-加权准确率 = Σ(样本权重 × 判对) ÷ Σ(样本权重)
+weighted accuracy = Σ(sample weight × correct) ÷ Σ(sample weight)
 ```
 
 | Error type | Weight | Reason |
@@ -204,15 +204,15 @@ The value of this set is not precision; it is **that it is regression-friendly**
 
 ```mermaid
 flowchart TD
-    A["第 03 章：输出是第三种对象"] --> B["第 11 章：评测集"]
-    B --> C["何时需要：三判据"]
-    B --> D["样本：真实 6 / 边界 3 / 回归 1"]
-    B --> E["指标：按错误代价加权"]
-    B --> F["裁判：三类偏差"]
-    F --> F1["位置：顺序对调探针"]
-    F --> F2["长度 / 自我偏好"]
-    B --> G["漂移：版本 + 复核日期"]
-    G --> H["第 12 章：进流水线，按周跑"]
+    A["Chapter 03: output is the third object"] --> B["Chapter 11: evaluation sets"]
+    B --> C["When needed: three criteria"]
+    B --> D["Samples: 6 real / 3 boundary / 1 regression"]
+    B --> E["Metrics: weighted by error cost"]
+    B --> F["The judge: three kinds of bias"]
+    F --> F1["Position: the order-swap probe"]
+    F --> F2["Length / self-preference"]
+    B --> G["Drift: version + review date"]
+    G --> H["Chapter 12: into the pipeline, run weekly"]
 ```
 
 ### 5.3 Interfaces to the Previous and Next Chapters

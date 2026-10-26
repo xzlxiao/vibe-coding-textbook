@@ -64,17 +64,17 @@ That Friday afternoon, you only verified at the **text layer**. And the oversell
 
 ```mermaid
 sequenceDiagram
-    participant A as 请求 A
-    participant DB as 数据库
-    participant B as 请求 B
+    participant A as Request A
+    participant DB as Database
+    participant B as Request B
     A->>DB: SELECT used, quota
     DB-->>A: used=0, quota=1
     B->>DB: SELECT used, quota
     DB-->>B: used=0, quota=1
-    Note over A,B: 两个请求都认为"还有 1 张"
+    Note over A,B: both requests read "1 in stock"
     A->>DB: UPDATE used = 1
     B->>DB: UPDATE used = 1
-    Note over DB: 两次成功，库存 1 张，实发 2 张
+    Note over DB: both succeeded, 1 coupon left in stock, 2 actually issued
 ```
 
 The most critical thing in the figure is not any single message, but the gap between A and B where **nobody wrote any code**.
@@ -244,17 +244,17 @@ This book talks about "verification", but "verification" here has two different 
 
 ```mermaid
 flowchart TD
-    A["AI 参与的软件"] --> B["AI 作为作者"]
-    A --> C["AI 作为组件"]
-    B --> B1["它写的代码对不对"]
-    B --> B2["证伪手段：门禁 + 度量"]
-    B2 --> B3["第 03—10 章"]
-    C --> C1["它给出的输出对不对"]
-    C --> C2["证伪手段：评测集 + 回归"]
-    C2 --> C3["第 11 章"]
-    B3 --> D["第 12 章：装进流水线"]
+    A["Software built with AI"] --> B["AI as the author"]
+    A --> C["AI as a component"]
+    B --> B1["Is the code it writes correct"]
+    B --> B2["Falsification: gates + metrics"]
+    B2 --> B3["Chapters 03–10"]
+    C --> C1["Is the output it produces correct"]
+    C --> C2["Falsification: evaluation set + regression"]
+    C2 --> C3["Chapter 11"]
+    B3 --> D["Chapter 12: Plugging Into the Pipeline"]
     C3 --> D
-    D --> E["本书产出：敢上线的可辩护判断"]
+    D --> E["This book's output: a defensible judgment you dare to ship"]
 ```
 
 **Why they must be separated**: the correctness of code can be exhausted (as long as there are enough use cases), while the correctness of output cannot be exhausted (the input space is infinite and answers have no unique solution). Using unit tests to measure whether an LLM's reply is good is like measuring height with a thermometer — it is not a precision problem, it is a dimension problem.

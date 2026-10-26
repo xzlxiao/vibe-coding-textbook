@@ -68,39 +68,39 @@ The three scenarios correspond to three different failures: **wrong verification
 
 ```mermaid
 flowchart TD
-    subgraph L0["L0 认知层：为什么必须换验证方式"]
-        A1["生成速度与审查速度的结构性落差"] --> A2["缺陷二分：commission 与 omission"]
-        A2 --> A3["三种验证对象：代码 / 行为 / 输出"]
+    subgraph L0["L0 Cognition Layer: Why Verification Must Change"]
+        A1["The structural gap between generation speed and review speed"] --> A2["Two kinds of defects: commission and omission"]
+        A2 --> A3["Three verification objects: code / behavior / output"]
     end
 
-    subgraph L1["L1 机制层：门禁到底在做什么"]
-        B1["门禁的本质是执行，不是检查"] --> B2["供应链：允许清单"]
-        B1 --> B3["静态：类型 · lint · SAST · SCA"]
-        B1 --> B4["动态：单测 · 契约 · 属性"]
-        B1 --> B5["变异测试：给测试打分"]
-        B1 --> B6["评测集：给 AI 组件打分"]
+    subgraph L1["L1 Mechanism Layer: What Gates Actually Do"]
+        B1["The essence of a gate is execution, not inspection"] --> B2["Supply chain: allowlist"]
+        B1 --> B3["Static: types · lint · SAST · SCA"]
+        B1 --> B4["Dynamic: unit tests · contract tests · properties"]
+        B1 --> B5["Mutation testing: grading the tests"]
+        B1 --> B6["Evaluation sets: grading AI components"]
     end
 
-    subgraph L2["L2 度量层：怎么知道它真的守住了"]
-        C1["覆盖率"] --> C2["变异分数"]
-        C2 --> C3["逃逸率"]
-        C3 --> C4["DORA 四指标 · 返工率"]
-        C4 --> C5["可维护性信号：重复块 · churn"]
+    subgraph L2["L2 Measurement Layer: How to Know It Really Held"]
+        C1["Coverage"] --> C2["Mutation score"]
+        C2 --> C3["Escape rate"]
+        C3 --> C4["DORA four metrics · rework rate"]
+        C4 --> C5["Maintainability signals: duplicated blocks · churn"]
     end
 
-    subgraph L3["L3 判定层：这一档要不要人看"]
-        D1["可逆性 R"] --> D2["影响半径 B"]
-        D2 --> D3["可观测性 O"]
-        D3 --> D4["四档复核与签字"]
+    subgraph L3["L3 Verdict Layer: Does This Tier Need Human Eyes"]
+        D1["Reversibility R"] --> D2["Blast radius B"]
+        D2 --> D3["Observability O"]
+        D3 --> D4["Four-tier review and sign-off"]
     end
 
     A3 --> B1
     B5 --> C2
     B6 --> C2
     C4 --> D4
-    D4 --> E["产出：敢上线的可辩护判断"]
-    E -.->|"仍然存在的盲区"| F["没人写下的性质：并发 · 资源 · 业务语义"]
-    F -.->|"第 04 阶段"| G["威胁建模：把性质写成清单"]
+    D4 --> E["Output: a defensible judgment you dare to ship"]
+    E -.->|"Remaining blind spots"| F["Properties nobody wrote down: concurrency · resources · business semantics"]
+    F -.->|"Phase 04"| G["Threat modeling: turning properties into a checklist"]
 ```
 
 **Layer explanations**
@@ -283,9 +283,9 @@ It is fine if you cannot answer question 6 — Chapter 01 of this book walks you
 
 ```text
 phase3/
-├── README.md                        # 本文件：全景图谱、模块矩阵、分章大纲
-├── chapters/                        # 12 章正文（已完成）
-├── assets/                          # 按章分目录的高清图（240 dpi）
+├── README.md                        # this file: panorama map, module matrix, per-chapter outline
+├── chapters/                        # the 12 chapter texts (complete)
+├── assets/                          # high-res figures in per-chapter directories (240 dpi)
 │   ├── ch01/fig-01-detection-matrix.png
 │   ├── ch02/fig-01-pass-rate-gap.png
 │   ├── ch04/fig-01-hallucinated-packages.png
@@ -294,18 +294,18 @@ phase3/
 │   ├── ch08/fig-01-stress-detection.png
 │   ├── ch09/fig-01-three-readings.png
 │   └── ch12/fig-01-gate-cost.png
-└── code/                            # 全部可运行
-│   ├── _figstyle.py                 # 共享绘图样式
-│   ├── make_figures.py              # 一次生成全部八张图
-│   ├── pipeline.sh                  # 七道闸的完整流水线
-│   ├── case_coupon/                 # 贯穿案例：优惠券核销（10 个文件）
-│   ├── ch03/three_objects.py        # 三种验证对象实验
-│   ├── ch05/static_sweep.py         # 四类静态检查
-│   ├── ch06/refactor_probe.py       # 一次无害重构，看谁红
-│   ├── ch06/test_coupon_mock.py     # mock 型测试样本
-│   ├── ch08/stress_oversell.py      # 四组压测对照
-│   ├── ch08/constraint_check.py     # 约束存在性检查
-│   └── ch11/eval_harness.py         # judge 位置偏好探针
+└── code/                            # all runnable
+│   ├── _figstyle.py                 # shared plotting style
+│   ├── make_figures.py              # generates all eight figures in one run
+│   ├── pipeline.sh                  # the full seven-gate pipeline
+│   ├── case_coupon/                 # running example: coupon redemption (10 files)
+│   ├── ch03/three_objects.py        # three verification objects experiment
+│   ├── ch05/static_sweep.py         # four kinds of static checks
+│   ├── ch06/refactor_probe.py       # one harmless refactor, see who turns red
+│   ├── ch06/test_coupon_mock.py     # mock-style test sample
+│   ├── ch08/stress_oversell.py      # four stress-test comparison groups
+│   ├── ch08/constraint_check.py     # constraint existence check
+│   └── ch11/eval_harness.py         # judge position-bias probe
 ```
 
 **One command to run it all**: `cd code && bash pipeline.sh` (fixed version all green) / `bash pipeline.sh coupon_service.py` (original version red on three gates).

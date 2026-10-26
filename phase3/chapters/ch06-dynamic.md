@@ -205,17 +205,17 @@ The last row deserves expansion: AI dropped the cost of writing tests by an orde
 
 ```mermaid
 flowchart TD
-    A["第 05 章：静态只看见形状"] --> B["第 06 章：动态要看见承诺"]
-    B --> C["四支柱"]
-    C --> D["防回归：变异分数验证"]
-    C --> E["抗重构：重构探针验证"]
-    C --> F["快速反馈 / 可维护"]
-    B --> G["三种形态"]
-    G --> G1["空断言：守不住"]
-    G --> G2["mock：守太死"]
-    G --> G3["规格行为：守得住"]
-    D --> H["第 07 章：变异测试"]
-    E -.->|"变异分数测不到"| I["本章的重构探针"]
+    A["Chapter 05: statics only see shape"] --> B["Chapter 06: dynamics must see promises"]
+    B --> C["Four pillars"]
+    C --> D["Anti-regression: verified by mutation score"]
+    C --> E["Refactoring resistance: verified by the refactor probe"]
+    C --> F["Fast feedback / maintainable"]
+    B --> G["Three forms"]
+    G --> G1["Null-assertion: holds nothing"]
+    G --> G2["Mock style: holds too tightly"]
+    G --> G3["Spec-behavior style: holds"]
+    D --> H["Chapter 07: mutation testing"]
+    E -.->|"Not measured by mutation score"| I["This chapter's refactor probe"]
 ```
 
 ### 5.3 Interfaces to the Previous and Next Chapters
