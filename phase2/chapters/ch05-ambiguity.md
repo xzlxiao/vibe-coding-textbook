@@ -100,7 +100,7 @@ This is the rule most often violated. A real failure looks like this:
 **An answer that is not written back is the same as not asking.** Write-back must satisfy three conditions:
 
 1. Written into the corresponding section of `spec.md`, not into an "addendum" at the end of the file;
-2. Carries an adjudication trace: `<!-- 2026-10-19 运营确认：开始前 120 分钟截止 -->`;
+2. Carries an adjudication trace: `<!-- 2026-10-19 ops confirmed: cutoff 120 minutes before start -->`;
 3. In the same commit, the affected criteria are changed along with it.
 
 ---
@@ -110,11 +110,11 @@ This is the rule most often violated. A real failure looks like this:
 ### 3.1 The First-Draft Spec (excerpt)
 
 ```text
-### 需求 3：取消与释放
-用户可以取消报名。取消后，名额释放给候补的人。
+### Requirement 3: cancel and release
+Users can cancel a registration. On cancellation, the seat is released to the waitlisted people.
 
-### 需求 5：名单
-运营可以查看名单。
+### Requirement 5: roster
+Operations can view the roster.
 ```
 
 ### 3.2 Five Questions and Their Write-Backs
@@ -130,20 +130,20 @@ This is the rule most often violated. A real failure looks like this:
 ### 3.3 The Spec After Write-Back (revised)
 
 ```text
-### 需求 3：取消与释放
-- AC-3.1 当一条已确认报名被取消时（本人或运营代取消），系统应在 60 秒内
-  将名额置为 reserved，并向候补队列第一位发送确认邀请。
-- AC-3.2 运营代取消时必须填写原因（枚举：临时有事 / 重复报名 / 其他 + 备注），
-  原因写入审计日志。
-- AC-3.3 一个名额在一次流转中只产生一条邀请记录；并发取消时，
-  每个名额独立分配，不得向同一人发出两条邀请。
-- AC-3.4 邀请发送失败不影响取消结果；邀请进入补发队列，恢复后 5 分钟内补发。
-<!-- 2026-10-19 运营确认：开始前 120 分钟截止取消；代取消需填原因 -->
+### Requirement 3: cancel and release
+- AC-3.1 When a confirmed registration is cancelled (by the user or by ops on their behalf), the system shall set
+  the seat to reserved within 60 seconds and send a confirmation invite to the first person on the waitlist.
+- AC-3.2 Ops canceling on someone's behalf must fill in a reason (enum: something came up / duplicate registration / other + note);
+  the reason is written to the audit log.
+- AC-3.3 One seat produces exactly one invite record per round of transfers; under concurrent cancellation,
+  each seat is allocated independently, and no one may receive two invites.
+- AC-3.4 Invite delivery failure does not affect the cancellation result; the invite enters the catch-up queue and is delivered within 5 minutes after recovery.
+<!-- 2026-10-19 ops confirmed: cancellation closes 120 minutes before start; proxy cancellation requires a reason -->
 
-### 需求 5：名单
-- AC-5.1 列表接口返回手机号脱敏格式（前 3 后 4，中间 4 位为星号）。
-- AC-5.2 详情接口返回全量手机号，仅限运营角色，且每次访问写审计日志。
-- AC-5.3 未登录访问任一接口返回 401。
+### Requirement 5: roster
+- AC-5.1 The list endpoint returns masked phone numbers (first 3, last 4, middle 4 as asterisks).
+- AC-5.2 The detail endpoint returns the full phone number, ops role only, and every access writes an audit log.
+- AC-5.3 Any endpoint accessed without login returns 401.
 ```
 
 Compare the four changes:
@@ -186,16 +186,16 @@ The right move is not to keep asking, but to record them in `Non-goals` (not don
 
 ```mermaid
 flowchart TD
-    A["一段看起来没问题的规格"] --> B["六类歧义扫描"]
-    B --> C1["指代 / 范围 / 边界"]
-    B --> C2["例外 / 时序并发 / 权限可见"]
-    C1 --> D["三种武器提问"]
+    A["A spec that looks fine"] --> B["Scan the six ambiguity types"]
+    B --> C1["Reference / scope / boundary"]
+    B --> C2["Exception / timing & concurrency / permissions & visibility"]
+    C1 --> D["Ask with the three weapons"]
     C2 --> D
-    D --> E{"五问内能解决吗"}
-    E -->|"能"| F["回写 spec + 判据"]
-    E -->|"不能"| G["说明规格切得太大或结构有洞"]
-    G --> H["重写这一段，或拆出新需求"]
-    F --> I["第 06 章：约束条款"]
+    D --> E{"Solvable within five questions?"}
+    E -->|"Yes"| F["Write back into the spec + criteria"]
+    E -->|"No"| G["The spec is cut too large or has a structural hole"]
+    G --> H["Rewrite this part, or split out a new requirement"]
+    F --> I["Chapter 06: Constraint Clauses"]
 ```
 
 ---
@@ -222,7 +222,7 @@ flowchart TD
 
 - **Conclusion**: scope ambiguity and permission/visibility ambiguity.
 - **Mechanism**: scope ambiguity lets "people who should not be included" into the set (e.g. "all users" counting admins in, or "operations" implemented as "any logged-in user"); permission ambiguity turns "can view" into "can view all fields".
-- **The common combination**: `列表接口 + 未鉴权 + 返回全量手机号` - the most classic trio in real incidents.
+- **The common combination**: `list endpoint + unauthenticated + returns full phone numbers` - the most classic trio in real incidents.
 
 #### 2. Why the counter-example method works better
 

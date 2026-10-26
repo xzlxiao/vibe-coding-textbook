@@ -49,19 +49,19 @@ Chapter 10 lists this disease as an anti-pattern of its own ("self-approving che
 
 ```mermaid
 flowchart TD
-    C["constitution：项目原则（每个项目一次）"] --> S["specify：做什么 / 为什么"]
-    S --> CL{"clarify 门禁：歧义消了吗"}
-    CL -->|"有歧义"| S
-    CL -->|"清楚"| P["plan：怎么做"]
-    P --> CK{"checklist 门禁：需求质量够吗"}
-    CK -->|"不够"| S
-    CK -->|"够"| T["tasks：按依赖排序"]
-    T --> AN{"analyze 门禁：三份产物一致吗"}
-    AN -->|"不一致"| S
-    AN -->|"一致"| I["implement：按批执行"]
-    I --> CV{"converge：实现满足规格吗"}
-    CV -->|"有缺口"| I
-    CV -->|"Converged"| D["交付 / 评审"]
+    C["constitution: project principles (once per project)"] --> S["specify: what to do / why"]
+    S --> CL{"clarify gate: is the ambiguity gone?"}
+    CL -->|"Ambiguous"| S
+    CL -->|"Clear"| P["plan: how to do it"]
+    P --> CK{"checklist gate: is the requirement quality enough?"}
+    CK -->|"Not enough"| S
+    CK -->|"Enough"| T["tasks: ordered by dependency"]
+    T --> AN{"analyze gate: are the three artifacts consistent?"}
+    AN -->|"Inconsistent"| S
+    AN -->|"Consistent"| I["implement: execute by batch"]
+    I --> CV{"converge: does the implementation satisfy the spec?"}
+    CV -->|"Gaps"| I
+    CV -->|"Converged"| D["Deliver / review"]
 ```
 
 **The four stages are the main path**: specify (What) -> plan (How) -> tasks (Order) -> implement (Do).
@@ -115,12 +115,12 @@ The last row is the bottom line. **Changing the spec to accommodate the implemen
 
 ```mermaid
 stateDiagram-v2
-    [*] --> Implemented: implement 完成
-    Implemented --> Assessing: converge 评估
-    Assessing --> Converged: 无缺口
-    Assessing --> Appended: 有缺口，只追加任务
-    Appended --> Implemented: 再 implement
-    Converged --> [*]: 进入评审
+    [*] --> Implemented: implement done
+    Implemented --> Assessing: converge assess
+    Assessing --> Converged: no gaps
+    Assessing --> Appended: gaps found, only append tasks
+    Appended --> Implemented: implement again
+    Converged --> [*]: enter review
 ```
 
 Three rules; miss one and it drifts:
@@ -149,27 +149,27 @@ It runs without installing anything. Directory structure:
 ```text
 specs/
 └── waitlist/
-    ├── spec.md          # 七段式（第 2 章）
-    ├── plan.md          # 技术方案 + 风险
-    ├── tasks.md         # 带验收方式的任务表
-    └── checklist.md     # 需求质量清单（自己写 12 条）
+    ├── spec.md          # the seven sections (Chapter 2)
+    ├── plan.md          # technical approach + risks
+    ├── tasks.md         # task table with acceptance methods
+    └── checklist.md     # requirements quality checklist (write your own 12 items)
 ```
 
 `checklist.md` is just 12 questions, each answerable only "yes/no":
 
 ```markdown
-- [ ] 每条判据都有可观测的出口（接口字段 / 页面元素 / 数据状态）吗？
-- [ ] 每条判据都有量化值或枚举吗？
-- [ ] 每条核心判据都配了失败路径吗？
-- [ ] 六类歧义（指代/范围/边界/例外/时序/权限）都扫过了吗？
-- [ ] 六类约束（幂等/并发/超时重试/权限/性能/降级）都有条款吗？
-- [ ] Non-goals 至少写了三条，且都是可判定的缺失吗？
-- [ ] 每条任务都有"怎么算过"吗？
-- [ ] 任务之间的依赖有环吗？
-- [ ] spec 里出现了框架名、表名、函数名吗？（有就是越界）
-- [ ] plan 里出现了新需求吗？（有就是越界）
-- [ ] 判据之间有不一致吗？（例如两处对"满员"的定义不同）
-- [ ] 有没有"待定"的地方被悄悄按默认值执行了？
+- [ ] Does every criterion have an observable exit (endpoint field / page element / data state)?
+- [ ] Does every criterion have a quantified value or an enumeration?
+- [ ] Does every core criterion have a failure path?
+- [ ] Have the six ambiguity types (reference / scope / boundary / exception / timing / permissions) all been scanned?
+- [ ] Do the six constraint types (idempotency / concurrency / timeout & retry / permissions / performance / degradation) all have clauses?
+- [ ] Are there at least three Non-goals, all decidable omissions?
+- [ ] Does every task say "how it counts as done"?
+- [ ] Do the task dependencies contain a cycle?
+- [ ] Do framework names, table names, or function names appear in the spec? (if so, out of bounds)
+- [ ] Do new requirements appear in the plan? (if so, out of bounds)
+- [ ] Are any criteria inconsistent? (e.g. two different definitions of "full")
+- [ ] Has any "TBD" quietly been executed as a default value?
 ```
 
 **These 12 items are the manual implementation of the three gates.** It is slower than commands, but it has one benefit tools cannot give: **every item must pass before your own eyes.**
@@ -240,19 +240,19 @@ This is the point of the section: the extra problems the tool version finds are 
 
 ```mermaid
 flowchart TD
-    A["一句话需求"] --> B["specify"]
-    B --> C["clarify：六类歧义"]
-    C --> D["plan：技术方案"]
-    D --> E["checklist：需求质量 12 问"]
-    E --> F["tasks：带验收方式"]
-    F --> G["analyze：跨产物一致性（只读）"]
-    G --> H["implement：按批执行"]
-    H --> I["converge：只追加缺口"]
-    I -->|"有缺口"| H
-    I -->|"Converged"| J["第 09 章：用数字证明它变好了"]
-    C -.->|"歧义未消"| B
-    E -.->|"质量不够"| B
-    G -.->|"冲突/孤儿"| B
+    A["One-sentence requirement"] --> B["specify"]
+    B --> C["clarify: the six ambiguity types"]
+    C --> D["plan: technical approach"]
+    D --> E["checklist: 12 requirement-quality questions"]
+    E --> F["tasks: each with an acceptance method"]
+    F --> G["analyze: cross-artifact consistency (read-only)"]
+    G --> H["implement: execute by batch"]
+    H --> I["converge: append gaps only"]
+    I -->|"Gaps"| H
+    I -->|"Converged"| J["Chapter 09: prove with numbers that it got better"]
+    C -.->|"Ambiguity remains"| B
+    E -.->|"Quality not enough"| B
+    G -.->|"Conflict / orphan"| B
 ```
 
 ---

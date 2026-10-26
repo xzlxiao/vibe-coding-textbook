@@ -94,15 +94,15 @@ To judge whether a bug is "new" or "a recurrence", look at one thing only: **whe
 
 ```mermaid
 flowchart TD
-    A["线上 bug"] --> B{"根因是代码写错了吗"}
-    B -->|"是，且规格已覆盖"| C["普通缺陷：修代码即可"]
-    B -->|"是，但规格没覆盖"| D["复发风险：补判据 + 补测试"]
-    B -->|"不是，是需求本身缺了一块"| E["规格缺口：回 specify"]
-    D --> F{"同一类根因出现过第 3 次了吗"}
-    F -->|"是"| G["升级为 constitution 条款"]
-    F -->|"否"| H["记录在案，继续观察"]
+    A["Production bug"] --> B{"Is the root cause wrongly written code?"}
+    B -->|"Yes, and the spec covered it"| C["Ordinary defect: fix the code"]
+    B -->|"Yes, but the spec did not cover it"| D["Recurrence risk: add criteria + tests"]
+    B -->|"No, the requirement itself is missing a piece"| E["Spec gap: go back to specify"]
+    D --> F{"Is this the third occurrence of the same root cause?"}
+    F -->|"Yes"| G["Promote to a constitution clause"]
+    F -->|"No"| H["Record it and keep watching"]
     E --> F
-    G --> I["下次任务默认继承这条规则"]
+    G --> I["Next task inherits this rule by default"]
 ```
 
 **The "third time" threshold is not mysticism**: the first time is an accident, the second a coincidence, the third a pattern. Fail to promote it into a rule by the third time and you will be fixing it a fourth and a fifth time.
@@ -182,18 +182,18 @@ If you are living through death modes 1, 2, or 3, do three subtractions, in orde
 
 ```mermaid
 flowchart TD
-    A["想推行 SDD"] --> B{"按风险分级了吗"}
-    B -->|"没有"| C["死法 3：规格过载"]
-    B -->|"有"| D{"判据被对照过吗"}
-    D -->|"没有"| E["死法 2：PRD cosplay"]
-    D -->|"有"| F{"按切片交付吗"}
-    F -->|"没有"| G["死法 1：大爆炸发布"]
-    F -->|"有"| H{"改代码时改规格吗"}
-    H -->|"不改"| I["死法 4：规格与代码分叉"]
-    H -->|"改"| J{"谁勾清单"}
-    J -->|"实现者自己"| K["死法 5：自我批准"]
-    J -->|"评审者"| L["方法成立"]
-    L --> M["第 11 章：完整走一遍"]
+    A["Want to roll out SDD"] --> B{"Tiered by risk?"}
+    B -->|"No"| C["Death mode 3: spec overload"]
+    B -->|"Yes"| D{"Were the criteria checked against?"}
+    D -->|"No"| E["Death mode 2: PRD cosplay"]
+    D -->|"Yes"| F{"Delivering by slices?"}
+    F -->|"No"| G["Death mode 1: big-bang release"]
+    F -->|"Yes"| H{"Does the spec change when the code does?"}
+    H -->|"No"| I["Death mode 4: spec and code diverge"]
+    H -->|"Yes"| J{"Who ticks the checklist?"}
+    J -->|"The implementer themselves"| K["Death mode 5: self-approval"]
+    J -->|"The reviewer"| L["The method holds"]
+    L --> M["Chapter 11: walk the whole thing once"]
 ```
 
 ---

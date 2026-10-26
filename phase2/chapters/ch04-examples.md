@@ -65,15 +65,15 @@ The process has one hard rule: **when the discussion gets stuck (a red card appe
 
 ```mermaid
 flowchart LR
-    S["黄卡 故事：满员后进候补"] --> R1["蓝卡 规则：容量 24"]
-    S --> R2["蓝卡 规则：候补 FIFO"]
-    S --> R3["蓝卡 规则：取消后释放"]
-    R1 --> E1["绿卡 第 24 人 → confirmed"]
-    R1 --> E2["绿卡 第 25 人 → waiting 序号 1"]
-    R2 --> E3["绿卡 同毫秒两人 → 按 id 升序"]
-    R3 --> E4["绿卡 取消 → 60 秒内邀请第一位"]
-    R2 --> Q1["红卡 已过期的人还能再被邀请吗"]
-    Q1 -.->|"阻塞，先解决"| S
+    S["Yellow card story: join the waitlist when full"] --> R1["Blue card rule: capacity 24"]
+    S --> R2["Blue card rule: waitlist is FIFO"]
+    S --> R3["Blue card rule: cancellation releases the seat"]
+    R1 --> E1["Green card person 24 → confirmed"]
+    R1 --> E2["Green card person 25 → waiting position 1"]
+    R2 --> E3["Green card two in the same millisecond → ascending id"]
+    R3 --> E4["Green card cancel → invite the first within 60 seconds"]
+    R2 --> Q1["Red card can an expired person be invited again"]
+    Q1 -.->|"Blocking, resolve first"| S
 ```
 
 ### 2.2 Adzic's Seven Process Patterns
@@ -160,10 +160,10 @@ The three questions contradict each other. This is not badly written examples; i
 **The red-card answer** (written back into the spec):
 
 ```text
-规则 5' 所有报名请求必须携带客户端生成的 idempotency_key。
-    同一 key 的重复请求返回首次结果，不创建新记录。
-    未携带 key 的请求返回 400。
-    同一手机号在同一场次的自然重复报名（不同 key）需运营人工合并，系统不自动判重。
+Rule 5' Every registration request must carry a client-generated idempotency_key.
+    Repeated requests with the same key return the first result and create no new record.
+    Requests without a key return 400.
+    Genuine duplicate registrations by the same phone number for the same session (different keys) must be merged manually by ops; the system does not deduplicate them.
 ```
 
 This one change solves three problems at once: retries at any interval do not create duplicates, real multi-child families are not wrongly hurt, and manual merging leaves an exception channel.
@@ -212,18 +212,18 @@ Many examples, few criteria - that is normal. Convergence rules:
 
 ```mermaid
 flowchart TD
-    A["故事：满员后进候补"] --> B["拆规则 1–6"]
-    B --> C["每条规则写例子"]
-    C --> D{"例子写得出来吗"}
-    D -->|"写得出来"| E["标注类型：典型 / 边界 / 异常"]
-    D -->|"写不出来"| F["红卡：规则本身有洞"]
-    F --> G["改规则，回写 spec"]
+    A["Story: join the waitlist when full"] --> B["Split out rules 1–6"]
+    B --> C["Write examples for each rule"]
+    C --> D{"Can you write the examples?"}
+    D -->|"Yes"| E["Tag the type: typical / boundary / exception"]
+    D -->|"No"| F["Red card: the rule itself has a hole"]
+    F --> G["Fix the rule, write it back into the spec"]
     G --> B
-    E --> H["收敛：例子 → 判据"]
-    H --> I{"哪条判据没有例子"}
-    I -->|"有遗漏"| J["补例子或补判据"]
-    I -->|"本期不做"| K["写入 Non-goals"]
-    H --> L["第 05 章：还剩下的歧义"]
+    E --> H["Converge: examples → criteria"]
+    H --> I{"Which criterion has no example?"}
+    I -->|"Omitted"| J["Add examples or add criteria"]
+    I -->|"Not this round"| K["Write it into Non-goals"]
+    H --> L["Chapter 05: the ambiguity that remains"]
 ```
 
 ---

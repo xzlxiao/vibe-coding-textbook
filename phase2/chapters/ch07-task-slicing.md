@@ -43,14 +43,14 @@ In software, an "edible slice of pizza" is: page click -> API -> database -> res
 
 ```mermaid
 flowchart LR
-    subgraph H["水平切片：按层交付"]
-        H1["第 1 批：所有表"] --> H2["第 2 批：所有接口"] --> H3["第 3 批：所有页面"] --> H4["第 4 批：联调"]
-        H4 --> H5["第一次知道能不能用：很晚"]
+    subgraph H["Horizontal slicing: deliver by layer"]
+        H1["Batch 1: all tables"] --> H2["Batch 2: all endpoints"] --> H3["Batch 3: all pages"] --> H4["Batch 4: integration"]
+        H4 --> H5["First time you learn whether it works at all: very late"]
     end
-    subgraph V["垂直切片：按路径交付"]
-        V1["第 1 批：报名这一条链路"] --> V2["第 2 批：满员进候补"]
-        V2 --> V3["第 3 批：取消并通知"]
-        V3 --> V4["每批结束都能演示"]
+    subgraph V["Vertical slicing: deliver by path"]
+        V1["Batch 1: the registration path"] --> V2["Batch 2: full → waitlist"]
+        V2 --> V3["Batch 3: cancel and notify"]
+        V3 --> V4["Every batch ends demoable"]
     end
 ```
 
@@ -117,16 +117,16 @@ Cut the specs from Chapters 3-6 (8 criteria + 6 constraints) into nine tasks. Ea
 
 ```mermaid
 flowchart LR
-    T1["T1 数据模型"] --> T2["T2 报名接口"]
-    T2 --> T3["T3 满员与候补"]
-    T2 --> T4["T4 取消与释放"]
+    T1["T1 data model"] --> T2["T2 registration endpoint"]
+    T2 --> T3["T3 full & waitlist"]
+    T2 --> T4["T4 cancel & release"]
     T2 --> T6["T6 outbox worker"]
-    T2 --> T7["T7 名单与权限"]
-    T3 --> T5["T5 offer 状态机"]
+    T2 --> T7["T7 roster & permissions"]
+    T3 --> T5["T5 offer state machine"]
     T4 --> T5
-    T5 --> T8["T8 前端三页"]
+    T5 --> T8["T8 three frontend pages"]
     T7 --> T8
-    T3 --> T9["T9 约束验证"]
+    T3 --> T9["T9 constraint verification"]
     T5 --> T9
     T6 --> T9
 ```
@@ -177,14 +177,14 @@ flowchart LR
 
 ```mermaid
 flowchart TD
-    A["规格：8 判据 + 6 约束"] --> B{"按什么切"}
-    B -->|"按层"| C["水平切片：晚验收、难回滚"]
-    B -->|"按路径"| D["垂直切片：每批可演示"]
-    D --> E["四条判据检验"]
-    E -->|"不过"| F["继续切或合并"]
-    E -->|"全过"| G["排序：依赖 → 并行边界"]
-    G --> H["分批：2–4 个/批"]
-    H --> I["第 08 章：把流程跑起来"]
+    A["Spec: 8 criteria + 6 constraints"] --> B{"Cut by what?"}
+    B -->|"By layer"| C["Horizontal slicing: late acceptance, hard rollback"]
+    B -->|"By path"| D["Vertical slicing: every batch demoable"]
+    D --> E["Check against the four criteria"]
+    E -->|"Fail"| F["Keep cutting or merge"]
+    E -->|"All pass"| G["Order: dependencies → parallelism boundary"]
+    G --> H["Batch up: 2–4 per batch"]
+    H --> I["Chapter 08: get the pipeline running"]
 ```
 
 ---

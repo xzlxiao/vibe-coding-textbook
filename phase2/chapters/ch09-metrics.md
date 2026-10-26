@@ -226,17 +226,17 @@ The last one deserves expansion: once "first-pass acceptance rate" becomes a per
 
 ```mermaid
 flowchart TD
-    A["任务完成"] --> B["填一行 CSV"]
-    B --> C1["first_pass → 首轮验收率"]
-    B --> C2["rework_commits → 返工率"]
-    B --> C3["drift_hits → 漂移捕获"]
-    C1 --> D["看趋势：< 50% 还是 > 90%"]
-    C2 --> E["定位：返工集中在哪些任务"]
-    C3 --> F["确认：规格是否被对照"]
-    D --> G["一句具体动作：改哪一条判据"]
+    A["Task completed"] --> B["Fill one CSV row"]
+    B --> C1["first_pass → first-pass acceptance rate"]
+    B --> C2["rework_commits → rework rate"]
+    B --> C3["drift_hits → drift capture"]
+    C1 --> D["Watch the trend: < 50% or > 90%"]
+    C2 --> E["Locate: which tasks carry the rework"]
+    C3 --> F["Confirm: was the spec actually checked against?"]
+    D --> G["One concrete action: which criterion to change"]
     E --> G
     F --> G
-    G --> H["第 10 章：别把手段做成目的"]
+    G --> H["Chapter 10: don't turn the means into an end"]
 ```
 
 ---
@@ -274,7 +274,7 @@ flowchart TD
 #### 3. Notes for filling the table
 
 - **`first_pass` is the easiest to get wrong**: the basis must be "all acceptance methods passed", not "it feels about done".
-- **Interpretation template**: `本次 X% ，主要失败集中在 T__（原因：判据缺少 __）；返工率 __，说明 __；下个月改 __ 一句。`
+- **Interpretation template**: `this run X%, failures concentrated in T__ (cause: criteria missing __); rework rate __, meaning __; next month change one line of __.`
 
 #### 4. Three behavior changes after adding it to appraisals
 

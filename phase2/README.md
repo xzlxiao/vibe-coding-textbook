@@ -48,36 +48,36 @@ Three sentences, each mapping to a real failure:
 
 ```mermaid
 flowchart TD
-    subgraph L0["L0 问题层：为什么需要它"]
-        P1["生成速度超过理解速度"] --> P2["返工：意图漂移 / 接口幻觉 / 上下文坍缩"]
-        P2 --> P3["规格 = 提交前的合同"]
+    subgraph L0["L0 Problem layer: why it is needed"]
+        P1["Generation speed outruns understanding speed"] --> P2["Rework: intent drift / interface hallucination / context collapse"]
+        P2 --> P3["Spec = the contract before work starts"]
     end
 
-    subgraph L1["L1 直觉层：三个基本判断"]
-        I1["规格是接口，不是文档"]
-        I2["可判定性：能被机器判对错"]
-        I3["例子比形容词精确"]
+    subgraph L1["L1 Intuition layer: three basic judgments"]
+        I1["The spec is an interface, not a document"]
+        I2["Decidability: the machine can judge right from wrong"]
+        I3["Examples are more precise than adjectives"]
     end
 
-    subgraph L2["L2 机制层：一份抗打规格的五个部件"]
-        M1["目标与范围外"]
-        M2["验收判据 (EARS / Given-When-Then)"]
-        M3["示例集合 (Example Mapping)"]
-        M4["约束条款 (幂等 / 并发 / 权限 / 预算)"]
-        M5["失败语义与降级"]
+    subgraph L2["L2 Mechanism layer: five parts of a spec that can take a beating"]
+        M1["Goal and out-of-scope"]
+        M2["Acceptance criteria (EARS / Given-When-Then)"]
+        M3["Example set (Example Mapping)"]
+        M4["Constraint clauses (idempotency / concurrency / permissions / budget)"]
+        M5["Failure semantics and degradation"]
     end
 
-    subgraph L3["L3 系统层：把方法跑成流水线"]
-        S1["任务原子化：垂直切片"]
-        S2["四段流水 + 三道门禁"]
-        S3["度量：首轮验收率 / 返工率 / 漂移捕获"]
-        S4["反模式识别"]
+    subgraph L3["L3 System layer: run the method as a pipeline"]
+        S1["Task atomization: vertical slices"]
+        S2["Four-stage pipeline + three gates"]
+        S3["Metrics: first-pass acceptance rate / rework rate / drift capture"]
+        S4["Anti-pattern recognition"]
     end
 
-    subgraph L4["L4 迁移层：让规格变成资产"]
-        A1["规格库与索引"]
-        A2["constitution 演进"]
-        A3["认知债：谁能解释这段代码"]
+    subgraph L4["L4 Migration layer: turn specs into assets"]
+        A1["The spec library and index"]
+        A2["Constitution evolution"]
+        A3["Cognitive debt: who can explain this code"]
     end
 
     P3 --> I1
@@ -226,8 +226,8 @@ It naturally forces out the four kinds of things AI most easily "fills in with d
 ## 6. Repository Structure
 
 ```text
-phase2/                     # 本册（阶段 2）
-├── README.md                     # 本文件：全景知识图谱、大纲、阅读路径
+phase2/                     # this volume (Stage 2)
+├── README.md                     # this file: panoramic knowledge map, outline, reading path
 ├── chapters/
 │   ├── ch01-rework-topography.md
 │   ├── ch02-spec-as-interface.md
@@ -242,16 +242,16 @@ phase2/                     # 本册（阶段 2）
 │   ├── ch11-end-to-end.md
 │   └── ch12-spec-library.md
 ├── assets/
-│   ├── ch01/  ch07/  ch09/  ch12/  # 有图各章 fig-NN-<slug>.png（en）/ fig-NN-<slug>.zh.png（zh），≥200 DPI
+│   ├── ch01/  ch07/  ch09/  ch12/  # chapters with figures: fig-NN-<slug>.png (en) / fig-NN-<slug>.zh.png (zh), ≥200 DPI
 ├── code/
-│   ├── figures/                   # 全部配图的生成脚本（make_figures.py）
-│   ├── ch09/                     # metrics.csv 模板与统计脚本
-│   └── ch11/                     # 候补系统参考实现（含 3 个故意留的规格缺口）
+│   ├── figures/                   # generation script for all figures (make_figures.py)
+│   ├── ch09/                     # metrics.csv template and stats script
+│   └── ch11/                     # waitlist reference implementation (3 spec gaps left on purpose)
 └── templates/
-    ├── spec.md                   # 最小规格七段式模板
-    ├── plan.md                   # 计划模板（只允许写 How）
-    ├── tasks.md                  # 任务模板（每条带验收方式）
-    └── requirements-checklist.md # 需求质量清单（"用自然语言写的单元测试"）
+    ├── spec.md                   # minimal seven-section spec template
+    ├── plan.md                   # plan template (How only)
+    ├── tasks.md                  # task template (each item carries its acceptance method)
+    └── requirements-checklist.md # requirements quality checklist ("unit tests written in natural language")
 ```
 
 ---

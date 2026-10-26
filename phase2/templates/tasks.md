@@ -1,6 +1,6 @@
 **English** | [中文](./tasks.zh.md)
 
-# Task List: <领域-能力>
+# Task List: <domain-capability>
 
 > Usage: every task must state in one sentence "what counts as passing" (Chapter 07).
 > One task = one review unit = one revertible commit.
@@ -22,8 +22,8 @@ T1 → T2 → T3
 
 ## Parallelism Boundaries
 
-- Can run in parallel: <任务组 + 理由：不共享文件 / 无隐含契约>
-- Must be serial: <任务组 + 理由>
+- Can run in parallel: <task group + reason: no shared files / no hidden contracts>
+- Must be serial: <task group + reason>
 
 ## Batch Plan
 
@@ -42,4 +42,4 @@ T1 → T2 → T3
 
 ## Convergence (appended by converge; do not write by hand)
 
-<!-- converge 有缺口时只在本区块追加，不修改上面的任务 -->
+<!-- when converge finds gaps, only append in this block; do not edit the tasks above -->

@@ -47,15 +47,15 @@ It is not "teaching you a perfect process"; it is **giving you a wounded process
 
 ```mermaid
 flowchart LR
-    D1["D1 一句话需求 → 3 条规则"] --> D2["D2 Example Mapping：6 规则 12 例"]
-    D2 --> D3["D3 五问 clarify → 回写"]
-    D3 --> D4["D3 六条约束条款"]
-    D4 --> D5["D4 九个任务 + 四批"]
-    D5 --> D6["D5–D8 四批实现"]
-    D6 --> D7["D9 converge 两轮"]
-    D7 --> D8["D10 上线 + 归档"]
-    D6 -.->|"返工 ×3"| D3
-    D7 -.->|"缺口追加"| D6
+    D1["D1 one-sentence requirement → 3 rules"] --> D2["D2 Example Mapping: 6 rules, 12 examples"]
+    D2 --> D3["D3 five-question clarify → write back"]
+    D3 --> D4["D3 six constraint clauses"]
+    D4 --> D5["D4 nine tasks + four batches"]
+    D5 --> D6["D5–D8 four batches implemented"]
+    D6 --> D7["D9 two converge rounds"]
+    D7 --> D8["D10 launch + archive"]
+    D6 -.->|"Rework ×3"| D3
+    D7 -.->|"Gaps appended"| D6
 ```
 
 **Note that dashed line**: two of the three rework rounds went back to D3 (the spec layer), not to the code layer. That is no coincidence - **most rework root causes live in the spec, not in the implementation.**
@@ -87,16 +87,16 @@ In the first regeneration, humans reading the code saw nothing wrong; `analyze` 
 Tick item by item before launch; if it cannot be ticked, delay:
 
 ```text
-[ ] 六条约束各自有取证记录（脚本输出 / 压测报告 / 故障注入日志）
-[ ] 三条主路径在预发环境跑通（报名 / 满员进候补 / 取消并通知）
-[ ] 越权测试：未登录 401、他人 403、列表脱敏、详情留痕
-[ ] 并发测试：100 并发抢 1 个名额，成功 1
-[ ] 故障注入：关闭通知服务，报名与取消仍返回 2xx
-[ ] 数据回滚脚本已演练过一次（不是"写了但没跑过"）
-[ ] 审计日志可查、不可删
-[ ] 运营侧的操作手册已更新（含代取消、手工合并重复报名）
-[ ] 告警已配：通知积压、offer 过期率异常、报名错误率
-[ ] 规格与代码一致（跑一次 converge，确认 Converged）
+[ ] Each of the six constraints has its forensics record (script output / load-test report / fault-injection log)
+[ ] The three main paths run in staging (register / full → waitlist / cancel and notify)
+[ ] Privilege tests: not logged in 401, other users 403, list masked, detail leaves a trace
+[ ] Concurrency test: 100 concurrent requests fight for 1 seat, exactly 1 succeeds
+[ ] Fault injection: with the notification service down, register and cancel still return 2xx
+[ ] The data rollback script has been drilled once (not "written but never run")
+[ ] Audit logs are queryable and undeletable
+[ ] The ops runbook is updated (including proxy cancellation, manual merging of duplicate registrations)
+[ ] Alarms configured: notification backlog, abnormal offer expiry rate, registration error rate
+[ ] Spec and code agree (run converge once, confirm Converged)
 ```
 
 **The last item is the easiest to skip**, and the most expensive: if the code at launch is already inconsistent with the spec, then this spec is void from the day of launch - and nobody will tell you.
@@ -172,19 +172,19 @@ The reason: they had the AI **edit the existing code** instead of **regenerating
 
 ```mermaid
 flowchart TD
-    A["一句话需求"] --> B["规则 + 例子"]
-    B --> C["五问消歧 + 回写"]
-    C --> D["约束条款"]
-    D --> E["九任务 / 四批"]
-    E --> F["实现"]
-    F --> G{"返工"}
-    G -->|"症状"| H["四步追因"]
-    H --> I{"判据存在且可判？"}
-    I -->|"是"| J["实现缺陷：改代码"]
-    I -->|"否"| K["规格缺陷：补一句"]
-    K --> L["重新生成 3 次验证"]
-    L -->|"有失败"| K
-    L -->|"全过"| M["第 12 章：归档成资产"]
+    A["One-sentence requirement"] --> B["Rules + examples"]
+    B --> C["Five-question disambiguation + write-back"]
+    C --> D["Constraint clauses"]
+    D --> E["Nine tasks / four batches"]
+    E --> F["Implement"]
+    F --> G{"Rework"}
+    G -->|"Symptom"| H["Four-step tracing"]
+    H --> I{"Does a decidable criterion exist?"}
+    I -->|"Yes"| J["Implementation defect: fix the code"]
+    I -->|"No"| K["Spec defect: add one line"]
+    K --> L["Regenerate 3 times to verify"]
+    L -->|"Failures"| K
+    L -->|"All pass"| M["Chapter 12: archive it into assets"]
     J --> M
 ```
 

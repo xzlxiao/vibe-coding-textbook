@@ -38,7 +38,7 @@ They ask: "Why 15 minutes?"
 
 - The team lead says: "We settled it with operations at the time."
 - Operations says: "I do not remember; I think it was fear of people holding slots without showing up."
-- The git log shows: `fix: offer 超时`, nothing more.
+- The git log shows: `fix: offer timeout`, nothing more.
 
 So the newcomer does the only thing they can: **leave it alone.** From then on that code is a black box nobody dares touch. It may have been due for a change to 30 minutes (because notifications are often delayed), or it may be perfectly reasonable - nobody knows.
 
@@ -70,11 +70,11 @@ What a spec library does is build an index for "why it was decided this way".
 ```mermaid
 stateDiagram-v2
     [*] --> draft: specify
-    draft --> active: 实现并上线
-    draft --> archived: 放弃
-    active --> superseded: 新版本替代
-    active --> archived: 功能下线
-    superseded --> archived: 保留 6 个月
+    draft --> active: implemented and shipped
+    draft --> archived: abandoned
+    active --> superseded: replaced by a new version
+    active --> archived: feature taken offline
+    superseded --> archived: kept 6 months
     archived --> [*]
 ```
 
@@ -152,20 +152,20 @@ Be decisive about the last one. **The biggest enemy of a spec library is not abs
 ### 3.1 `specs/README.md`
 
 ```markdown
-# 规格库索引
+# Spec library index
 
-| 能力 | 状态 | 负责人 | 最后更新 | 关联代码 |
+| Capability | Status | Owner | Last updated | Related code |
 |---|---|---|---|---|
-| registration-waitlist | active | 小陈 | 2026-10-19 | `api/registrations/`、`services/waitlist/` |
-| notification-delivery | active | 小陈 | 2026-10-12 | `jobs/outbox/`、`adapters/sms/` |
-| seat-export | archived | — | 2026-08-30 | 已删除（功能未上线） |
-| payment | draft | 待定 | 2026-07-02 | 无 |
+| registration-waitlist | active | Chen | 2026-10-19 | `api/registrations/`, `services/waitlist/` |
+| notification-delivery | active | Chen | 2026-10-12 | `jobs/outbox/`, `adapters/sms/` |
+| seat-export | archived | — | 2026-08-30 | deleted (feature never shipped) |
+| payment | draft | TBD | 2026-07-02 | none |
 
-## 状态说明
-- draft：还在讨论，不可作为实现依据
-- active：当前有效，代码必须与之一致
-- superseded：已被替代，保留 6 个月供追溯
-- archived：功能已下线或从未上线
+## Status meanings
+- draft: still under discussion, not a basis for implementation
+- active: currently in force; code must agree with it
+- superseded: replaced; kept 6 months for traceability
+- archived: feature offline or never shipped
 ```
 
 **This table has 5 columns and every column earns its keep**: status decides "can it be trusted", owner decides "whom to ask", last updated decides "how fresh", related code decides "which one to look at when changing code".
@@ -176,7 +176,7 @@ The newcomer finds `OFFER_TTL_SECONDS = 15 * 60` has no provenance. The correct 
 
 1. Find AC-3.3 (the 15-minute window) in the criteria section of `registration-waitlist/spec.md`;
 2. Discover it only says "15 minutes", with no rationale;
-3. Add one line: `<!-- 2026-10-19 补记：15 分钟源于运营经验（等候成本 vs 占位成本），通知延迟 >5 分钟时应重新评估 -->`;
+3. Add one line: `<!-- 2026-10-19 addendum: the 15 minutes comes from ops experience (waiting cost vs seat-holding cost); re-evaluate when notification delay > 5 minutes -->`;
 4. Write the commit message as "adding criterion provenance, no behavior change".
 
 **Note step 4**: stating "no behavior change" tells the reviewer this is a pure documentation commit needing no regression tests.
@@ -191,7 +191,7 @@ With a spec library, the handling path is:
 2. Read AC-3.3 and see "re-evaluate when notification delay > 5 minutes";
 3. Query the metrics (Chapter 9) -> offer expiry rate 34%, of which 60% is caused by notification delays;
 4. Judge: **the window is not too short; the notifications are too slow**. Fix notifications first; leave the window alone;
-5. Write the conclusion back into the spec: `<!-- 2026-12-02 评估：过期率高的主因是通知延迟，窗口暂不改 -->`.
+5. Write the conclusion back into the spec: `<!-- 2026-12-02 review: the main cause of the high expiry rate is notification delay; leave the window unchanged for now -->`.
 
 **Without a spec library, step 4 could not happen** - you would only see "operations wants 30 minutes", change it, and the notification-delay problem would persist, just hidden longer.
 
@@ -223,15 +223,15 @@ With a spec library, the handling path is:
 
 ```mermaid
 flowchart TD
-    A["第 01–03 章：为什么写 / 写在哪层 / 怎么算可判"] --> B["第 04–06 章：例子 · 歧义 · 约束"]
-    B --> C["第 07–08 章：切任务 · 跑流水"]
-    C --> D["第 09–10 章：度量 · 防空转"]
-    D --> E["第 11 章：完整走一遍"]
-    E --> F["第 12 章：变成资产"]
-    F --> G["规格库：索引 · 命名 · 状态"]
-    F --> H["constitution：重复意见 → 条款"]
-    F --> I["认知债：三个问题"]
-    G -.->|"下一次任务直接复用"| A
+    A["Chapters 01–03: why write it / which layer / what makes it decidable"] --> B["Chapters 04–06: examples · ambiguity · constraints"]
+    B --> C["Chapters 07–08: slice tasks · run the pipeline"]
+    C --> D["Chapters 09–10: metrics · avoid spinning wheels"]
+    D --> E["Chapter 11: walk the whole thing once"]
+    E --> F["Chapter 12: turn it into assets"]
+    F --> G["Spec library: index · naming · status"]
+    F --> H["Constitution: repeated opinions → clauses"]
+    F --> I["Cognitive debt: three questions"]
+    G -.->|"Reuse directly in the next task"| A
 ```
 
 ---

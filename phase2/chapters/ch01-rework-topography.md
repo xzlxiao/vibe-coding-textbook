@@ -82,11 +82,11 @@ The mapping is this:
 
 ```mermaid
 flowchart LR
-    P["原始痛点：一句话需求，九个空白"] --> N["朴素做法：直接让 AI 生成"]
-    N --> F["AI 用默认值填满空白"]
-    F --> R["三天后返工：超卖 / 重复 / 名额卡死"]
-    R --> S["本章起点：先看清返工的地形"]
-    S --> T["下一章：规格是接口，不是文档"]
+    P["Raw pain point: a one-sentence requirement, nine blanks"] --> N["Naive move: let the AI generate directly"]
+    N --> F["AI fills the blanks with defaults"]
+    F --> R["Rework three days later: oversell / duplicates / waitlist stuck"]
+    R --> S["This chapter's starting point: see the rework topography first"]
+    S --> T["Next chapter: the spec is an interface, not a document"]
 ```
 
 ---
@@ -199,18 +199,18 @@ Note what these five sentences share: **every one describes "what counts as righ
 
 ```mermaid
 flowchart TD
-    A["一句话需求"] --> B["九个空白"]
-    B --> C["AI 用默认值填满"]
-    C --> D1["意图漂移"]
-    C --> D2["接口幻觉"]
-    C --> D3["上下文坍缩"]
-    D1 --> E["验收判据缺失"]
-    D2 --> F["接口契约缺失"]
-    D3 --> G["决定没有落盘"]
-    E --> H["第 03 章：可判定性"]
-    F --> I["第 02 章：规格的七段式"]
-    G --> J["第 12 章：规格库"]
-    H -.-> K["共同指向：返工成本曲线左移"]
+    A["One-sentence requirement"] --> B["Nine blanks"]
+    B --> C["AI fills them with defaults"]
+    C --> D1["Intent drift"]
+    C --> D2["Interface hallucination"]
+    C --> D3["Context collapse"]
+    D1 --> E["Acceptance criteria missing"]
+    D2 --> F["Interface contract missing"]
+    D3 --> G["Decisions never written down"]
+    E --> H["Chapter 03: Decidability"]
+    F --> I["Chapter 02: the spec's seven sections"]
+    G --> J["Chapter 12: the spec library"]
+    H -.-> K["Common end: the rework cost curve shifts left"]
     I -.-> K
     J -.-> K
 ```

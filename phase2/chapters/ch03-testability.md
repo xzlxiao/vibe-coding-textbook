@@ -77,21 +77,21 @@ Five patterns cover the vast majority of requirements:
 
 ```mermaid
 flowchart TD
-    A["拿到一句话需求"] --> B{"有外部可观测的出口吗"}
-    B -->|"没有"| B1["先找出口：接口 / 页面 / 数据 / 日志"]
+    A["Get a one-sentence requirement"] --> B{"Is there an externally observable exit?"}
+    B -->|"No"| B1["Find the exit first: endpoint / page / data / log"]
     B1 --> B
-    B -->|"有"| C{"结果能落到数字区间或枚举吗"}
-    C -->|"不能"| C1["把形容词换成量：多快、多少、哪种"]
+    B -->|"Yes"| C{"Can the result land on a numeric range or an enumeration?"}
+    C -->|"No"| C1["Turn adjectives into quantities: how fast, how many, which one"]
     C1 --> C
-    C -->|"能"| D{"说清了前置状态与触发事件吗"}
-    D -->|"没有"| D1["补 WHEN / WHILE / WHERE 子句"]
+    C -->|"Yes"| D{"Are the precondition and trigger event stated?"}
+    D -->|"No"| D1["Add WHEN / WHILE / WHERE clauses"]
     D1 --> D
-    D -->|"说清"| E{"失败路径写了吗"}
-    E -->|"没有"| E1["补 IF ... THEN 子句"]
+    D -->|"Stated"| E{"Is the failure path written?"}
+    E -->|"No"| E1["Add IF ... THEN clauses"]
     E1 --> E
-    E -->|"写了"| F["这是一条可判定判据"]
-    F --> G["用反例法攻击它一次"]
-    G -->|"被攻破"| A
+    E -->|"Written"| F["This is a decidable criterion"]
+    F --> G["Attack it once with the counter-example method"]
+    G -->|"Broken"| A
 ```
 
 ### 2.3 Division of Labor Between EARS and Given-When-Then
@@ -145,21 +145,21 @@ Look at items 6 and 8: both added a "failure path". **This is the most valuable 
 Use EARS to turn the previous chapter's seven-section format into concrete sentences. Note that each one describes exactly **one** behavior, and each can be verified by an external observer.
 
 ```text
-AC-1 [普适]        系统应对所有报名请求校验：真实姓名非空、手机号为 11 位大陆号码。
-AC-2 [事件驱动]    当已确认报名数达到 24 时，系统应将新报名写入候补队列，
-                 状态为 waiting，并返回其在队列中的序号。
-AC-3 [状态驱动]    当报名处于 waiting 状态时，用户应能查询自己的队列序号，
-                 且序号在队列变化后 60 秒内更新。
-AC-4 [非期望行为]  如果同一手机号在 10 秒内对同一场次重复提交，
-                 则系统应只保留一条报名记录，并返回首次提交的结果。
-AC-5 [事件驱动]    当一条已确认报名被取消时，系统应在 60 秒内向候补队列第一位
-                 发送确认邀请，其状态变为 offered。
-AC-6 [状态驱动]    当邀请处于 offered 状态超过 15 分钟未确认时，
-                 系统应将其置为 expired，并把名额分配给下一位。
-AC-7 [非期望行为]  如果通知服务不可用，则报名与取消操作仍应成功返回，
-                 通知进入待补发队列，恢复后 5 分钟内补发。
-AC-8 [可选特性]    当活动启用「运营审核」时，新报名应进入 pending_review，
-                 审核通过后才计入名额。
+AC-1 [Ubiquitous]   The system shall validate every registration request: real name non-empty, phone number an 11-digit mainland number.
+AC-2 [Event-driven] When confirmed registrations reach 24, the system shall write new registrations to the waitlist,
+                    with status waiting, and return their queue position.
+AC-3 [State-driven] While a registration is in waiting status, the user shall be able to query their queue position,
+                    and the position shall update within 60 seconds of any queue change.
+AC-4 [Unwanted]     If the same phone number submits twice for the same session within 10 seconds,
+                    the system shall keep only one registration record and return the result of the first submission.
+AC-5 [Event-driven] When a confirmed registration is cancelled, the system shall send a confirmation invite
+                    to the first person on the waitlist within 60 seconds, and their status becomes offered.
+AC-6 [State-driven] When an invite sits in offered status for more than 15 minutes without confirmation,
+                    the system shall set it to expired and assign the seat to the next person.
+AC-7 [Unwanted]     If the notification service is unavailable, registration and cancellation shall still return success,
+                    notifications enter the catch-up queue and are delivered within 5 minutes after recovery.
+AC-8 [Optional]     When the event enables "ops review", new registrations shall enter pending_review,
+                    and only count toward seats after approval.
 ```
 
 ### 3.3 Attacking Your Own Criteria with the Counter-Example Method
@@ -173,9 +173,9 @@ Take AC-4 as an example; the attack goes:
 - Conclusion: a time window is **approximate idempotency**, not idempotency. The correct writing requires the client to carry an idempotency key and the server to deduplicate by key:
 
 ```text
-AC-4' [非期望行为] 如果请求携带的 idempotency_key 已存在，
-                  则系统应返回首次请求的结果，不创建新记录；
-                  未携带 idempotency_key 的报名请求应被拒绝（400）。
+AC-4' [Unwanted]    If the idempotency_key carried by the request already exists,
+                  the system shall return the result of the first request and create no new record;
+                  registration requests without an idempotency_key shall be rejected (400).
 ```
 
 These are the constraint clauses Chapter 6 will develop. **Decidability only guarantees "it can be judged", not "it is judged right"** - the criterion itself may be wrong, and the counter-example method is the only means to discover "wrong but decidable".
@@ -207,16 +207,16 @@ These are the constraint clauses Chapter 6 will develop. **Decidability only gua
 
 ```mermaid
 flowchart TD
-    A["形容词需求：友好 / 快速 / 稳定"] --> B["找可观测出口"]
-    B --> C["量化或枚举"]
-    C --> D["补触发条件 WHEN / WHILE / WHERE"]
-    D --> E["补失败路径 IF ... THEN"]
-    E --> F["EARS 判据"]
-    F --> G["反例法攻击"]
-    G -->|"攻破"| H["发现隐含假设：时间窗 / 单实例 / 顺序"]
-    H --> I["第 06 章：约束条款"]
-    G -->|"未被攻破"| J["进入 spec 的验收判据段"]
-    J --> K["第 04 章：用例子覆盖具体分支"]
+    A["Adjective requirements: friendly / fast / stable"] --> B["Find an observable exit"]
+    B --> C["Quantify or enumerate"]
+    C --> D["Add trigger conditions WHEN / WHILE / WHERE"]
+    D --> E["Add failure paths IF ... THEN"]
+    E --> F["EARS criteria"]
+    F --> G["Counter-example attack"]
+    G -->|"Broken"| H["Hidden assumptions found: time window / single instance / ordering"]
+    H --> I["Chapter 06: Constraint Clauses"]
+    G -->|"Survived"| J["Enter the spec's acceptance criteria section"]
+    J --> K["Chapter 04: cover concrete branches with examples"]
 ```
 
 ---
@@ -254,12 +254,12 @@ flowchart TD
 #### 3. Three rewrite references
 
 ```text
-① 当候补队列中存在多条 waiting 记录时，系统应按 created_at 升序分配名额；
-   同一毫秒提交的，按 id 升序。
-② 未携带有效会话访问名单接口时，系统应返回 401；
-   已登录但非本人且非运营角色访问他人报名详情时，应返回 403。
-③ 当活动开始前 5 分钟内并发报名请求达到 200 QPS 时，
-   系统应保持错误率 < 0.5%，且 p95 响应时间 < 1.5s。
+① When multiple waiting records exist in the waitlist, the system shall assign seats in ascending created_at order;
+   ties within the same millisecond break by ascending id.
+② Accessing the roster endpoint without a valid session shall return 401;
+   a logged-in user who is neither the owner nor an ops role accessing someone else's registration detail shall get 403.
+③ When concurrent registration requests reach 200 QPS within 5 minutes before the event starts,
+   the system shall keep the error rate < 0.5% and p95 response time < 1.5s.
 ```
 Note that in ③ "withstand the traffic" is translated into three measurables: concurrency, error rate, latency percentile.
 

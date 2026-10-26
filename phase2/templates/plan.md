@@ -1,6 +1,6 @@
 **English** | [中文](./plan.zh.md)
 
-# Implementation Plan: <领域-能力>
+# Implementation Plan: <domain-capability>
 
 > Usage: write How only. Any "the user should be able to..." is a new requirement - send it back to the spec (Chapter 02).
 > Reader: the implementer (human or AI). Framework names, table names, and function names may appear here.
@@ -16,9 +16,9 @@
 ## 2. Data Model
 
 ```text
-<表/集合名>
-  <字段>  <类型>  <约束>  <说明>
-索引：<索引名> on (<字段>) where <条件>
+<table/collection-name>
+  <field>  <type>  <constraint>  <description>
+Index: <index-name> on (<field>) where <condition>
 ```
 
 ## 3. Interface Contract
@@ -33,8 +33,8 @@ POST /<path>
 
 ## 4. Key Flows
 
-- Main path: <步骤 1 → 2 → 3>
-- Failure path: <在哪一步失败，回退到哪个状态>
+- Main path: <step 1 → 2 → 3>
+- Failure path: <which step fails, which state to fall back to>
 
 ## 5. Mapping to the Spec
 
@@ -53,4 +53,4 @@ POST /<path>
 
 ## 7. Not Solved This Time
 
-<明确写出"知道但这次不做"的技术债，避免它变成隐形假设>
+<Write out the tech debt you know about but are deliberately not doing this round, so it does not become a hidden assumption>

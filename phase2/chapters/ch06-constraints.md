@@ -84,21 +84,21 @@ Idempotency is not "be careful"; it has three elements that must be spelled out:
 
 ```mermaid
 flowchart TB
-    subgraph NO["无幂等键"]
-        N1["用户点击"] --> N2["POST /registrations"]
-        N3["网络重试 / 连点"] --> N4["再 POST 一次"]
-        N2 --> N5["插入记录 A"]
-        N4 --> N6["插入记录 B"]
-        N5 --> N7["占用 2 个名额"]
+    subgraph NO["No idempotency key"]
+        N1["User clicks"] --> N2["POST /registrations"]
+        N3["Network retry / double click"] --> N4["POST again"]
+        N2 --> N5["Insert record A"]
+        N4 --> N6["Insert record B"]
+        N5 --> N7["Occupies 2 seats"]
         N6 --> N7
     end
-    subgraph YES["有幂等键"]
-        Y1["用户点击"] --> Y2["POST /registrations + key"]
-        Y3["网络重试 / 连点"] --> Y4["同 key 再 POST"]
-        Y2 --> Y5{"key 已存在？"}
+    subgraph YES["With idempotency key"]
+        Y1["User clicks"] --> Y2["POST /registrations + key"]
+        Y3["Network retry / double click"] --> Y4["POST again with the same key"]
+        Y2 --> Y5{"Key already exists?"}
         Y4 --> Y5
-        Y5 -->|"否"| Y6["插入记录 + 存 key"]
-        Y5 -->|"是"| Y7["返回首次结果，不新建"]
+        Y5 -->|"No"| Y6["Insert record + store key"]
+        Y5 -->|"Yes"| Y7["Return the first result, create nothing"]
     end
 ```
 
@@ -141,8 +141,8 @@ Averages hide behind the long tail. At an event with 24 people, one person waits
 The constraint must state three things: **percentile + environment + data volume**. For example:
 
 ```text
-在 4 核 8G 单实例、名单 1000 条记录的条件下，
-名单接口 p95 < 800ms，p99 < 1500ms。
+On a 4-core 8 GB single instance with 1000 roster records,
+the roster endpoint keeps p95 < 800ms and p99 < 1500ms.
 ```
 
 ### 2.8 Fallback: Move "External Calls" Out of Transactions
@@ -152,7 +152,7 @@ The most common class of incident: calling an external service inside a database
 ```text
 BEGIN;
   UPDATE registrations SET status='cancelled';
-  send_sms(...)          ← 这里超时 12 秒
+  send_sms(...)          ← times out 12 seconds here
 COMMIT;
 ```
 
@@ -191,9 +191,9 @@ This code is perfectly correct for a single request. Under two concurrent reques
 
 ```text
 T1: SELECT COUNT(*) → 23
-T2: SELECT COUNT(*) → 23        ← 两个都读到 23
-T1: INSERT → 24 条
-T2: INSERT → 25 条              ← 超卖
+T2: SELECT COUNT(*) → 23        ← both read 23
+T1: INSERT → 24 rows
+T2: INSERT → 25 rows            ← oversold
 ```
 
 **This is TOCTOU.** Unit tests will not catch it (single-threaded), the demo will not catch it (one person clicking); it will only be caught in the minute the event starts.
@@ -212,10 +212,10 @@ VALUES (?, nextval('seat_seq'), ?, ...);
 ### 3.3 A Writing Template for the Six Constraints
 
 ```text
-约束 C<n>：<强制要求>
-理由：<不写会怎样，一句话>
-验证：<可执行的验证方式>
-失效边界：<什么情况下这条约束不适用>
+Constraint C<n>: <mandatory requirement>
+Reason: <what happens if this is not written, one sentence>
+Verification: <an executable way to verify it>
+Failure boundary: <when this constraint does not apply>
 ```
 
 The "failure boundary" item is often skipped, but it prevents constraints from being applied mechanically. For example, C3's failure boundary is "the notification channel itself does not guarantee delivery (e.g. the user's phone is off) - in that case only the system-side state needs to be traceable".
@@ -251,20 +251,20 @@ The last one is the seam between this chapter and Chapter 2: **"must be idempote
 
 ```mermaid
 flowchart TD
-    A["功能判据：能报名 / 能取消"] --> B{"最坏情况还对吗"}
-    B --> C1["幂等：键 · 存储 · 冲突返回"]
-    B --> C2["并发：唯一约束 / 乐观锁 / 悲观锁"]
-    B --> C3["超时重试：至少一次 + 去重 + 退避"]
-    B --> C4["权限：入口 / 列表 / 字段"]
-    B --> C5["性能：p95 + 环境 + 数据量"]
-    B --> C6["降级：外部调用移出事务"]
-    C1 --> D["每条配一个验证方式"]
+    A["Functional criteria: can register / can cancel"] --> B{"Does it still hold in the worst case?"}
+    B --> C1["Idempotency: key · storage · conflict return"]
+    B --> C2["Concurrency: unique constraint / optimistic lock / pessimistic lock"]
+    B --> C3["Timeout & retry: at-least-once + dedupe + backoff"]
+    B --> C4["Permissions: entry / list / fields"]
+    B --> C5["Performance: p95 + environment + data volume"]
+    B --> C6["Degradation: move external calls out of the transaction"]
+    C1 --> D["Pair each one with a verification method"]
     C2 --> D
     C3 --> D
     C4 --> D
     C5 --> D
     C6 --> D
-    D --> E["第 07 章：把规格切成可验收的任务"]
+    D --> E["Chapter 07: slice the spec into acceptable tasks"]
 ```
 
 ---

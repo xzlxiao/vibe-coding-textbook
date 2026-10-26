@@ -50,24 +50,24 @@ Software's trio has exactly the same relationship. **Chaos almost always starts 
 
 ```mermaid
 flowchart TB
-    subgraph SPEC["spec.md — 报价单层"]
-        S1["做什么 / 为什么做"]
-        S2["验收判据：什么算对"]
-        S3["范围外：明确不做什么"]
+    subgraph SPEC["spec.md — the quote layer"]
+        S1["What to do / why do it"]
+        S2["Acceptance criteria: what counts as right"]
+        S3["Out of scope: what is explicitly not done"]
     end
-    subgraph PLAN["plan.md — 施工图层"]
-        P1["技术选型与约束"]
-        P2["数据模型与接口契约"]
-        P3["风险与回退方案"]
+    subgraph PLAN["plan.md — the construction drawings layer"]
+        P1["Tech choices and constraints"]
+        P2["Data model and interface contracts"]
+        P3["Risks and fallback plan"]
     end
-    subgraph TASKS["tasks.md — 工序表层"]
-        T1["按依赖排序的任务"]
-        T2["每条任务带验收方式"]
+    subgraph TASKS["tasks.md — the work schedule layer"]
+        T1["Tasks ordered by dependency"]
+        T2["Each task carries its acceptance method"]
     end
     SPEC --> PLAN --> TASKS
-    X["反模式：spec 里写框架名"] -.->|"越界"| SPEC
-    Y["反模式：plan 里加新需求"] -.->|"越界"| PLAN
-    Z["反模式：tasks 里写优化一下"] -.->|"越界"| TASKS
+    X["Anti-pattern: framework names in the spec"] -.->|"Out of bounds"| SPEC
+    Y["Anti-pattern: new requirements in the plan"] -.->|"Out of bounds"| PLAN
+    Z["Anti-pattern: 'optimize this' in tasks"] -.->|"Out of bounds"| TASKS
 ```
 
 ---
@@ -148,36 +148,36 @@ Requirement: **"After a sign-up is canceled, hand the slot to the first person o
 **Into spec.md (What):**
 
 ```text
-### 需求 3：取消后释放名额
-当一位已报名用户取消报名时，系统应在 1 分钟内将名额分配给候补队列的第一位，
-并向其发送确认通知。该用户需在 15 分钟内确认，超时则名额顺延至下一位。
+### Requirement 3: release the seat on cancellation
+When a registered user cancels, the system shall assign the seat to the first person on the waitlist within 1 minute,
+and send them a confirmation notice. That user must confirm within 15 minutes; on timeout the seat passes to the next person.
 
-验收判据：
-- AC-3.1 取消成功后 60 秒内，候补第一位收到通知（可观测：通知记录存在且状态为 sent）
-- AC-3.2 候补第一位在 15 分钟内确认，其状态变为 confirmed，名额占用数不减少
-- AC-3.3 超过 15 分钟未确认，其状态变为 expired，名额分配给下一位，且不重复通知已过期者
-- AC-3.4 候补队列为空时，取消仅减少占用数，不产生通知
+Acceptance criteria:
+- AC-3.1 Within 60 seconds of a successful cancellation, the first waitlisted person receives the notice (observable: the notification record exists with status sent)
+- AC-3.2 The first waitlisted person confirms within 15 minutes; their status becomes confirmed, and the seat count does not decrease
+- AC-3.3 If unconfirmed for more than 15 minutes, their status becomes expired, the seat goes to the next person, and expired people are not notified again
+- AC-3.4 When the waitlist is empty, cancellation only decreases the count and produces no notification
 ```
 
 **Into plan.md (How):**
 
 ```text
-- 状态机：pending → offered → confirmed / expired
-- 名额占用以 SELECT ... FOR UPDATE 锁定活动行，避免并发释放冲突
-- offer 超时由定时任务扫描（每 30 秒），不使用延迟队列（当前无 Redis）
-- 通知走 outbox 表 + 后台 worker，避免在事务内调用外部服务
-- 风险：定时任务精度 30 秒，AC-3.2 的 15 分钟窗口需预留 1 分钟余量
+- State machine: pending → offered → confirmed / expired
+- Seat occupation locks the activity row with SELECT ... FOR UPDATE, avoiding concurrent release conflicts
+- Offer timeout is scanned by a scheduled job (every 30 seconds); no delayed queue (no Redis at present)
+- Notifications go through an outbox table + background worker, avoiding external calls inside the transaction
+- Risk: scheduled-job precision is 30 seconds, so AC-3.2's 15-minute window needs a 1-minute margin
 ```
 
 **Into tasks.md (Order):**
 
 ```text
-T4 实现取消接口并释放名额
-   验收：调用取消接口后，占用数 -1；候补队列为空时无异常
-T5 实现 offer 状态机与 15 分钟过期
-   验收：构造一条 16 分钟前的 offer，定时任务应将其置为 expired 并顺延
-T6 实现 outbox 通知 worker
-   验收：断开通知服务，取消接口仍返回 200；恢复后 5 分钟内补发成功
+T4 Implement the cancel endpoint and release the seat
+   Acceptance: after calling cancel, the count goes -1; no exception when the waitlist is empty
+T5 Implement the offer state machine with 15-minute expiry
+   Acceptance: construct an offer from 16 minutes ago; the scheduled job should set it to expired and pass the seat on
+T6 Implement the outbox notification worker
+   Acceptance: with the notification service down, cancel still returns 200; after recovery, delivery catches up within 5 minutes
 ```
 
 ### 3.3 How to Check That You Did Not Cross the Line
@@ -215,17 +215,17 @@ Three self-check questions, one per layer:
 
 ```mermaid
 flowchart LR
-    A["一句话需求"] --> B{"这是 What 还是 How"}
-    B -->|"What / Why"| C["spec.md：目标 · 范围外 · 判据 · 约束"]
-    B -->|"How"| D["plan.md：选型 · 模型 · 契约 · 风险"]
-    C --> E["拆分为可验收单元"]
+    A["One-sentence requirement"] --> B{"Is this What or How"}
+    B -->|"What / Why"| C["spec.md: goal · out-of-scope · criteria · constraints"]
+    B -->|"How"| D["plan.md: choices · model · contracts · risks"]
+    C --> E["Split into acceptable units"]
     D --> E
-    E --> F["tasks.md：每条带验收方式"]
-    F --> G["执行与验收"]
-    G -->|"发现冲突"| H{"谁错"}
-    H -->|"代码错"| I["改代码"]
-    H -->|"spec 过期"| J["改 spec，同一次提交"]
-    I --> K["第 03 章：把判据写到可判定"]
+    E --> F["tasks.md: each item carries its acceptance method"]
+    F --> G["Execute and accept"]
+    G -->|"Conflict found"| H{"Who is wrong"}
+    H -->|"Code is wrong"| I["Fix the code"]
+    H -->|"Spec is stale"| J["Fix the spec in the same commit"]
+    I --> K["Chapter 03: make the criteria decidable"]
     J --> K
 ```
 
