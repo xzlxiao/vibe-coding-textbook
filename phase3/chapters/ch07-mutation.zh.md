@@ -11,6 +11,8 @@ upstream_urls:
   - "https://www.owasp.org/www-project-application-security-verification-standard/"
   - "https://docs.python.org/3/library/concurrent.futures.html"
 ---
+[English](./ch07-mutation.md) | **中文**
+
 # 第 07 章：第 3 层——变异测试，给测试本身打分
 
 > **本章导读**：前两章验的是代码。这一章验的是**测试**。方法是反过来的：不改测试，改代码，看测试会不会红。你会看到一个反直觉的结果——变异分数最高的那套测试，恰好是第 06 章里最烂的那套。

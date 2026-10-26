@@ -11,6 +11,8 @@ upstream_urls:
   - "https://opentelemetry.io/"
   - "https://www.rfc-editor.org/rfc/rfc9110.html"
 ---
+[English](./ch03-three-objects.md) | **中文**
+
 # 第 03 章：三种验证对象——代码、行为、输出
 
 > **本章导读**：上一章给了你一份"应该有什么"的清单。这一章解决下一个问题：清单上的每一项，该用哪种方式去验？答案不是"都写测试"，而是先分清你在验的是**什么东西**。

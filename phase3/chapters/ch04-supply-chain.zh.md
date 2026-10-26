@@ -11,6 +11,8 @@ upstream_urls:
   - "https://www.owasp.org/www-project-application-security-verification-standard/"
   - "https://semver.org/"
 ---
+[English](./ch04-supply-chain.md) | **中文**
+
 # 第 04 章：第 0 层——供应链，先跑因为它最便宜
 
 > **本章导读**：这一章讲 import。听起来最无趣，但它是唯一一道"后面的闸全都看不见"的防线——因为一旦装错了包，你的代码跑的就是别人写的东西，测试全绿、SAST 无告警都是正常的。
